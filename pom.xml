@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <!--
+
+        Licensed to the Apache Software Foundation (ASF) under one or more
+        contributor license agreements.  See the NOTICE file distributed with
+        this work for additional information regarding copyright ownership.
+        The ASF licenses this file to You under the Apache License, Version 2.0
+        (the "License"); you may not use this file except in compliance with
+        the License.  You may obtain a copy of the License at
+
+           http://www.apache.org/licenses/LICENSE-2.0
+
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.
+    -->
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+      <groupId>org.apache</groupId>
+      <artifactId>apache</artifactId>
+      <version>39</version>
+      <relativePath />
+  </parent>
+
+  <groupId>org.apache.sourcelume</groupId>
+  <artifactId>sourcelume-spec</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>Apache Sourcelume Spec</name>
+  <description>
+    Versioned JSON-LD context and JSON Schema for the Apache Sourcelume
+    training-data provenance metadata specification, packaged for
+    classpath consumption by JVM-based Sourcelume components.
+  </description>
+  <url>https://sourcelume.apache.org/</url>
+  <inceptionYear>2026</inceptionYear>
+
+  <licenses>
+      <license>
+          <name>Apache License, Version 2.0</name>
+          <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      </license>
+  </licenses>
+
+  <scm>
+      <connection>scm:git:https://github.com/apache/sourcelume-spec.git</connection>
+      <developerConnection>scm:git:https://github.com/apache/sourcelume-spec.git</developerConnection>
+      <url>https://github.com/apache/sourcelume-spec</url>
+      <tag>HEAD</tag>
+  </scm>
+
+  <issueManagement>
+      <system>GitHub</system>
+      <url>https://github.com/apache/sourcelume-spec/issues</url>
+  </issueManagement>
+
+  <mailingLists>
+      <mailingList>
+          <name>Sourcelume Dev List</name>
+          <subscribe>dev-subscribe@sourcelume.apache.org</subscribe>
+          <unsubscribe>dev-unsubscribe@sourcelume.apache.org</unsubscribe>
+          <post>dev@sourcelume.apache.org</post>
+          <archive>https://lists.apache.org/list.html?dev@sourcelume.apache.org</archive>
+      </mailingList>
+  </mailingLists>
+
+  <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <!--
+        No compiled code exists in this module yet (schema/context are
+        packaged as resources only), so this has no effect today. Set as
+        the baseline for if/when src/main/java is added, matching the
+        upper end of Atlas's supported range (8/11/17).
+      -->
+      <maven.compiler.source>17</maven.compiler.source>
+      <maven.compiler.target>17</maven.compiler.target>
+  </properties>
+
+  <build>
+      <!--
+        No src/main/java: this jar exists to publish the schema and context
+        files to Maven Central, not to ship compiled code.
+        Resource directories point at the top-level dirs directly, so there is one
+        source of truth, not a duplicated copy under src/main/resources.
+      -->
+      <resources>
+          <resource>
+              <directory>${project.basedir}/schema</directory>
+              <targetPath>schema</targetPath>
+          </resource>
+          <resource>
+              <directory>${project.basedir}/context</directory>
+              <targetPath>context</targetPath>
+          </resource>
+      </resources>
+
+      <plugins>
+        <!--
+          RAT can't put license headers in JSON/JSON-LD/TTL files, so those
+          paths are excluded here rather than failing every build. LICENSE
+          and NOTICE cover them by reference instead.
+        -->
+          <plugin>
+              <groupId>org.apache.rat</groupId>
+              <artifactId>apache-rat-plugin</artifactId>
+              <configuration>
+                  <excludes>
+                      <!-- Will have to adjust these as we develop: -->
+                      <exclude>context/**/*.jsonld</exclude>
+                      <exclude>schema/**/*.json</exclude>
+                      <exclude>schema/**/*.ttl</exclude>
+                      <exclude>examples/**/*.jsonld</exclude>
+                      <exclude>mappings/**/*.md</exclude>
+                      <exclude>CHANGELOG.md</exclude>
+                  </excludes>
+              </configuration>
+          </plugin>
+      </plugins>
+  </build>
+
+  <!--
+    Release Management:
+
+    There are two parts of the release:
+    1. The JSON-LD and its context.
+    2. A JAR file for ease of use by the Apache Sourcelume Registry.
+
+    Will will need to create a release script that handles both parts.
+    (A single release management process).
+  -->
+
+</project>
