@@ -1,4 +1,18 @@
+# Python
 .DS_Store
 .venv
 .claude/
 .idea/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+# Maven / Java build output
+target/
+
+# Editor/OS noise
+.vscode/
+*.swp

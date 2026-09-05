@@ -1,0 +1,24 @@
+[project]
+name = "sourcelume-spec"
+version = "0.0.1"
+description = "Python tooling for the Apache Sourcelume specification repository"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+
+authors = [
+  { name = "Apache Sourcelume" }
+]
+
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "jsonschema",
+  "pyld",
+  "rdflib",
+  "pyshacl",
+]
+
+[tool.uv]
+package = false

@@ -6,22 +6,22 @@ This repository contains our Apache Sourcelume specification.
 
 
 ```
-sourcelume-spec/
+ssourcelume-spec/
 ├── LICENSE                     # Apache 2.0 (code/tooling)
 ├── README.md
 ├── NOTICE                      # required for ASF releases
 ├── CHANGELOG.md
 ├── context/
-│   ├── v0.0.1/
+│   ├── 0.0.1/
 │   │   └── sourcelume.jsonld    # the JSON-LD @context document, pinned
-│   └── latest -> v0.0.1/        # symlink or redirect, NOT a moving target for actual releases
+│   └── latest -> 0.0.1/        # symlink or redirect, NOT a moving target for actual releases
 ├── schema/
-│   ├── v0.0.1/
+│   ├── 0.0.1/
 │   │   ├── sourcelume.schema.json   # JSON Schema for structural validation
 │   │   └── sourcelume.shacl.ttl     # SHACL shapes for RDF-level validation (optional but common for JSON-LD vocabs)
 │   └── ...
 ├── spec/                         # the prose specification
-│   ├── v0.1/
+│   ├── 0.0.1/
 │   │   └── index.md (or .adoc)   # human-readable spec text, versioned alongside schema
 ├── examples/
 │   ├── minimal-record.jsonld
@@ -38,6 +38,13 @@ sourcelume-spec/
 │   └── validate.yml              # CI: lint JSON-LD, run schema+SHACL validation, check examples
 └── .gitignore
 ```
+
+## Versioning
+ 
+This project follows [Semantic Versioning](https://semver.org). See
+`VERSIONING.md` for how MAJOR, MINOR, and PATCH apply to specification
+changes, and for the rules around the `latest` pointer and immutable
+released versions.
 
 
 ## Get involved

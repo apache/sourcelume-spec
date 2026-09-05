@@ -41,7 +41,7 @@
   <description>
     Versioned JSON-LD context and JSON Schema for the Apache Sourcelume
     training-data provenance metadata specification, packaged for
-    classpath consumption by JVM-based Sourcelume components.
+    consumption by Sourcelume Registry.
   </description>
   <url>https://sourcelume.apache.org/</url>
   <inceptionYear>2026</inceptionYear>
