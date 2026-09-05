@@ -1,0 +1,16 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "sl": "https://sourcelume.apache.org/ns/0.0.1#",
+    "id": "@id",
+    "type": "@type",
+
+    "name": "sl:name",
+    "description": "sl:description",
+    "version": "sl:version",
+    "createdAt": {
+      "@id": "sl:createdAt",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    }
+  }
+}

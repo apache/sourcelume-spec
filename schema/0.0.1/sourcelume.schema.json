@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sourcelume.apache.org/schema/0.0.1/sourcelume.schema.json",
+  "title": "Apache Sourcelume Record",
+  "description": "Minimal skeleton schema for an Apache Sourcelume record. Fields and constraints will be filled in as the specification develops.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier (IRI) for this record."
+    },
+    "type": {
+      "type": "string",
+      "description": "The record type."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for the record."
+    },
+    "description": {
+      "type": "string",
+      "description": "Free-text description of the record."
+    },
+    "version": {
+      "type": "string",
+      "description": "Version of the record content, e.g. following semver."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp, ISO 8601."
+    }
+  },
+  "required": ["id", "type"],
+  "additionalProperties": true
+}

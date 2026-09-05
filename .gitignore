@@ -13,6 +13,9 @@ __pycache__/
 # Maven / Java build output
 target/
 
+# Generated docs (see tools/render-docs.py)
+spec/*/generated-field-reference.md
+
 # Editor/OS noise
 .vscode/
 *.swp
