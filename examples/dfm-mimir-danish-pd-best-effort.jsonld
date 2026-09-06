@@ -1,0 +1,35 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/dfm-mimir-v1/danish-pd",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/datasets/PleIAs/Danish-PD",
+  "name": "PleIAs - Danish Public Domain",
+  "version": "danish-pd@dfm-dynaword-v1",
+  "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "LANGU:IA",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "PleIAs",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-05T00:00:00Z",
+  "origin": "3113 Danish monographs/periodicals whose copyright has expired, recovered from Internet Archive and various European national libraries and cultural heritage institutions. The original authors/rightsholders are not individually identifiable at this scale and are omitted from creator/custodyChain; see this field for that gap.",
+  "custodyChain": [
+    {
+      "agent": "https://huggingface.co/datasets/PleIAs",
+      "action": "aggregated",
+      "startTime": "2024-03-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/danish-foundation-models",
+      "action": "repackaged-into-training-corpus",
+      "startTime": "2026-01-01T00:00:00Z"
+    }
+  ]
+}
