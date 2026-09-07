@@ -10,7 +10,8 @@ described in `VERSIONING.md`.
 ## [Unreleased]
  
 ### Added
- 
+
+- Add maven resources plugin for API jar construction. 
 - Initial content for context, schema, and specification. Initial tooling for validation.
 - Initial project scaffold: repository structure, development setup, pom.mxl, pyproject.toml, 
   (`SETUP.md`), and versioning policy (`VERSIONING.md`).
