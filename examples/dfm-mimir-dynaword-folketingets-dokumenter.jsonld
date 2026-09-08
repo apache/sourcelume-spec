@@ -1,0 +1,52 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/dfm-mimir-v1/dynaword-folketingets-dokumenter",
+  "type": "ProvenanceRecord",
+  "identifier": "https://doi.org/10.5279/dk-ra-14004",
+  "name": "Folketingets dokumenter (Danish parliamentary records)",
+  "version": "folketingets-dokumenter@rigsarkivet-14004",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Folketinget (Danish Parliament)",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Rigsarkivet (Danish National Archives)",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Digitaliseringsstyrelsen (Danish Agency for Digitisation)",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Danish Foundation Models",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-08T00:00:00Z",
+  "added": "2026-08-21T00:00:00Z",
+  "contentCreated": "1848-01-01T00:00:00Z",
+  "origin": "Records of the Danish Parliament (Folketinget) and former Landstinget from the 1848/49 parliamentary year through May 2026: bills, proposed resolutions, proceedings, and questions from MPs to ministers. Combines born-digital modern documents with OCR-processed historical material. Rigsarkivet published 125,406 documents as delivery 14004 (DOI 10.5279/dk-ra-14004). Personal names were pseudonymised before release; naturalisation/citizenship documents were excluded because foreign names could not be pseudonymised reliably. 124.51K samples, 2.81B Llama-3 tokens.",
+  "custodyChain": [
+    {
+      "agent": "https://www.folketingstidende.dk/da/e-folketingstidende",
+      "action": "produced-and-archived",
+      "startTime": "1848-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://digidata.rigsarkivet.dk/aflevering/14004",
+      "action": "published-as-delivery-14004",
+      "startTime": "2026-08-21T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/danish-foundation-models/danish-dynaword",
+      "action": "incorporated-into-dynaword",
+      "startTime": "2026-08-21T00:00:00Z"
+    }
+  ]
+}

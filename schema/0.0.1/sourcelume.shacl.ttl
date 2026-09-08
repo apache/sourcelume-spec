@@ -37,6 +37,18 @@ sourcelume:ProvenanceRecordShape
         sh:datatype xsd:dateTime ;
     ] ;
     sh:property [
+        sh:path schema:datePublished ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    sh:property [
+        sh:path schema:dateCreated ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    sh:property [
         sh:path sourcelume:origin ;
         sh:minCount 1 ;
         sh:maxCount 1 ;

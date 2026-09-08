@@ -1,0 +1,47 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/dfm-mimir-v1/dynaword-ncc-parliament",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/datasets/NbAiLab/NCC",
+  "name": "Norwegian Colossal Corpus — parliament (Danish subset)",
+  "version": "ncc_parliament@ncc-2021",
+  "license": "https://data.norge.no/nlod/en/2.0",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Nasjonalbiblioteket (National Library of Norway)",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "NbAiLab (National Library of Norway AI Lab)",
+      "role": "distributor"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Danish Foundation Models",
+      "role": "curator"
+    }
+  ],
+  "created": "2026-09-08T00:00:00Z",
+  "added": "2025-05-08T00:00:00Z",
+  "contentCreated": "2021-01-01T00:00:00Z",
+  "origin": "Parliamentary records from the Norwegian parliament, OCR-derived, extracted from the Norwegian Colossal Corpus (NCC) published by the National Library of Norway. DFM filtered the NCC parliament subset to Danish: language classified as Danish with threshold 0.75, plus minimum-length, alpha-ratio, stop-word, and duplicate filters. The filtering reduced 9,528 parliament documents to 1,077 (1.08K samples, 338.87M Llama-3 tokens). Recurring OCR errors and historic expressions in older texts can make Norwegian/Danish differentiation difficult.",
+  "custodyChain": [
+    {
+      "agent": "https://www.nb.no/en/",
+      "action": "collected-and-digitised-parliament-records",
+      "startTime": "2021-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/NbAiLab/NCC",
+      "action": "published-as-norwegian-colossal-corpus",
+      "startTime": "2021-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/danish-foundation-models/danish-dynaword",
+      "action": "filtered-to-danish-and-incorporated-into-dynaword",
+      "startTime": "2025-05-08T00:00:00Z"
+    }
+  ]
+}

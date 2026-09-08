@@ -1,0 +1,42 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/dfm-mimir-v1/dynaword-ai-aktindsigt",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/datasets/AI-aktindsigt/Skrabet_kommunale_hjemmesider",
+  "name": "AI Aktindsigt (scraped municipal websites)",
+  "version": "ai-aktindsigt@skrabet-2025-03",
+  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "AI-aktindsigt project",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Danish Foundation Models",
+      "role": "curator"
+    }
+  ],
+  "created": "2026-09-08T00:00:00Z",
+  "added": "2025-03-24T00:00:00Z",
+  "contentCreated": "2010-01-01T00:00:00Z",
+  "origin": "Multiple web scrapes of Danish municipal websites, collected across different municipal domains as part of the AI-aktindsigt project (ai-aktindsigt.dk). The dynaword subset is derived from the source dataset AI-aktindsigt/Skrabet_kommunale_hjemmesider. 200.91K samples, 139.23M Llama-3 tokens; document created-dates range from 2010 to March 2024.",
+  "custodyChain": [
+    {
+      "agent": "https://ai-aktindsigt.dk",
+      "action": "scraped-municipal-websites",
+      "startTime": "2010-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/AI-aktindsigt/Skrabet_kommunale_hjemmesider",
+      "action": "published-scrape-dataset",
+      "startTime": "2025-03-24T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/danish-foundation-models/danish-dynaword",
+      "action": "incorporated-into-dynaword",
+      "startTime": "2025-03-24T00:00:00Z"
+    }
+  ]
+}

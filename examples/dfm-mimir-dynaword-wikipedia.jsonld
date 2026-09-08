@@ -1,0 +1,47 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/dfm-mimir-v1/dynaword-wikipedia",
+  "type": "ProvenanceRecord",
+  "identifier": "https://dumps.wikimedia.org/dawiki/latest/",
+  "name": "Danish Wikipedia",
+  "version": "wikipedia@wikimedia-dawiki-latest",
+  "license": "https://creativecommons.org/licenses/by-sa/4.0/deed.en",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Wikimedia Foundation contributors (da.wikipedia.org)",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Wikimedia Foundation",
+      "role": "distributor"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Danish Foundation Models",
+      "role": "curator"
+    }
+  ],
+  "created": "2026-09-08T00:00:00Z",
+  "added": "2025-08-18T00:00:00Z",
+  "contentCreated": "2024-06-16T00:00:00Z",
+  "origin": "The Danish subsection of Wikipedia, pulled by DFM from the latest Wikimedia database dump (dawiki) and parsed with the wtf_wikipedia javascript parser (chosen over mwparserfromhell, mediawiki_dump, and wikiextractor after empirical comparison). Text is contributed by Wikimedia editors under CC-BY-SA 4.0. 309.64K samples, 173.33M Llama-3 tokens.",
+  "custodyChain": [
+    {
+      "agent": "https://da.wikipedia.org/",
+      "action": "authored-by-editors",
+      "startTime": "2001-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://dumps.wikimedia.org/dawiki/latest/",
+      "action": "published-database-dump",
+      "startTime": "2025-08-18T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/danish-foundation-models/danish-dynaword",
+      "action": "parsed-and-incorporated-into-dynaword",
+      "startTime": "2025-08-18T00:00:00Z"
+    }
+  ]
+}

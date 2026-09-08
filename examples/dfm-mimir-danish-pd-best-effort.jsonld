@@ -4,7 +4,7 @@
   "type": "ProvenanceRecord",
   "identifier": "https://huggingface.co/datasets/PleIAs/Danish-PD",
   "name": "PleIAs - Danish Public Domain",
-  "version": "danish-pd@dfm-dynaword-v1",
+  "version": "danish-pd@huggingface-2024-03",
   "license": "https://creativecommons.org/publicdomain/mark/1.0/",
   "creator": [
     {
@@ -19,6 +19,8 @@
     }
   ],
   "created": "2026-09-05T00:00:00Z",
+  "added": "2024-03-01T00:00:00Z",
+  "contentCreated": "1700-01-01T00:00:00Z",
   "origin": "3113 Danish monographs/periodicals whose copyright has expired, recovered from Internet Archive and various European national libraries and cultural heritage institutions. The original authors/rightsholders are not individually identifiable at this scale and are omitted from creator/custodyChain; see this field for that gap.",
   "custodyChain": [
     {

@@ -27,7 +27,9 @@ claim's accuracy — it gives the claim a consistent shape so it *can* be verifi
 | `version` | no | string | Dataset version, if versioned. |
 | `license` | yes | IRI | License under which the dataset is claimed to be distributed (e.g. an SPDX license URL). For a public-domain-by-copyright-expiration claim, for which SPDX has no direct term, use the CC Public Domain Mark IRI (`https://creativecommons.org/publicdomain/mark/1.0/`) as the current best-effort convention pending a more precise term. |
 | `creator` | yes | array (min 1) | One or more parties involved in producing this dataset — each a `schema:Organization` or `schema:Person` with a `name`, and an optional `role` (`originator`, `curator`, or `distributor`) to distinguish who made the underlying data from who aggregated or redistributed it. Omit `role` for a single, undifferentiated creator. |
-| `created` | yes | xsd:dateTime | When this provenance record was created. |
+| `created` | yes | xsd:dateTime | When this provenance record was authored (record metadata, not content provenance). Distinct from `added` and `contentCreated` below. |
+| `added` | yes | xsd:dateTime | When the dataset was added to the collection being described (e.g. when a source was incorporated into dynaword). Mirrors the `added` field in dynaword datasheets. |
+| `contentCreated` | yes | xsd:dateTime | When the dataset's underlying documents/content were originally created (e.g. the historical date of the texts). Mirrors the `created` field in dynaword datasheets; use the start of the range if a range applies. |
 | `origin` | yes | string | Free-text description of where the dataset's underlying data came from. |
 | `custodyChain` | yes | array (min 1) | Ordered chain of custody events, earliest first. Each entry: `agent` (IRI), `action` (string, e.g. `"collected"`, `"ingested"`, `"transformed"`), `startTime` (xsd:dateTime). A single-hop dataset has exactly one entry. |
 

@@ -1,0 +1,47 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/dfm-mimir-v1/dynaword-kalliope",
+  "type": "ProvenanceRecord",
+  "identifier": "https://kalliope.org/da/about/kalliope",
+  "name": "Kalliope (digital library of Danish poetry)",
+  "version": "kalliope@thabz-71b9deb",
+  "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Kalliope (digital library)",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Person",
+      "name": "thabz (Kalliope repository maintainer)",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Danish Foundation Models",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-08T00:00:00Z",
+  "added": "2026-08-22T00:00:00Z",
+  "contentCreated": "1772-01-01T00:00:00Z",
+  "origin": "Older Danish poetry from the Kalliope digital library, which states that its texts are public domain. DFM drew the texts from the source repository github.com/thabz/Kalliope at revision 71b9deb. Kalliope is described as a growing collection rather than a complete record of Danish poetry. 22.27K samples, 14.01M Llama-3 tokens; document created-dates range as far back as 1772.",
+  "custodyChain": [
+    {
+      "agent": "https://kalliope.org/da/about/kalliope",
+      "action": "published-public-domain-poetry",
+      "startTime": "1772-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://github.com/thabz/Kalliope/commit/71b9debf43b53a8e9c55d7bff9110f084348b9f9",
+      "action": "source-repository-snapshot",
+      "startTime": "2026-08-22T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/danish-foundation-models/danish-dynaword",
+      "action": "incorporated-into-dynaword",
+      "startTime": "2026-08-22T00:00:00Z"
+    }
+  ]
+}

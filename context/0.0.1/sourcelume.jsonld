@@ -24,6 +24,14 @@
       "@id": "dct:created",
       "@type": "xsd:dateTime"
     },
+    "added": {
+      "@id": "schema:datePublished",
+      "@type": "xsd:dateTime"
+    },
+    "contentCreated": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
     "origin": "sourcelume:origin",
     "custodyChain": "sourcelume:custodyChain",
     "agent": {
