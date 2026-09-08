@@ -1,0 +1,25 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/minimal-example",
+  "type": "ProvenanceRecord",
+  "identifier": "https://example.org/datasets/minimal-example",
+  "name": "Minimal example record",
+  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Example Organization"
+    }
+  ],
+  "created": "2026-09-08T00:00:00Z",
+  "added": "2026-09-08T00:00:00Z",
+  "contentCreated": "2026-09-08T00:00:00Z",
+  "origin": "A minimal conformant ProvenanceRecord demonstrating the smallest valid 0.0.1 shape: one creator, one license, one origin statement, and a single custody-chain entry.",
+  "custodyChain": [
+    {
+      "agent": "https://example.org/",
+      "action": "created",
+      "startTime": "2026-09-08T00:00:00Z"
+    }
+  ]
+}

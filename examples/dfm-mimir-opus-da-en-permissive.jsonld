@@ -1,0 +1,42 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/dfm-mimir-v1/opus-da-en-permissive",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/datasets/schneiderkamplab/opus-da-en-permissive",
+  "name": "OPUS da-en permissive subset",
+  "version": "20260515",
+  "license": "https://opus.nlpl.eu/",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "OPUS (Tiedemann, J. — University of Helsinki / opus.nlpl.eu) — original corpora aggregator",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Person",
+      "name": "Peter Schneider-Kamp (schneiderkamplab)",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "schneiderkamplab",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-08T00:00:00Z",
+  "added": "2026-05-15T00:00:00Z",
+  "contentCreated": "1990-01-01T00:00:00Z",
+  "origin": "A processed Danish-English sentence-pair subset harvested from OPUS (opus.nlpl.eu), selected for permissive Creative Commons or public-domain-style licensing and converted to JSONL.GZ for DFM/HRM-Text training. Schema: {id, da, en, source}. Sources include DGT (EU Directorate-General for Translation memory, e.g. EU treaties), among other OPUS da-en corpora. Intended to preserve the exact rows used by the local DFM data pipeline so DFM8 can be rebuilt without local-only files. Form: reformatted. Contributed 2.90B sampled tokens per epoch to the DFM Mimir v1 corpus (4.12%). OPUS aggregates many corpora with different licenses; this subset was filtered to permissive-licensed sources only. Users must consult OPUS and original source-corpus metadata for source-specific license details.",
+  "custodyChain": [
+    {
+      "agent": "https://opus.nlpl.eu/",
+      "action": "aggregated-and-published-opus-corpora",
+      "startTime": "2012-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/schneiderkamplab",
+      "action": "filtered-to-permissive-subset-and-converted-to-jsonlg",
+      "startTime": "2026-05-15T00:00:00Z"
+    }
+  ]
+}

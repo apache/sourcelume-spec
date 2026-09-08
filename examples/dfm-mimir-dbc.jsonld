@@ -1,0 +1,37 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/dfm-mimir-v1/dbc",
+  "type": "ProvenanceRecord",
+  "identifier": "https://sourcelume.apache.org/records/dfm-mimir-v1/dbc",
+  "name": "DBC (agreement-supplied)",
+  "version": "2026",
+  "license": "https://sourcelume.apache.org/ns#agreement-supplied",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "DBC (Danish Library Center / Dansk Bibliotekscenter)",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Danish Foundation Models",
+      "role": "curator"
+    }
+  ],
+  "created": "2026-09-08T00:00:00Z",
+  "added": "2026-01-01T00:00:00Z",
+  "contentCreated": "1800-01-01T00:00:00Z",
+  "origin": "Agreement-supplied Danish text corpus provided to the Danish Foundation Models project by DBC (Dansk Bibliotekscenter) under a Danish Foundation Model agreement whose licensing does not permit public sharing. No Hugging Face identifier exists; the data is not publicly redistributed. Per the Mimir technical report, DFM uses such agreement-supplied datasets to derive synthetic instruction-tuning data rather than training directly on the data. Contributed 356M sampled tokens per epoch to the DFM Mimir v1 corpus (0.50529%). Form: agreement-supplied. The license field carries an interim Sourcelume convention IRI indicating agreement-bound (non-public) terms; the actual terms are private to the DFM-DBC agreement.",
+  "custodyChain": [
+    {
+      "agent": "https://www.dbc.dk/",
+      "action": "supplied-to-dfm-under-agreement",
+      "startTime": "2026-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://www.foundationmodels.dk",
+      "action": "held-and-derived-synthetic-instruction-data",
+      "startTime": "2026-01-01T00:00:00Z"
+    }
+  ]
+}

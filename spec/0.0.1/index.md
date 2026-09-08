@@ -7,7 +7,7 @@ the minimal viable shape: enough to publish a checkable claim about one dataset'
 or more role-tagged creators, its license, its origin, and an ordered custody chain. It
 intentionally leaves out cryptographic attestation and downstream usage/audit metadata — those
 are planned for later, once Sourcelume Attest exists and once the dataset-vs-model-usage scope
-question is settled on the dev list (see `notes/stress-test-dfm-mimir.md`).
+question is settled (see `notes/stress-test-dfm-mimir.md`).
 
 ## Purpose
 
@@ -25,7 +25,7 @@ claim's accuracy — it gives the claim a consistent shape so it *can* be verifi
 | `identifier` | yes | string (IRI or DOI) | Identifier for the dataset being described. |
 | `name` | yes | string | Human-readable dataset name. |
 | `version` | no | string | Dataset version, if versioned. |
-| `license` | yes | IRI | License under which the dataset is claimed to be distributed (e.g. an SPDX license URL). For a public-domain-by-copyright-expiration claim, for which SPDX has no direct term, use the CC Public Domain Mark IRI (`https://creativecommons.org/publicdomain/mark/1.0/`) as the current best-effort convention pending a more precise term. |
+| `license` | yes | IRI | License under which the dataset is claimed to be distributed (e.g. an SPDX license URL). Two interim conventions are documented for cases SPDX has no direct term: (a) for a public-domain-by-copyright-expiration claim, use the CC Public Domain Mark IRI (`https://creativecommons.org/publicdomain/mark/1.0/`); (b) for agreement-supplied data whose licensing does not permit public sharing, use `https://sourcelume.apache.org/ns#agreement-supplied`. Both are best-effort placeholders pending a more precise term if/when the list takes it up. |
 | `creator` | yes | array (min 1) | One or more parties involved in producing this dataset — each a `schema:Organization` or `schema:Person` with a `name`, and an optional `role` (`originator`, `curator`, or `distributor`) to distinguish who made the underlying data from who aggregated or redistributed it. Omit `role` for a single, undifferentiated creator. |
 | `created` | yes | xsd:dateTime | When this provenance record was authored (record metadata, not content provenance). Distinct from `added` and `contentCreated` below. |
 | `added` | yes | xsd:dateTime | When the dataset was added to the collection being described (e.g. when a source was incorporated into dynaword). Mirrors the `added` field in dynaword datasheets. |
@@ -41,7 +41,7 @@ claim's accuracy — it gives the claim a consistent shape so it *can* be verifi
   claims, and verification is a downstream concern for registries/auditors, not the record itself.
 - **No usage/audit metadata.** `ProvenanceRecord` is deliberately dataset-centric. A model
   producer's downstream usage claims about a dataset (e.g. a memorisation audit) belong to a
-  separate, later record type, not to this one — this is a scope decision worth defending on the
+  separate, later record type, not to this one — this is a scope decision worth raising on the
   dev list rather than a settled fact, see `notes/stress-test-dfm-mimir.md`.
 
 ## See also

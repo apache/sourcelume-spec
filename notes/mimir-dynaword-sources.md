@@ -1,162 +1,81 @@
-# Mímir (DFM) training corpus — dynaword source manifest
+# DFM Mímir v1 — direct training-input manifest
 
-This is a working manifest of the constituent datasets that make up the
-Danish Dynaword corpus, against which the DFM Mímir model is trained. It is
-used to track authoring of `ProvenanceRecord` examples in this repository.
+This is a working manifest of the datasets that the DFM Mímir v1 model is
+*directly* trained on, against which we author `ProvenanceRecord` examples in
+this repository.
 
-Source: <https://huggingface.co/datasets/danish-foundation-models/danish-dynaword>
-(version 1.2.23 at time of writing). Dynaword is continually developed; sizes
-and even membership change over time. Pin a revision for reproducibility.
+**Corrected understanding (2026-09-08).** An earlier version of this manifest
+described the 48 constituent sources of the
+[`danish-foundation-models/danish-dynaword`](https://huggingface.co/datasets/danish-foundation-models/danish-dynaword)
+corpus as if they were Mímir's training data. That was wrong. Mímir does **not**
+train on raw dynaword. Per the Mímir v1 technical report (arXiv 2608.13517,
+Appendix A, Table 10), Mímir is trained on **161 datasets**; dynaword enters
+the corpus only indirectly, through four synthetic derivatives published under
+`schneiderkamplab/danish-dynaword-*` (denoising, span-filling,
+prefix-continuation, paragraph-reordering), which are derived from dynaword
+text and judge-filtered with `google/gemma-4-31B-it`.
 
-The corpus totals 9.81B tokens (Llama 3) across 48 sources. The license below
-is applied to the constituent text; the collection (metadata, quality
-control) is CC-0. Each row's datasheet lives at
-`data/<source>/<source>.md` under the dynaword repo — that datasheet is the
-authoritative source for originator/curator/custody detail when authoring a
-`ProvenanceRecord` for that source.
+Dynaword itself (9.81B Llama-3 tokens across 48 sources, v1.2.23) remains a
+useful upstream-of-Mímir corpus, but its 48 sub-sources are **not** direct
+Mímir training inputs and are out of scope for this branch's example records.
 
-## License families and representative picks
+## The 12 authored direct-input records
 
-Eight license classes appear across the 48 sources. We author one
-representative `ProvenanceRecord` per class first, to prove the 0.0.1 schema
-handles every license dynaword uses. The other 40 sources are authored in a
-follow-on pass using the same conventions.
+Each row below has a corresponding `examples/dfm-mimir-*.jsonld` record in this
+repository. Token counts and shares are sampled tokens per epoch, from Table 10
+of the technical report.
 
-| License class                           | IRI / note                                      | Picked source            | Tokens   | Domain | Datasheet |
-|-----------------------------------------|-------------------------------------------------|--------------------------|----------|--------|----------|
-| CC-0 (public domain dedication)         | https://creativecommons.org/publicdomain/zero/1.0/legalcode.en | adl                      | 58.49M   | Books  | data/adl/adl.md |
-| CC-BY 4.0                                | https://creativecommons.org/licenses/by/4.0/deed.en | folketingets-dokumenter  | 2.81B    | Other  | data/folketingets-dokumenter/folketingets-dokumenter.md |
-| CC-BY-SA 4.0                             | https://creativecommons.org/licenses/by-sa/4.0/deed.en | wikipedia                | 173.33M  | Encyclopedic | data/wikipedia/wikipedia.md |
-| Public domain (by expiration, not CC-0) | CC Public Domain Mark — see spec prose convention | kalliope                 | 14.01M   | Books  | data/kalliope/kalliope.md |
-| Danish Copyright Law (state edict)      | No standard IRI — documented convention          | retsinformationdk       | 818.25M  | Legal  | data/retsinformationdk/retsinformationdk.md |
-| NLOD 2.0 (Norwegian Licence for Open Government Data) | https://data.norge.no/nlod/en/2.0 | ncc_parliament           | 338.87M  | Other  | data/ncc_parliament/ncc_parliament.md |
-| Apache 2.0                               | https://www.apache.org/licenses/LICENSE-2.0      | ai-aktindsigt            | 139.23M  | Web    | data/ai-aktindsigt/ai-aktindsigt.md |
-| MIT                                      | https://opensource.org/license/mit              | dakultur                 | 5.49K    | Conversation | data/dakultur/dakultur.md |
+| # | Dataset (HF id) | Form | Tokens/epoch | Share | Record |
+|---|---|---|---|---|---|
+| 1 | `sapientinc/HRM-Text-data-io-cleaned-20260515` | Curated + reformatted | 11.92B | 16.91% | `dfm-mimir-hrm-text-data-io-cleaned.jsonld` |
+| 2 | `danish-foundation-models/laerebogen` | Reformatted | 8.32B | 11.81% | `dfm-mimir-laerebogen.jsonld` |
+| 5 | `danish-foundation-models/dfm-dyna-instruct` | Reformatted | 3.54B | 5.03% | `dfm-mimir-dfm-dyna-instruct.jsonld` |
+| 7 | `schneiderkamplab/opus-da-en-permissive` | Reformatted | 2.90B | 4.12% | `dfm-mimir-opus-da-en-permissive.jsonld` |
+| 16 | `synquid/wiki-instruct-da` | Reformatted | 988M | 1.40% | `dfm-mimir-wiki-instruct-da.jsonld` |
+| 17 | `schneiderkamplab/dfm8-openhermes-da` | Translated + audited | 922M | 1.31% | `dfm-mimir-dfm8-openhermes-da.jsonld` |
+| 34 | DBC (agreement-supplied) | Agreement-supplied | 356M | 0.505% | `dfm-mimir-dbc.jsonld` |
+| 35 | `schneiderkamplab/danish-dynaword-denoising` | Synthetic + audited | 323M | 0.459% | `dfm-mimir-danish-dynaword-denoising.jsonld` |
+| 36 | Lex.dk articles (agreement-supplied) | Agreement-supplied | 313M | 0.445% | `dfm-mimir-lexdk-articles.jsonld` |
+| 38 | `schneiderkamplab/danish-dynaword-prefix-continuation` | Synthetic + audited | 252M | 0.357% | `dfm-mimir-danish-dynaword-prefix-continuation.jsonld` |
+| 39 | `schneiderkamplab/danish-dynaword-span-filling` | Synthetic + audited | 251M | 0.356% | `dfm-mimir-danish-dynaword-span-filling.jsonld` |
+| 49 | `schneiderkamplab/danish-dynaword-paragraph-reordering` | Synthetic + audited | 160M | 0.228% | `dfm-mimir-danish-dynaword-paragraph-reordering.jsonld` |
 
-danish-pd (already authored, CC Public Domain Mark) overlaps the "Public
-domain" row; kalliope is a second PD source but by a different mechanism
-(explicit PD release of poetry), so it still serves as the representative
-for the PD-by-means-other-than-CC-0 case.
+These 12 cover: the English pretraining core (sapientinc), the three largest
+Danish instruction sources (laerebogen, dfm-dyna-instruct, opus), the
+Danish-Wikipedia-derived instruction set, the translated OpenHermes derivative,
+both agreement-supplied sources, and all four dynaword-derived synthetic task
+datasets. Together they represent ~41% of the Mímir corpus by sampled tokens
+and span every "form" category the report uses for Danish-relevant data.
 
-## Full source list (48)
+## The remaining 149 datasets
 
-Token counts are Llama-3 tokens. "Datasheet" column is the relative path
-within the dynaword repo.
+The other 149 entries in Table 10 are predominantly English
+instruction/reasoning/tool-use corpora (OpenMathInstruct, Nemotron, Dolci,
+Tulu, etc.) and a long tail of small `schneiderkamplab/sapient-synth-*` and
+`oliverkinch/*` Danish datasets. They are not authored as records in this pass.
+The full 161-entry table is reproduced in Appendix A of the Mímir v1 technical
+report (arXiv 2608.13517) and is the authoritative source for any future
+record authoring.
 
-### Other (domain) — 3.22B
+## Dynaword's sub-sources (out of scope, kept for reference)
 
-| Source | Tokens | License | Datasheet |
-|---|---|---|---|
-| ncc_parliament | 338.87M | NLOD 2.0 | data/ncc_parliament/ncc_parliament.md |
-| dannet | 1.48M | DanNet 1.0 (custom) | data/dannet/dannet.md |
-| depbank | 185.45K | CC-BY-SA 4.0 | data/depbank/depbank.md |
-| synne | 52.02K | CC-0 | data/synne/synne.md |
-| historical-danish-handwriting | 5.20M | CC-BY 4.0 | data/historical-danish-handwriting/historical-danish-handwriting.md |
-| kb_historical_letters | 14.75M | CC-0 | data/kb_historical_letters/kb_historical_letters.md |
-| tidsskrift-dk | 50.03M | CC-BY 4.0 | data/tidsskrift-dk/tidsskrift-dk.md |
-| folketingets-dokumenter | 2.81B | CC-BY 4.0 | data/folketingets-dokumenter/folketingets-dokumenter.md |
+The 48 constituent sources of `danish-foundation-models/danish-dynaword`
+(adl, folketingets-dokumenter, wikipedia, kalliope, retsinformationdk, ncc_parliament,
+ai-aktindsigt, dakultur, and 40 others) are upstream of dynaword and therefore
+*upstream-of-upstream* of Mímir. They are not direct Mímir training inputs.
+Their per-source datasheets live at `data/<source>/<source>.md` under the
+dynaword repo. If a future crosswalk or registry query needs to trace Mímir's
+Danish text back to its ultimate origin, those sub-sources would each warrant
+their own `ProvenanceRecord` linked from the four `danish-dynaword-*`
+derivative records' `custodyChain` entries — but that is a larger, separate
+effort, not part of this 0.0.1 teaching artifact.
 
-### Legal (domain) — 3.18B
+## License vocabulary used across the 12 records
 
-| Source | Tokens | License | Datasheet |
-|---|---|---|---|
-| cellar | 1.15B | CC-BY-SA 4.0 | data/cellar/cellar.md |
-| eur-lex-sum-da | 31.37M | CC-BY-SA 4.0 | data/eur-lex-sum-da/eur-lex-sum-da.md |
-| fm-udgivelser | 50.34M | CC-BY-SA 4.0 | data/fm-udgivelser/fm-udgivelser.md |
-| retsinformationdk | 818.25M | Danish Copyright Law | data/retsinformationdk/retsinformationdk.md |
-| skat | 122.11M | CC-0 | data/skat/skat.md |
-| retspraksis | 56.26M | CC-0 | data/retspraksis/retspraksis.md |
-| domsdatabasen | 86.35M | Danish Copyright Law | data/domsdatabasen/domsdatabasen.md |
-| kb_administrative_publication | 844.58M | CC-0 | data/kb_administrative_publication/kb_administrative_publication.md |
-| municipality_meetings | 22.64M | CC-0 | data/municipality_meetings/municipality_meetings.md |
-
-### News (domain) — 1.09B
-
-| Source | Tokens | License | Datasheet |
-|---|---|---|---|
-| enevaeldens_nyheder | 1.03B | CC-BY-SA 4.0 | data/enevaeldens_nyheder/enevaeldens_nyheder.md |
-| ncc_newspaper | 1.05M | CC-0 | data/ncc_newspaper/ncc_newspaper.md |
-| tv2r | 21.67M | CC-BY-SA 4.0 | data/tv2r/tv2r.md |
-| nordjyllandnews | 37.90M | CC-0 | data/nordjyllandnews/nordjyllandnews.md |
-
-### Books (domain) — 747.93M
-
-| Source | Tokens | License | Datasheet |
-|---|---|---|---|
-| grundtvig | 10.53M | CC-0 | data/grundtvig/grundtvig.md |
-| ncc_books | 531.97M | CC-0 | data/ncc_books/ncc_books.md |
-| memo | 113.74M | CC-BY-SA 4.0 | data/memo/memo.md |
-| adl | 58.49M | CC-0 | data/adl/adl.md |
-| wikibooks | 7.63M | CC-BY-SA 4.0 | data/wikibooks/wikibooks.md |
-| jvj | 3.55M | CC-BY-SA 4.0 | data/jvj/jvj.md |
-| gutenberg | 6.76M | Gutenberg (custom) | data/gutenberg/gutenberg.md |
-| relig | 1.24M | CC-0 | data/relig/relig.md |
-| kalliope | 14.01M | Public domain | data/kalliope/kalliope.md |
-
-### Conversation (domain) — 497.11M
-
-| Source | Tokens | License | Datasheet |
-|---|---|---|---|
-| danske-taler | 8.72M | CC-0 | data/danske-taler/danske-taler.md |
-| opensubtitles | 271.60M | CC-0 | data/opensubtitles/opensubtitles.md |
-| ep | 100.84M | CC-0 | data/ep/ep.md |
-| ft | 114.09M | CC-0 | data/ft/ft.md |
-| spont | 1.56M | CC-0 | data/spont/spont.md |
-| naat | 286.68K | CC-0 | data/naat/naat.md |
-| dakultur | 5.49K | MIT | data/dakultur/dakultur.md |
-| mosel_youtubecommons | 7.09K | CC-BY 4.0 | data/mosel_youtubecommons/mosel_youtubecommons.md |
-
-### Social Media (domain) — 389.32M
-
-| Source | Tokens | License | Datasheet |
-|---|---|---|---|
-| hest | 389.32M | CC-0 | data/hest/hest.md |
-
-### Web (domain) — 295.93M
-
-| Source | Tokens | License | Datasheet |
-|---|---|---|---|
-| ai-aktindsigt | 139.23M | Apache 2.0 | data/ai-aktindsigt/ai-aktindsigt.md |
-| ncc_maalfrid | 29.26M | NLOD 2.0 | data/ncc_maalfrid/ncc_maalfrid.md |
-| miljoeportalen | 127.38M | CC-0 | data/miljoeportalen/miljoeportalen.md |
-| hvadvilduhelst | 57.22K | CC-BY 4.0 | data/hvadvilduhelst/hvadvilduhelst.md |
-
-### Encyclopedic (domain) — 185.75M
-
-| Source | Tokens | License | Datasheet |
-|---|---|---|---|
-| wikisource | 6.28M | CC-BY-SA 4.0 | data/wikisource/wikisource.md |
-| wikipedia | 173.33M | CC-BY-SA 4.0 | data/wikipedia/wikipedia.md |
-| wiki-comments | 6.14M | CC-BY-SA 4.0 | data/wiki-comments/wiki-comments.md |
-
-### Speeches (domain) — 161.33M
-
-| Source | Tokens | License | Datasheet |
-|---|---|---|---|
-| mosel_voxpopuli | 161.33M | CC-BY 4.0 | data/mosel_voxpopuli/mosel_voxpopuli.md |
-
-### Medical (domain) — 27.07M
-
-| Source | Tokens | License | Datasheet |
-|---|---|---|---|
-| health_hovedstaden | 27.07M | CC-0 | data/health_hovedstaden/health_hovedstaden.md |
-
-### Readaloud (domain) — 7.30M
-
-| Source | Tokens | License | Datasheet |
-|---|---|---|---|
-| nota | 7.30M | CC-0 | data/nota/nota.md |
-
-### Dialect (domain) — 847.97K
-
-| Source | Tokens | License | Datasheet |
-|---|---|---|---|
-| botxt | 847.97K | CC-0 | data/botxt/botxt.md |
-
-## Note on danish-pd
-
-`examples/dfm-mimir-danish-pd-best-effort.jsonld` is already authored. It
-is not itself a dynaword source — it is the upstream corpus that PleIAs
-aggregated and that DFM drew from for the public-domain portion of
-dynaword. It is included here as the reference record shape and as the
-Public-Domain-Mark representative.
+| License | IRI | Records |
+|---|---|---|
+| Apache 2.0 | https://www.apache.org/licenses/LICENSE-2.0 | laerebogen, 4x danish-dynaword-* derivatives, dfm8-openhermes-da |
+| ODC-By 1.0 | https://opendatacommons.org/licenses/by/1-0/ | hrm-text-data-io-cleaned, dfm-dyna-instruct (dominant sub-source) |
+| CC-BY-SA 4.0 (Wikipedia) | https://creativecommons.org/licenses/by-sa/4.0/deed.en | wiki-instruct-da (underlying text) |
+| OPUS aggregated (mixed permissive) | https://opus.nlpl.eu/ | opus-da-en-permissive |
+| Agreement-supplied (interim convention) | https://sourcelume.apache.org/ns#agreement-supplied | DBC, Lex.dk articles |

@@ -1,0 +1,47 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/dfm-mimir-v1/danish-dynaword-span-filling",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/datasets/schneiderkamplab/danish-dynaword-span-filling",
+  "name": "danish-dynaword-span-filling",
+  "version": "20260515",
+  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Danish Foundation Models (danish-foundation-models/danish-dynaword) — original text corpus",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Person",
+      "name": "Peter Schneider-Kamp (schneiderkamplab)",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "schneiderkamplab",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-08T00:00:00Z",
+  "added": "2026-05-15T00:00:00Z",
+  "contentCreated": "2026-05-15T00:00:00Z",
+  "origin": "Chat-template-ready Danish span-filling instruction pairs derived from the Danish Dynaword corpus. Spans were masked out of text from Dynaword source files (adl, ai-aktindsigt) and the model asked to fill them; rows were judged accepted/rejected with google/gemma-4-31B-it. Contains only judge-accepted rows: 54,968 rows. Form: synthetic + audited. Contributed 251M sampled tokens per epoch to the DFM Mimir v1 corpus.",
+  "custodyChain": [
+    {
+      "agent": "https://huggingface.co/datasets/danish-foundation-models/danish-dynaword",
+      "action": "provided-source-corpus",
+      "startTime": "2025-08-18T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/google/gemma-4-31B-it",
+      "action": "judged-generated-rows",
+      "startTime": "2026-05-15T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/schneiderkamplab",
+      "action": "published-accepted-rows-as-danish-dynaword-span-filling",
+      "startTime": "2026-05-15T00:00:00Z"
+    }
+  ]
+}

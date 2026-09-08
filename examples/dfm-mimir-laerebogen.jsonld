@@ -1,0 +1,52 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/dfm-mimir-v1/laerebogen",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/datasets/danish-foundation-models/laerebogen",
+  "name": "Lærebogen",
+  "version": "2026",
+  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+  "creator": [
+    {
+      "type": "schema:Person",
+      "name": "Dan Saattrup Smart (saattrupdan)",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Person",
+      "name": "Sofie Helene Bruun (sofiehb)",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Alexandra Institute",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Danish Foundation Models",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-08T00:00:00Z",
+  "added": "2026-01-01T00:00:00Z",
+  "contentCreated": "2026-01-01T00:00:00Z",
+  "origin": "A Danish instruction-following dataset of 5 million multi-turn conversation examples, generated synthetically with Qwen3-235B-A22B-Instruct-2507-FP8. Pipeline: 176 manual Danish seed prompts (adapted from English Self-Instruct seeds and EU Horizon TrustLLM crowdsourced prompts) -> Alpaca-recipe expansion to 1M with structured generation and MinHash deduplication -> grammar correction/translation to Danish -> quality-improvement rewrite -> 4 generations of Evol-Instruct -> adding 3 follow-up questions per example. Commercially usable under Apache 2.0. The largest single Danish source in Mimir, contributing 8.32B sampled tokens per epoch (11.81% of the corpus) at 4x repetition from a 2.08B-token base. Funded by the Danish Research Reserve (2025 national budget) as part of the Danish Foundation Models project (partners: Alexandra Institute, University of Copenhagen, Aarhus University, University of Southern Denmark).",
+  "custodyChain": [
+    {
+      "agent": "https://alexandra.dk",
+      "action": "authored-seed-prompts-and-generated-dataset",
+      "startTime": "2026-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+      "action": "generated-and-evolved-instructions",
+      "startTime": "2026-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/danish-foundation-models",
+      "action": "published-on-hugging-face",
+      "startTime": "2026-01-01T00:00:00Z"
+    }
+  ]
+}
