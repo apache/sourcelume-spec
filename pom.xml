@@ -120,8 +120,24 @@
             <exclude>examples/**/*.jsonld</exclude>
             <exclude>mappings/**/*.md</exclude>
             <exclude>CHANGELOG.md</exclude>
+            <!-- Generated lockfile; cannot carry a header. -->
+            <exclude>uv.lock</exclude>
           </excludes>
         </configuration>
+        <executions>
+          <!--
+            The Apache parent pom only runs RAT in the apache-release
+            profile; bind it here so every `mvn verify` (and CI) enforces
+            license headers.
+          -->
+          <execution>
+            <id>rat-check</id>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <phase>validate</phase>
+          </execution>
+        </executions>
       </plugin>
 
       <!--
