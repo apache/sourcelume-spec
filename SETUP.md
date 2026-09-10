@@ -134,7 +134,14 @@ mvn clean verify
 ```
 
 This verifies the project and packages the versioned `schema/` and `context/`
-resources into the Maven artifact.
+resources into the Maven artifact. Verification includes code style checks:
+Spotless (palantir-java-format for Java, sortPom for `pom.xml`) and
+Checkstyle (`dev/checkstyle.xml`; minimal rules, e.g. tests must use JUnit 5).
+
+To fix formatting violations automatically, run:
+```bash
+mvn spotless:apply
+```
 
 ## IDE setup
 
