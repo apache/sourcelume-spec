@@ -11,6 +11,7 @@ described in `VERSIONING.md`.
  
 ### Added
 
+- Added intended usage for custodyChain in spec.
 - Unit tests for the validation tooling (`tests/test_validate.py`), covering
   successful validation of minimal valid ProvenanceRecords and proper rejection
   of incomplete records that fail JSON Schema validation.

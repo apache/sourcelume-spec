@@ -54,6 +54,44 @@ claim's accuracy — it gives the claim a consistent shape so it *can* be verifi
 | `origin` | yes | string | Free-text description of where the dataset's underlying data came from. |
 | `custodyChain` | yes | array (min 1) | Ordered chain of custody events, earliest first. Each entry: `agent` (IRI), `action` (string, e.g. `"collected"`, `"ingested"`, `"transformed"`), `startTime` (xsd:dateTime). A single-hop dataset has exactly one entry. |
 
+### `custodyChain` entries as a graph, not a nested tree
+
+Each `custodyChain` entry's `agent` is an IRI. That IRI may point to either:
+
+- an opaque external identifier with no corresponding Sourcelume record (e.g. a
+  organization's homepage, a DOI, a repository URL), or
+- the `id` of another Sourcelume `ProvenanceRecord`.
+
+When `agent` refers to another `ProvenanceRecord`, that upstream record's own
+provenance is **not** nested or embedded inside the current record. A consumer
+who wants to trace further back resolves `agent` as a reference — for example,
+via the Registry's query API — to a separately-signed record of its own.
+
+This is a deliberate choice, not an omission: `custodyChain` is not recursive,
+and implementations should not expect (or produce) a custody event containing
+an embedded sub-chain. Provenance beyond one hop is represented as a **graph of
+linked, independently-signed records**, not as nesting within one record. This
+matters for three reasons:
+
+1. **Signing.** A record is signed as one unit. Embedding an upstream record's
+   data inside a custody event would leave it unclear whose signature covers
+   that embedded content — the embedding party's, or the original asserting
+   party's. A reference by `id` avoids this ambiguity: each record is signed
+   once, by whoever actually asserts it.
+2. **Immutability.** Records are treated as append-only once signed. If an
+   upstream record is later corrected, a reference by `id` means downstream
+   consumers see the correction automatically; an embedded copy would not.
+3. **Consistency with how the reference Registry stores records.** Provenance
+   as a graph of linked entities, rather than nested documents, is the native
+   shape for graph-backed storage — the schema and the storage model agree on
+   what the data looks like.
+
+Producers who want a self-contained document for a specific purpose (for
+example, an offline audit bundle) may still choose to inline the referenced
+node's full data using standard JSON-LD node inlining, rather than a bare
+`@id` reference. This is a serialization choice available to any JSON-LD
+consumer already, and does not require any change to this schema.
+
 ## License IRI conventions
 
 Two interim conventions for cases SPDX has no direct term. Both are best-effort placeholders
