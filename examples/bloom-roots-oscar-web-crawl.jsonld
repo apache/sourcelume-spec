@@ -1,0 +1,57 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/bloom-roots/oscar-web-crawl",
+  "type": "ProvenanceRecord",
+  "identifier": "https://oscar-project.github.io/documentation/v1.0/oscar-21.09/",
+  "name": "OSCAR v21.09 (Common Crawl snapshot Feb 2021, filtered for ROOTS)",
+  "version": "21.09",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Common Crawl Foundation — publishes the open web crawl that OSCAR is derived from",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "OSCAR project (Pedro Ortiz Suarez, Benoît Sagot, Laurent Romary) — processed Common Crawl into language-separated, cleaned corpora",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "BigScience workshop Data Sourcing working group — selected OSCAR v21.09 as the web-crawl component (38% of ROOTS) and filtered it with native-speaker help",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "BigScience workshop — published ROOTS as a gated release subject to the BigScience ethical charter",
+      "role": "distributor"
+    }
+  ],
+  "created": "2022-11-09T00:00:00Z",
+  "added": "2022-05-01T00:00:00Z",
+  "contentCreated": "2021-02-01T00:00:00Z",
+  "origin": "OSCAR v21.09 is derived from the Common Crawl snapshot of February 2021. Common Crawl publishes web crawl data under permissive terms; OSCAR processes it into language-separated, cleaned corpora. BigScience selected OSCAR v21.09 to make up the remaining 38% of ROOTS (after the 62% from crowdsourced catalogue sources), motivated by the need to include web-crawl data for comparability with other large LM training corpora. BigScience applied extensive human-curated filters (documented in Appendix C of the ROOTS paper) to remove repetitive content, pornographic/spam text, machine-generated SEO content, and personally identifiable information. The license field carries CC-BY-4.0 as the Common Crawl terms-of-use convention, but the underlying web pages are individually under heterogeneous licenses (the per-document multi-license aggregate problem, as in the Pleias OpenSource record) — this is a representative IRI, not a faithful per-document license. See notes/stress-test-bloom-roots.md (Gap B discussion). ROOTS was released as a gated subset subject to committing to the BigScience ethical charter (https://hf.co/spaces/bigscience/ethical-charter).",
+  "custodyChain": [
+    {
+      "agent": "https://commoncrawl.org/",
+      "action": "published-open-web-crawl-snapshot-feb-2021",
+      "startTime": "2021-02-01T00:00:00Z"
+    },
+    {
+      "agent": "https://oscar-project.github.io/",
+      "action": "processed-common-crawl-into-language-separated-cleaned-corpora-v21.09",
+      "startTime": "2021-09-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/bigscience-data",
+      "action": "filtered-with-native-speaker-help-and-aggregated-into-roots-web-crawl-component",
+      "startTime": "2022-05-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/bigscience-data",
+      "action": "gated-release-subject-to-bigscience-ethical-charter",
+      "startTime": "2022-11-09T00:00:00Z"
+    }
+  ]
+}

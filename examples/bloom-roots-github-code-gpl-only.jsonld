@@ -1,0 +1,57 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/bloom-roots/github-code-gpl-only",
+  "type": "ProvenanceRecord",
+  "identifier": "https://cloud.google.com/blog/topics/public-datasets/github-on-bigquery-analyze-all-the-open-source-code",
+  "name": "GitHub code (BigQuery, GPL-family licenses only, for ROOTS)",
+  "version": "2021-snapshot",
+  "license": "https://spdx.org/licenses/GPL-3.0-only.html",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "GitHub — hosts the open-source repositories the code was extracted from",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Google BigQuery — provides the public GitHub-on-BigQuery dataset that the code was queried from",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "BigScience workshop Data Sourcing working group — selected the code languages (same selection as AlphaCode), deduplicated, and filtered for length and alphabetic-character ratios",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "BigScience workshop — published ROOTS as a gated release subject to the BigScience ethical charter",
+      "role": "distributor"
+    }
+  ],
+  "created": "2022-11-09T00:00:00Z",
+  "added": "2022-03-01T00:00:00Z",
+  "contentCreated": "2008-01-01T00:00:00Z",
+  "origin": "Code collected from the public GitHub-on-BigQuery dataset, using the same programming-language selection as AlphaCode. Deduplicated on exact matches and filtered for source files with 100-200,000 characters, 15-65% alphabetic characters, max line length 20-1000 characters, and token-length standard deviation > 3. Due to a bug in the pre-processing pipeline, the dataset was filtered for GPL licenses only — this is documented in the ROOTS paper (Section 2.1, 'GitHub Code') as an unintended restriction. The license field carries the GPL-3.0 IRI as the representative license of the files that survived the buggy filter; the underlying GitHub repositories actually carry a mix of GPL-family licenses (GPL-2.0, GPL-3.0, AGPL, LGPL) — this is both the per-document multi-license aggregate problem (Gap B) and a distinct data-quality/provenance-honesty case: a dataset whose license field reflects a processing artifact rather than the intended selection. See notes/stress-test-bloom-roots.md (Gap F discussion). ROOTS was released as a gated subset subject to the BigScience ethical charter.",
+  "custodyChain": [
+    {
+      "agent": "https://github.com/",
+      "action": "hosted-open-source-repositories-under-heterogeneous-licenses",
+      "startTime": "2008-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://cloud.google.com/bigquery/",
+      "action": "indexed-github-code-into-public-queryable-dataset",
+      "startTime": "2016-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/bigscience-data",
+      "action": "queried-and-filtered-code-with-alpha-code-language-selection",
+      "startTime": "2022-03-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/bigscience-data",
+      "action": "gated-release-subject-to-bigscience-ethical-charter",
+      "startTime": "2022-11-09T00:00:00Z"
+    }
+  ]
+}

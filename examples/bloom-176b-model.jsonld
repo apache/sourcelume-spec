@@ -1,0 +1,42 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/bloom/bloom-176b-model",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/bigscience/bloom",
+  "name": "BLOOM (176B-parameter multilingual language model)",
+  "version": "560m-176b (final checkpoint)",
+  "license": "https://huggingface.co/spaces/bigscience/license/raw/main/BLOOMLICENSE.txt",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "BigScience workshop (1000+ participants across 50+ institutions, coordinated by Hugging Face) — trained the model",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Hugging Face — hosted the model release and coordinates the BigScience workshop",
+      "role": "distributor"
+    }
+  ],
+  "created": "2022-07-11T00:00:00Z",
+  "added": "2022-07-11T00:00:00Z",
+  "contentCreated": "2021-05-01T00:00:00Z",
+  "origin": "BLOOM is a 176-billion-parameter decoder-only Transformer language model trained on ROOTS (1.6TB, 59 languages, 498 datasets). The model is released under the BigScience RAIL (Responsible AI License) v1.0 — a license that is open and permissive in copyright/patent grants but carries use-based restrictions (Attachment A of the license) prohibiting specific harmful uses (e.g. exploiting minors, generating verifiably false information to harm others, fully automated decision-making adversely impacting legal rights, discrimination against protected groups, providing medical advice, use in law-enforcement/immigration/asylum processes). The license field points at the RAIL License v1.0 text directly. This is a distinct licensing model from pure open-source (Apache 2.0) or pure data licenses (CC0/CC-BY): a model license with use-restriction clauses. The 0.0.1 schema's single `license` IRI points at the license text but cannot express that the license has use-based restrictions layered on top of copyright/patent grants — an auditor following the IRI finds the full license text, so the claim is checkable, but the license is not classifiable into a standard category (open-source / open-data / restricted) from the IRI alone. See notes/stress-test-bloom-roots.md (Gap G discussion). The training data (ROOTS) is not licensed under the RAIL License; it is a separate corpus with its own (heterogeneous, agreement-supplied) licensing documented in the ROOTS records. BLOOM was released with open-access weights under the RAIL License, not as a fully open model in the OSI sense.",
+  "custodyChain": [
+    {
+      "agent": "https://huggingface.co/bigscience-data",
+      "action": "assembled-roots-corpus-1.6tb-59-languages-498-datasets",
+      "startTime": "2021-05-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/bigscience",
+      "action": "trained-176b-parameter-model-on-roots-on-jean-zay-supercomputer",
+      "startTime": "2022-03-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/bigscience",
+      "action": "released-model-under-bigscience-rail-license-v1.0",
+      "startTime": "2022-07-11T00:00:00Z"
+    }
+  ]
+}
