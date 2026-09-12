@@ -31,7 +31,9 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = [
-  "jsonschema",
+  # [format] pulls in rfc3987, needed so jsonschema actually enforces
+  # "format": "uri" instead of silently treating it as a no-op annotation.
+  "jsonschema[format]",
   "pyld",
   "rdflib",
   "pyshacl",

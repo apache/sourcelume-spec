@@ -2,15 +2,51 @@
   "@context": {
     "@version": 1.1,
     "sl": "https://sourcelume.apache.org/ns/0.0.1#",
+    "dct": "http://purl.org/dc/terms/",
+    "schema": "https://schema.org/",
+    "spdx": "http://spdx.org/rdf/terms#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
     "id": "@id",
     "type": "@type",
 
-    "name": "sl:name",
-    "description": "sl:description",
-    "version": "sl:version",
-    "createdAt": {
-      "@id": "sl:createdAt",
-      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    "ProvenanceRecord": "sl:ProvenanceRecord",
+
+    "identifier": "dct:identifier",
+    "name": "schema:name",
+    "version": "schema:version",
+    "license": {
+      "@id": "dct:license",
+      "@type": "@id"
+    },
+    "licenseScope": "sl:licenseScope",
+    "licenseNote": "sl:licenseNote",
+    "licenseCategory": "sl:licenseCategory",
+    "licenseHistory": "sl:licenseHistory",
+    "creator": "schema:creator",
+    "role": "sl:role",
+    "created": {
+      "@id": "dct:created",
+      "@type": "xsd:dateTime"
+    },
+    "added": {
+      "@id": "schema:datePublished",
+      "@type": "xsd:dateTime"
+    },
+    "contentCreated": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "origin": "sl:origin",
+    "custodyChain": "sl:custodyChain",
+    "agent": {
+      "@id": "schema:agent",
+      "@type": "@id"
+    },
+    "action": "sl:action",
+    "startTime": {
+      "@id": "schema:startTime",
+      "@type": "xsd:dateTime"
     }
   }
 }
