@@ -1,0 +1,29 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/manifests/pleias-common-corpus-youtube-commons-creators",
+  "type": "CreatorManifest",
+  "name": "YouTube-Commons creator roster (excerpt)",
+  "totalCount": 721136,
+  "source": "https://huggingface.co/datasets/PleIAs/YouTube-Commons (per-channel credit in dataset metadata)",
+  "note": "Excerpt of the YouTube-Commons creator roster. The full 721,136 individual channels are credited per-document in the dataset's own metadata (fields: channel name, upload date, source URL). This manifest is a Sourcelume-side summary that points a ProvenanceRecord at a checkable roster rather than compressing 721k creators into a single prose name. This is a PROTOTYPE artifact demonstrating a proposed solution to Gap C — see notes/stress-test-pleias-common-corpus.md. The `CreatorManifest` type and the `manifest` reference mechanism are not yet part of the 0.0.1 schema.",
+  "creators": [
+    {
+      "type": "schema:Organization",
+      "name": "Example channel: 'NASA' (US government agency, public-domain-adjacent content)",
+      "role": "originator",
+      "sourceURL": "https://www.youtube.com/@NASA"
+    },
+    {
+      "type": "schema:Person",
+      "name": "Example channel: individual educational creator (CC-BY)",
+      "role": "originator",
+      "sourceURL": "https://www.youtube.com/"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Example channel: university lecture channel (CC-BY)",
+      "role": "originator",
+      "sourceURL": "https://www.youtube.com/"
+    }
+  ]
+}

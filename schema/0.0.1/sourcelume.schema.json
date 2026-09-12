@@ -43,6 +43,11 @@
       "format": "uri",
       "description": "IRI of the claimed license (e.g. an SPDX license page URL)."
     },
+    "licenseScope": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional. Jurisdiction or scope in which the claimed `license` applies, for cases where a license (especially a public-domain claim) is jurisdiction-scoped rather than global. For example: 'US' for US judicial-work-product public domain, or 'jurisdictions with a life+70 copyright term where the author died before 1954' for a copyright-expiration public-domain claim. Omit for licenses that apply globally (e.g. CC0, MIT)."
+    },
     "creator": {
       "type": "array",
       "minItems": 1,

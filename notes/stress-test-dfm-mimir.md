@@ -1,9 +1,9 @@
 # Stress test: DFM Mímir v1 training data vs. Sourcelume 0.0.1 schema
 
-Status: **Findings from an internal stress test, not yet sent to the list.**
-Gaps 1–3 below were folded directly into `0.0.1` (which had not yet been released, so nothing
-needed a version bump) rather than deferred — see the resolution notes on each. Gap 4 remains an
-open scope question that could be raised on `dev@sourcelume.apache.org` if/when we choose to.
+Findings from a stress test of the DFM Mímir v1 training data against the
+Sourcelume 0.0.1 schema. Gaps 1–3 below were folded directly into `0.0.1` (which had not yet been
+released, so nothing needed a version bump) rather than deferred — see the resolution notes on
+each. Gap 4 remains an open scope question.
 
 ## What we stress-tested
 
@@ -109,7 +109,7 @@ SHACL's `sh:nodeKind sh:IRI` therefore cannot catch "the author typed words inst
 Real license validation likely needs an enum/pattern against a known vocabulary (e.g. the SPDX
 license list), not just a URI-shape check.
 
-## Open questions (not yet raised on the list)
+## Open questions
 
 - **Usage/audit scope decision** — decide whether `ProvenanceRecord` stays dataset-centric or
   grows a `usage` block; if the former (current default in `spec/0.0.1/index.md`'s non-goals),

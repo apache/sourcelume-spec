@@ -18,6 +18,7 @@
       "@id": "dct:license",
       "@type": "@id"
     },
+    "licenseScope": "sourcelume:licenseScope",
     "creator": "schema:creator",
     "role": "sourcelume:role",
     "created": {

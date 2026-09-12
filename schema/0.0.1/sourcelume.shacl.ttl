@@ -26,6 +26,11 @@ sourcelume:ProvenanceRecordShape
         sh:nodeKind sh:IRI ;
     ] ;
     sh:property [
+        sh:path sourcelume:licenseScope ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
         sh:path schema:creator ;
         sh:minCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;

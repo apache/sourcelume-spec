@@ -1,0 +1,78 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/pleias-common-corpus/github-opensource-with-license-distribution",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/datasets/PleIAs/common_corpus (OpenSource collection)",
+  "name": "OpenSource collection (GitHub, ArmoRM-filtered) — with license distribution [PROTOTYPE]",
+  "version": "2",
+  "license": [
+    {
+      "iri": "https://spdx.org/licenses/MIT.html",
+      "count": 0,
+      "proportion": 0.0,
+      "note": "Representative placeholder — exact per-license counts are not published per-collection in the Common Corpus metadata; a real entry would carry the true count of MIT-licensed documents in the OpenSource collection."
+    },
+    {
+      "iri": "https://spdx.org/licenses/Apache-2.0.html",
+      "count": 0,
+      "proportion": 0.0,
+      "note": "Representative placeholder."
+    },
+    {
+      "iri": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "count": 0,
+      "proportion": 0.0,
+      "note": "Representative placeholder."
+    },
+    {
+      "iri": "https://spdx.org/licenses/ISC.html",
+      "count": 0,
+      "proportion": 0.0,
+      "note": "Representative placeholder."
+    },
+    {
+      "iri": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "count": 0,
+      "proportion": 0.0,
+      "note": "Representative placeholder — CC0-licensed repositories."
+    }
+  ],
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Individual GitHub repository authors (multiple, per-document permissive licenses)",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Pleias (with ArmoRM quality filtering)",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Pleias — published in Common Corpus OpenSource collection",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-12T00:00:00Z",
+  "added": "2024-11-01T00:00:00Z",
+  "contentCreated": "2008-01-01T00:00:00Z",
+  "origin": "PROTOTYPE record demonstrating a proposed solution to Gap B (per-document multi-license aggregate). Same source as pleias-common-corpus-github-opensource.jsonld but with `license` as an array of `{ iri, count, proportion }` entries instead of a single IRI. This faithfully represents that the OpenSource collection is NOT uniformly MIT-licensed — it aggregates GitHub repositories carrying different permissive SPDX licenses (MIT, Apache-2.0, BSD-3-Clause, ISC, CC0, and others). NOTE: the `license`-as-array shape is NOT part of the 0.0.1 schema — this record will NOT validate against the current schema as-is; it is intentionally a forward-looking prototype. The `count` and `proportion` values are 0.0 placeholders because exact per-license counts are not published per-collection in the Common Corpus metadata; a real entry would carry the true counts (or be computed from the dataset's per-document `license` field). See notes/stress-test-pleias-common-corpus.md (Gap B proposed direction).",
+  "custodyChain": [
+    {
+      "agent": "https://github.com/",
+      "action": "authored-and-published-repositories-under-permissive-spdx-licenses",
+      "startTime": "2008-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/ArmoRM",
+      "action": "quality-scored-and-filtered-to-top-80-percent",
+      "startTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/PleIAs/common_corpus",
+      "action": "aggregated-into-opensource-collection-with-per-document-license-tagging",
+      "startTime": "2024-11-01T00:00:00Z"
+    }
+  ]
+}

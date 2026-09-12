@@ -1,0 +1,48 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/pleias-common-corpus/youtube-commons-with-manifest",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/datasets/PleIAs/YouTube-Commons",
+  "name": "YouTube-Commons (OpenWeb collection) — with creator manifest reference [PROTOTYPE]",
+  "version": "1",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "721,136 individual YouTube channels — see creator manifest at https://sourcelume.apache.org/manifests/pleias-common-corpus-youtube-commons-creators",
+      "role": "originator",
+      "manifest": "https://sourcelume.apache.org/manifests/pleias-common-corpus-youtube-commons-creators"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Pleias — transcription and multilingual translation",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Pleias — published in Common Corpus OpenWeb collection",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-12T00:00:00Z",
+  "added": "2024-11-01T00:00:00Z",
+  "contentCreated": "2005-01-01T00:00:00Z",
+  "origin": "PROTOTYPE record demonstrating a proposed solution to Gap C (large distributed creator population). Same source as pleias-common-corpus-youtube-commons.jsonld but with a creator manifest reference. The originator entry carries a `manifest` field pointing at a separate CreatorManifest document (examples/prototypes/pleias-common-corpus-youtube-commons-creator-manifest.jsonld) that lists/excerpts the 721,136 individual YouTube channels. This lets the record point at a checkable roster rather than compressing 721k creators into one prose name. NOTE: the `manifest` field is NOT part of the 0.0.1 schema — this record will NOT validate against the current schema as-is; it is intentionally a forward-looking prototype. See notes/stress-test-pleias-common-corpus.md (Gap C proposed direction).",
+  "custodyChain": [
+    {
+      "agent": "https://www.youtube.com/",
+      "action": "individual-creators-published-videos-under-cc-by",
+      "startTime": "2005-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/PleIAs",
+      "action": "transcribed-audio-and-added-multilingual-translations",
+      "startTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/PleIAs/common_corpus",
+      "action": "aggregated-into-openweb-collection-with-per-channel-credit",
+      "startTime": "2024-11-01T00:00:00Z"
+    }
+  ]
+}
