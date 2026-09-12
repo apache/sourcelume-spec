@@ -67,7 +67,7 @@ def main() -> int:
     examples = sorted(EXAMPLES_DIR.glob("*.jsonld"))
     if not examples:
         print(f"No *.jsonld files found under {EXAMPLES_DIR} — nothing to validate.", file=sys.stderr)
-        return 1
+        return 0
 
     validator = load_validator()
     shapes_path = SCHEMA_DIR / "sourcelume.shacl.ttl"

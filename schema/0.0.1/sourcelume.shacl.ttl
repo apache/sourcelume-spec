@@ -1,12 +1,12 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix sourcelume: <https://sourcelume.apache.org/ns#> .
+@prefix sl: <https://sourcelume.apache.org/ns/0.0.1#> .
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix schema: <https://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-sourcelume:ProvenanceRecordShape
+sl:ProvenanceRecordShape
     a sh:NodeShape ;
-    sh:targetClass sourcelume:ProvenanceRecord ;
+    sh:targetClass sl:ProvenanceRecord ;
     sh:property [
         sh:path dct:identifier ;
         sh:minCount 1 ;
@@ -26,17 +26,17 @@ sourcelume:ProvenanceRecordShape
         sh:nodeKind sh:IRI ;
     ] ;
     sh:property [
-        sh:path sourcelume:licenseScope ;
+        sh:path sl:licenseScope ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
     ] ;
     sh:property [
-        sh:path sourcelume:licenseNote ;
+        sh:path sl:licenseNote ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
     ] ;
     sh:property [
-        sh:path sourcelume:licenseCategory ;
+        sh:path sl:licenseCategory ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
         sh:in (
@@ -50,7 +50,7 @@ sourcelume:ProvenanceRecordShape
         ) ;
     ] ;
     sh:property [
-        sh:path sourcelume:licenseHistory ;
+        sh:path sl:licenseHistory ;
         sh:nodeKind sh:BlankNodeOrIRI ;
     ] ;
     sh:property [
@@ -77,13 +77,13 @@ sourcelume:ProvenanceRecordShape
         sh:datatype xsd:dateTime ;
     ] ;
     sh:property [
-        sh:path sourcelume:origin ;
+        sh:path sl:origin ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
     ] ;
     sh:property [
-        sh:path sourcelume:custodyChain ;
+        sh:path sl:custodyChain ;
         sh:minCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
     ] .
