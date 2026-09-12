@@ -1,36 +1,157 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://sourcelume.apache.org/schema/0.0.1/sourcelume.schema.json",
-  "title": "Apache Sourcelume Record",
-  "description": "Minimal skeleton schema for an Apache Sourcelume record. Fields and constraints will be filled in as the specification develops.",
+  "title": "Apache Sourcelume Provenance Record (0.0.1)",
+  "description": "Minimal viable structural schema for a Sourcelume ProvenanceRecord: dataset identity, one or more role-tagged creators, one license claim, and an ordered custody chain. No signature block yet.",
   "type": "object",
+  "required": [
+    "id",
+    "type",
+    "identifier",
+    "name",
+    "license",
+    "creator",
+    "created",
+    "added",
+    "contentCreated",
+    "origin",
+    "custodyChain"
+  ],
   "properties": {
+    "@context": {},
     "id": {
       "type": "string",
-      "description": "Unique identifier (IRI) for this record."
+      "format": "uri"
     },
     "type": {
+      "const": "ProvenanceRecord"
+    },
+    "identifier": {
       "type": "string",
-      "description": "The record type."
+      "minLength": 1,
+      "description": "Identifier for the dataset being described (e.g. a DOI or persistent URL), not for this record."
     },
     "name": {
       "type": "string",
-      "description": "Human-readable name for the record."
-    },
-    "description": {
-      "type": "string",
-      "description": "Free-text description of the record."
+      "minLength": 1
     },
     "version": {
-      "type": "string",
-      "description": "Version of the record content, e.g. following semver."
+      "type": "string"
     },
-    "createdAt": {
+    "license": {
+      "type": "string",
+      "format": "uri",
+      "description": "IRI of the claimed license (e.g. an SPDX license page URL)."
+    },
+    "licenseScope": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional. Jurisdiction or scope in which the claimed `license` applies, for cases where a license (especially a public-domain claim) is jurisdiction-scoped rather than global. For example: 'US' for US judicial-work-product public domain, or 'jurisdictions with a life+70 copyright term where the author died before 1954' for a copyright-expiration public-domain claim. Omit for licenses that apply globally (e.g. CC0, MIT)."
+    },
+    "licenseNote": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional. Free-text qualifier for the claimed `license` IRI, for cases where the IRI alone is materially misleading. The classic case is a `license` IRI that reflects a processing artifact rather than an intended selection (e.g. a code subset that filters to a copyleft license by a bug, so the license IRI reads copyleft even though the intent was permissively-licensed code). Use this field to flag the discrepancy so an auditor does not take the bare IRI at face value. Omit when the IRI faithfully represents the licensing situation."
+    },
+    "licenseCategory": {
+      "type": "string",
+      "enum": [
+        "open-source",
+        "open-data",
+        "public-domain",
+        "agreement-supplied",
+        "use-restricted",
+        "risk-based",
+        "other"
+      ],
+      "description": "Optional. Category of the claimed `license`, so the license's licensing *model* is checkable at a glance rather than only by reading the IRI. The single `license` IRI cannot, by itself, distinguish a standard permissive open-source license (e.g. Apache 2.0, MIT) from a use-restricted license (open in IP grants but restricting specific harmful uses) from a risk-based license (tiered access by risk band). Categories: 'open-source' (standard permissive OSS, e.g. Apache 2.0), 'open-data' (standard permissive data license, e.g. ODC-By, CC0), 'public-domain' (CC Public Domain Mark or equivalent), 'agreement-supplied' (data shared under a bilateral agreement whose terms do not permit public sharing), 'use-restricted' (open IP grants but with use-based restrictions), 'risk-based' (tiered access by risk band), 'other'. Omit when the IRI is a well-known standard license whose category is obvious."
+    },
+    "licenseHistory": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Optional. Record of prior licenses the dataset was distributed under, earliest first, when the dataset's own dataset-level license changed over time. The current license remains in the `license` field; this array records the superseded ones with their effective dates. Each entry is an object with `iri` (the prior license IRI) and `effectiveDate` (xsd:dateTime when that license became effective). Omit for datasets whose license has been stable since release. Example: a dataset released 2023-08 under a risk-based license, later switched to ODC-By, would carry `license` = ODC-By and `licenseHistory` = [{ iri: <prior-risk-based-license-IRI>, effectiveDate: 2023-08-01 }].",
+      "items": {
+        "type": "object",
+        "required": ["iri", "effectiveDate"],
+        "properties": {
+          "iri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "creator": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["type", "name"],
+        "properties": {
+          "type": {
+            "enum": ["schema:Organization", "schema:Person"]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "type": "string",
+            "enum": ["originator", "curator", "distributor"],
+            "description": "Optional. Distinguishes who created the underlying data from who curated or redistributed it. Omit if the record has a single, undifferentiated creator."
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "added": {
       "type": "string",
       "format": "date-time",
-      "description": "Creation timestamp, ISO 8601."
+      "description": "When this dataset was added to the collection being described (e.g. when a source was incorporated into an aggregator corpus). Mirrors the `added` field commonly found in dataset datasheets."
+    },
+    "contentCreated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the dataset's underlying documents/content were originally created (e.g. the historical date range of the texts). Mirrors the `created` field commonly found in dataset datasheets. Use the start of the range if a range applies."
+    },
+    "origin": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Free-text description of where the dataset's underlying data came from."
+    },
+    "custodyChain": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Ordered chain of custody events, earliest first. A single-hop dataset has exactly one entry.",
+      "items": {
+        "type": "object",
+        "required": ["agent", "action", "startTime"],
+        "properties": {
+          "agent": {
+            "type": "string",
+            "format": "uri"
+          },
+          "action": {
+            "type": "string",
+            "minLength": 1
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": true
+      }
     }
   },
-  "required": ["id", "type"],
   "additionalProperties": true
 }
