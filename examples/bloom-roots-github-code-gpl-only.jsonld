@@ -6,6 +6,8 @@
   "name": "GitHub code (BigQuery, GPL-family licenses only, for ROOTS)",
   "version": "2021-snapshot",
   "license": "https://spdx.org/licenses/GPL-3.0-only.html",
+  "licenseNote": "The GPL-family license IRI reflects a processing artifact, not an intended selection. ROOTS intended to include permissively-licensed GitHub code (MIT, Apache, BSD, etc.), but the BigQuery filter selected only GPL-family licenses by a bug, so this subset is GPL-only. The license IRI faithfully records what is *in* the subset but materially misrepresents the *intent*; see notes/stress-test-bloom-roots.md (Gap F).",
+  "licenseCategory": "open-source",
   "creator": [
     {
       "type": "schema:Organization",

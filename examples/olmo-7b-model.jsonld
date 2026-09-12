@@ -6,6 +6,7 @@
   "name": "OLMo-7B (7B-parameter truly open language model, Apache 2.0)",
   "version": "2.46T-tokens-checkpoint",
   "license": "https://www.apache.org/licenses/LICENSE-2.0",
+  "licenseCategory": "open-source",
   "creator": [
     {
       "type": "schema:Organization",

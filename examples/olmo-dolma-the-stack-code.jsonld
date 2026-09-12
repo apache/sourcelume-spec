@@ -6,6 +6,14 @@
   "name": "The Stack (code subset of Dolma, permissively-licensed GitHub code)",
   "version": "2023-snapshot",
   "license": "https://sourcelume.apache.org/ns#agreement-supplied",
+  "licenseCategory": "agreement-supplied",
+  "licenseNote": "The agreement-supplied IRI is used because The Stack's per-document licenses are heterogeneous (MIT, Apache-2.0, BSD, ISC, etc.) and are tracked in The Stack's per-document metadata, not at the dataset level. The dataset-level Dolma license is ODC-By (covering the curation, not the underlying code). This is the per-document multi-license aggregate problem (Gap B) in its clearest form; see notes/stress-test-olmo-dolma.md.",
+  "licenseHistory": [
+    {
+      "iri": "https://allenai.org/impact-license",
+      "effectiveDate": "2023-08-01T00:00:00Z"
+    }
+  ],
   "creator": [
     {
       "type": "schema:Organization",

@@ -63,7 +63,7 @@ or main-resident form. The distinction that matters is **additive vs. breaking**
 Corpus notes for the full framing). The new gap here is additive (an optional field), so it is
 a candidate for 0.0.1 if the list takes it up.
 
-### Gap H — A dataset whose license changed over time has no way to record both licenses with their dates  *(additive — candidate for 0.0.1)*
+### Gap H — A dataset whose license changed over time has no way to record both licenses with their dates  *(folded into 0.0.1 as `licenseHistory`)*
 
 Dolma was initially released (August 2023) under the **AI2 ImpACT license as a medium-risk
 artifact** — a risk-based license with use restrictions and derivative-impact-report
@@ -97,9 +97,7 @@ license (the common case) omit the field and keep validating; records with a lic
 (like Dolma) can now make the change checkable rather than burying it in prose. The single
 `license` field remains the *current* license; `licenseHistory` records the prior ones.
 
-**Proposed direction:** an optional `licenseHistory` array of `{ iri, effectiveDate }` entries
-(earliest first) recording prior licenses the dataset was distributed under, with the current
-license still in the `license` field. Additive, non-breaking, candidate for 0.0.1.
+Folded into 0.0.1 as the optional `licenseHistory` field: an array of `{ iri, effectiveDate }` entries (earliest first) recording prior licenses the dataset was distributed under, with the current license still in the `license` field. Additive, non-breaking. The four Dolma source records (`olmo-dolma-common-crawl`, `-the-stack-code`, `-pes2o-academic`, `-project-gutenberg-books`) carry `licenseHistory: [{ iri: ImpACT, effectiveDate: 2023-08-01 }]` to record the prior ImpACT license, with their current ODC-By / agreement-supplied / CC-PDM license in the `license` field.
 
 ### Re-surfaced and strengthened: Gaps A, B, G
 
@@ -131,16 +129,21 @@ license still in the `license` field. Additive, non-breaking, candidate for 0.0.
 | C | Large distributed creator/source population | Common Corpus | Not applicable (Dolma sources are institutional, not distributed) | Open (additive); prototype built |
 | D | Transformative LLM custody-hop action vocabulary | Common Corpus | Not applicable (Dolma curation is rule-based, not LLM-based) | Open (vocabulary) |
 | E | Training-phase (pretrain/SFT/RAG) not distinguishable | Mímir / Common Corpus | Not applicable (OLMo is pretrain-only; adaptation via Tülu is separate) | Open (scope) |
-| F | `license` reflects processing artifact not intended selection | BLOOM (GitHub code) | Not applicable (no documented processing artifact in Dolma) | Open (additive — candidate for 0.0.1) |
-| G | `license` IRI cannot express use-restricted license category | BLOOM (RAIL License) | Sharpened by OLMo (Apache 2.0) vs. BLOOM (RAIL) vs. Dolma ImpACT (risk-based) contrast | Open (additive — candidate for 0.0.1) |
-| H | License changed over time has no structured record | OLMo/Dolma (ImpACT → ODC-By) | New | Open (additive — candidate for 0.0.1) |
+| F | `license` reflects processing artifact not intended selection | BLOOM (GitHub code) | Not applicable (no documented processing artifact in Dolma) | **Folded into 0.0.1** (`licenseNote`); equipped on BLOOM GitHub record |
+| G | `license` IRI cannot express use-restricted license category | BLOOM (RAIL License) | Sharpened by OLMo (Apache 2.0) vs. BLOOM (RAIL) vs. Dolma ImpACT (risk-based) contrast | **Folded into 0.0.1** (`licenseCategory`); equipped on BLOOM + OLMo + Dolma records |
+| H | License changed over time has no structured record | OLMo/Dolma (ImpACT → ODC-By) | New | **Folded into 0.0.1** (`licenseHistory`); equipped on 4 Dolma source records |
 
 Gap H is additive and a candidate for 0.0.1 (0.0.1 is not yet on `main` as a concrete schema).
 Gaps F, G, and H are now a coherent cluster of additive license-field refinements
 (licenseNote + licenseCategory + licenseHistory) that together would make the `license` field
 much more faithfully checkable without breaking the single-IRI structure. None breaks existing
-records. 0.0.1 is not yet on `main` as a concrete schema, so additive changes can still be
-folded in without breaking a released form when the open questions settle.
+records. All three are now folded into 0.0.1 as optional additive fields and equipped on the
+records that surfaced them: `licenseNote` on the BLOOM GitHub GPL-only record (Gap F),
+`licenseCategory` on the BLOOM and OLMo and Dolma records (Gap G), and `licenseHistory` on the
+four Dolma source records (Gap H). 0.0.1 is not yet on `main` as a concrete schema; the common
+solution parts (schema, context, spec, tools, crosswalks) are intended to merge to `main` per
+the PMC's direction, while the model-specific example records and these stress-test notes stay
+on the branch for list discussion of the remaining open gaps (B, C, D, E).
 
 ## Inputs used
 

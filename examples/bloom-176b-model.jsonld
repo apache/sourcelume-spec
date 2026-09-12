@@ -6,6 +6,8 @@
   "name": "BLOOM (176B-parameter multilingual language model)",
   "version": "560m-176b (final checkpoint)",
   "license": "https://huggingface.co/spaces/bigscience/license/raw/main/BLOOMLICENSE.txt",
+  "licenseCategory": "use-restricted",
+  "licenseNote": "The RAIL License v1.0 IRI is open in IP grants (like Apache 2.0) but carries use-based restrictions (Attachment A) prohibiting specific harmful uses. A bare IRI reader cannot distinguish this from a standard permissive open-source license; the licenseCategory field classifies it as use-restricted and this note flags the restriction; see notes/stress-test-bloom-roots.md (Gap G).",
   "creator": [
     {
       "type": "schema:Organization",

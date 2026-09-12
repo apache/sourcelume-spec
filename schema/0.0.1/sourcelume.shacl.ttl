@@ -31,6 +31,29 @@ sourcelume:ProvenanceRecordShape
         sh:datatype xsd:string ;
     ] ;
     sh:property [
+        sh:path sourcelume:licenseNote ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path sourcelume:licenseCategory ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:in (
+            "open-source"
+            "open-data"
+            "public-domain"
+            "agreement-supplied"
+            "use-restricted"
+            "risk-based"
+            "other"
+        ) ;
+    ] ;
+    sh:property [
+        sh:path sourcelume:licenseHistory ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+    ] ;
+    sh:property [
         sh:path schema:creator ;
         sh:minCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;

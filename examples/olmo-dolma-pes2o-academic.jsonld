@@ -6,6 +6,13 @@
   "name": "peS2o v2 (Pretraining Efficiently on S2ORC, Dolma academic subset)",
   "version": "2",
   "license": "https://opendatacommons.org/licenses/by/1-0/",
+  "licenseCategory": "open-data",
+  "licenseHistory": [
+    {
+      "iri": "https://allenai.org/impact-license",
+      "effectiveDate": "2023-08-01T00:00:00Z"
+    }
+  ],
   "creator": [
     {
       "type": "schema:Organization",

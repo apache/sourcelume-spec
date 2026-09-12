@@ -48,6 +48,44 @@
       "minLength": 1,
       "description": "Optional. Jurisdiction or scope in which the claimed `license` applies, for cases where a license (especially a public-domain claim) is jurisdiction-scoped rather than global. For example: 'US' for US judicial-work-product public domain, or 'jurisdictions with a life+70 copyright term where the author died before 1954' for a copyright-expiration public-domain claim. Omit for licenses that apply globally (e.g. CC0, MIT)."
     },
+    "licenseNote": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional. Free-text qualifier for the claimed `license` IRI, for cases where the IRI alone is materially misleading. The classic case is a `license` IRI that reflects a processing artifact rather than an intended selection (e.g. a GitHub-code subset that filters to GPL-only by a bug, so the license IRI reads 'GPL' even though the intent was permissively-licensed code). Use this field to flag the discrepancy so an auditor does not take the bare IRI at face value. Omit when the IRI faithfully represents the licensing situation."
+    },
+    "licenseCategory": {
+      "type": "string",
+      "enum": [
+        "open-source",
+        "open-data",
+        "public-domain",
+        "agreement-supplied",
+        "use-restricted",
+        "risk-based",
+        "other"
+      ],
+      "description": "Optional. Category of the claimed `license`, so the license's licensing *model* is checkable at a glance rather than only by reading the IRI. The single `license` IRI cannot, by itself, distinguish a standard permissive open-source license (e.g. Apache 2.0, MIT) from a use-restricted license (e.g. BigScience RAIL License v1.0, which is open in IP grants but restricts specific harmful uses) from a risk-based license (e.g. AI2 ImpACT, which tiers access by risk band). Categories: 'open-source' (standard permissive OSS, e.g. Apache 2.0), 'open-data' (standard permissive data license, e.g. ODC-By, CC0), 'public-domain' (CC Public Domain Mark or equivalent), 'agreement-supplied' (data shared under a bilateral agreement whose terms do not permit public sharing), 'use-restricted' (open IP grants but with use-based restrictions, e.g. RAIL), 'risk-based' (tiered access by risk band, e.g. AI2 ImpACT), 'other'. Omit when the IRI is a well-known standard license whose category is obvious."
+    },
+    "licenseHistory": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Optional. Record of prior licenses the dataset was distributed under, earliest first, when the dataset's own dataset-level license changed over time. The current license remains in the `license` field; this array records the superseded ones with their effective dates. Each entry is an object with `iri` (the prior license IRI) and `effectiveDate` (xsd:dateTime when that license became effective). Omit for datasets whose license has been stable since release. Example: Dolma was released 2023-08 under the AI2 ImpACT license (medium-risk), then switched to ODC-By; a record for Dolma would carry `license` = ODC-By and `licenseHistory` = [{ iri: ImpACT, effectiveDate: 2023-08-01 }].",
+      "items": {
+        "type": "object",
+        "required": ["iri", "effectiveDate"],
+        "properties": {
+          "iri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
     "creator": {
       "type": "array",
       "minItems": 1,

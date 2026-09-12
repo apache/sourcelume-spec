@@ -19,6 +19,9 @@
       "@type": "@id"
     },
     "licenseScope": "sourcelume:licenseScope",
+    "licenseNote": "sourcelume:licenseNote",
+    "licenseCategory": "sourcelume:licenseCategory",
+    "licenseHistory": "sourcelume:licenseHistory",
     "creator": "schema:creator",
     "role": "sourcelume:role",
     "created": {
