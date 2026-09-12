@@ -1,0 +1,42 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/olmo/olmo-7b-model",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/allenai/OLMo-7B",
+  "name": "OLMo-7B (7B-parameter truly open language model, Apache 2.0)",
+  "version": "2.46T-tokens-checkpoint",
+  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Allen Institute for AI (AI2) — trained the model on the LUMI and MosaicML supercomputers",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Allen Institute for AI (AI2) — released the model under Apache 2.0 with open weights, training data (Dolma), training code, evaluation code, and intermediate checkpoints",
+      "role": "distributor"
+    }
+  ],
+  "created": "2024-02-01T00:00:00Z",
+  "added": "2024-02-01T00:00:00Z",
+  "contentCreated": "2023-03-01T00:00:00Z",
+  "origin": "OLMo-7B is a 7B-parameter decoder-only Transformer trained on a 2T-token sample of Dolma (the OLMo paper reports the 2.46T-token checkpoint). OLMo is a 'truly open' language model: unlike BLOOM (RAIL License with use-based restrictions) or LLaMA (community license), OLMo is released under Apache 2.0 — the same permissive open-source license used for the Sourcelume spec itself. The release includes not just model weights but the full framework: training data (Dolma), training and inference code (the OLMo repository), evaluation code (Catwalk, Paloma), intermediate checkpoints (hundreds of revisions on HuggingFace), and training logs. The license field carries the Apache 2.0 IRI directly. This is the cleanest licensing model we've modeled: a standard, well-understood, permissive open-source license with no use-based restrictions. Contrast with the BLOOM record (RAIL License v1.0, Gap G — use-restricted) and the Pleias-RAG-1B record (Hugging Face community license). The 0.0.1 schema's single license IRI works well here because Apache 2.0 is classifiable at a glance from the IRI (it's the canonical Apache 2.0 URL); the licenseCategory field proposed in Gap G would classify this as 'open-source' vs. BLOOM's 'use-restricted'. OLMo was trained on two hardware clusters (LUMI with AMD MI250X GPUs, MosaicML with NVIDIA A100s) to verify cross-vendor reproducibility. See notes/stress-test-olmo-dolma.md.",
+  "custodyChain": [
+    {
+      "agent": "https://huggingface.co/datasets/allenai/dolma",
+      "action": "assembled-dolma-3t-tokens-from-six-sources-under-odc-by",
+      "startTime": "2023-03-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/allenai",
+      "action": "trained-7b-parameter-model-on-2t-token-sample-of-dolma-on-lumi-and-mosaicml",
+      "startTime": "2023-06-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/allenai",
+      "action": "released-model-weights-training-data-code-evaluation-and-checkpoints-under-apache-2.0",
+      "startTime": "2024-02-01T00:00:00Z"
+    }
+  ]
+}

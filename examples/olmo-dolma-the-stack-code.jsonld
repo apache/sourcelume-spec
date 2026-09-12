@@ -1,0 +1,52 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/olmo-dolma/the-stack-code",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/datasets/bigcode/the-stack",
+  "name": "The Stack (code subset of Dolma, permissively-licensed GitHub code)",
+  "version": "2023-snapshot",
+  "license": "https://sourcelume.apache.org/ns#agreement-supplied",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "BigCode (Hugging Face + ServiceNow collaboration) — compiled The Stack from permissively-licensed GitHub repositories",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Allen Institute for AI (AI2) — cloned The Stack, applied language filtering (removed assembly, csv, json, etc.), RedPajama code quality filters, copyright-statement removal, and PII masking",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Allen Institute for AI (AI2) — released Dolma under ODC-BY (initially under the AI2 ImpACT license as a medium-risk artifact; later switched to ODC-BY)",
+      "role": "distributor"
+    }
+  ],
+  "created": "2023-08-01T00:00:00Z",
+  "added": "2023-05-28T00:00:00Z",
+  "contentCreated": "2008-01-01T00:00:00Z",
+  "origin": "The Stack is a 3TB corpus of permissively-licensed source code compiled by BigCode (Hugging Face + ServiceNow collaboration) from GitHub repositories. Dolma uses The Stack in its entirety, then applies further filtering: language filtering (removed assembly, csv, json, json5, jsonld, jsoniq, svg), RedPajama code quality filters (lines over 100 chars, single lines over 1000 chars, fewer than 25% alphanumeric characters, alphabetic-to-token ratio below 1.5; 41.49% of data tagged for removal), copyright-statement removal from document preambles, and PII masking. ~430B tokens, 236M documents. Code license and provenance are tracked in The Stack's metadata (per-document), but Dolma's dataset-level license is ODC-BY. The license field uses the agreement-supplied IRI because The Stack's per-document licenses are heterogeneous (MIT, Apache-2.0, BSD, ISC, etc. — a variety of permissive licenses) and the dataset-level ODC-BY license covers the curation, not the underlying code. This is the per-document multi-license aggregate problem (Gap B) in its clearest form: each code file has its own permissive license recorded in The Stack's metadata, but a single ProvenanceRecord.license IRI cannot represent the per-file license distribution. Contrast with the BLOOM/ROOTS GitHub record (which was GPL-only due to a bug) — The Stack deliberately collected permissively-licensed code and tracks per-document licenses in metadata, but the dataset-level record still cannot faithfully express the mix. See notes/stress-test-olmo-dolma.md (Gap B).",
+  "custodyChain": [
+    {
+      "agent": "https://github.com/",
+      "action": "hosted-open-source-repositories-under-heterogeneous-permissive-licenses",
+      "startTime": "2008-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/bigcode/the-stack",
+      "action": "compiled-permissively-licensed-code-into-the-stack-with-per-document-license-metadata",
+      "startTime": "2022-11-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/allenai",
+      "action": "cloned-the-stack-and-applied-language-quality-copyright-pii-filters",
+      "startTime": "2023-05-28T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/allenai/dolma",
+      "action": "released-under-ai2-impact-license-medium-risk-then-relicensed-to-odc-by",
+      "startTime": "2023-08-01T00:00:00Z"
+    }
+  ]
+}

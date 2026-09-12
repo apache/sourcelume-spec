@@ -1,0 +1,52 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/olmo-dolma/common-crawl",
+  "type": "ProvenanceRecord",
+  "identifier": "https://commoncrawl.org/",
+  "name": "Common Crawl subset of Dolma (24 shards, 2020-05 to 2023-06)",
+  "version": "2023-06-snapshot",
+  "license": "https://commoncrawl.org/terms-of-use/",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Common Crawl Foundation — publishes the open web crawl that the Dolma Common Crawl subset is derived from",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Allen Institute for AI (AI2) — selected 24 shards (2020-05 to 2023-06, about a quarter of all available shards), processed with the cc_net pipeline, and filtered for English content, quality, and toxicity",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Allen Institute for AI (AI2) — released Dolma under ODC-BY (initially under the AI2 ImpACT license as a medium-risk artifact; later switched to ODC-BY)",
+      "role": "distributor"
+    }
+  ],
+  "created": "2023-08-01T00:00:00Z",
+  "added": "2023-03-27T00:00:00Z",
+  "contentCreated": "2020-05-01T00:00:00Z",
+  "origin": "24 Common Crawl shards (2020-05 to 2023-06, about a quarter of all available shards — the rest were not used to fit the OLMo project's compute budget). Processed with the cc_net pipeline: linearized HTML to plain text, deduplicated by URL (53% of duplicates removed), language identification (FastText, English threshold 0.5; ~45% of Common Crawl is English), quality filters (C4 line-ending rules + Gopher rules), content filters (toxicity via Jigsaw-trained FastText classifier, PII masking), and Bloom-filter paragraph deduplication (19.01% removed). ~2,415B tokens, 4,600M documents. The license field points at the Common Crawl terms of use; the underlying web pages are under heterogeneous licenses (the per-document multi-license aggregate problem, Gap B). This record shares the structural pattern with the BLOOM/ROOTS OSCAR record and the Pleias Common Corpus web components: a web-crawl-derived dataset whose single representative license IRI cannot faithfully represent the per-document license mix. See notes/stress-test-olmo-dolma.md. Dolma was initially released under the AI2 ImpACT license (medium-risk artifact) and later switched to ODC-BY; the ODC-BY license applies retroactively to copies downloaded under the ImpACT license (per AI2's license-change blog post), but the 0.0.1 schema cannot express that a dataset's license changed over time — see notes/stress-test-olmo-dolma.md (Gap H).",
+  "custodyChain": [
+    {
+      "agent": "https://commoncrawl.org/",
+      "action": "published-24-open-web-crawl-shards-2020-05-to-2023-06",
+      "startTime": "2020-05-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/allenai",
+      "action": "processed-with-ccnet-pipeline-and-filtered-for-english-quality-toxicity-pii",
+      "startTime": "2023-03-17T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/allenai/dolma",
+      "action": "released-under-ai2-impact-license-medium-risk",
+      "startTime": "2023-08-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/allenai/dolma",
+      "action": "relicensed-to-odc-by",
+      "startTime": "2024-01-01T00:00:00Z"
+    }
+  ]
+}

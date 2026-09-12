@@ -1,0 +1,52 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/olmo-dolma/pes2o-academic",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/datasets/allenai/peS2o",
+  "name": "peS2o v2 (Pretraining Efficiently on S2ORC, Dolma academic subset)",
+  "version": "2",
+  "license": "https://opendatacommons.org/licenses/by/1-0/",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Allen Institute for AI (AI2) — derived peS2o from S2ORC (Semantic Scholar Open Research Corpus)",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Allen Institute for AI (AI2) — cloned peS2o v2 into Dolma as the academic-literature component",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Allen Institute for AI (AI2) — released Dolma under ODC-BY (initially under the AI2 ImpACT license as a medium-risk artifact; later switched to ODC-BY)",
+      "role": "distributor"
+    }
+  ],
+  "created": "2023-08-01T00:00:00Z",
+  "added": "2023-06-30T00:00:00Z",
+  "contentCreated": "1991-01-01T00:00:00Z",
+  "origin": "peS2o (Pretraining Efficiently on S2ORC) is derived from S2ORC (Semantic Scholar Open Research Corpus), which aggregates academic papers with full text extracted from PDFs. peS2o v2 is released under ODC-By 1.0 (the same license as the S2ORC it derives from). ~57B tokens, 38.8M documents. The underlying papers carry heterogeneous licenses (arXiv papers under arXiv non-exclusive license or CC-BY; PubMed Central under various PMC licenses; publisher papers under subscription-access terms) — the per-document multi-license aggregate problem (Gap B) applies, but peS2o's dataset-level ODC-By license covers the curation/metadata, not the underlying paper texts. This record connects to the BLOOM/ROOTS S2ORC record: BLOOM/ROOTS used S2ORC directly (agreement-supplied, via the Semantic Scholar API), while OLMo/Dolma uses peS2o (a cleaned derivative, released under ODC-By). The two records document the same upstream source (S2ORC / Semantic Scholar) under two different downstream licenses (agreement-supplied vs. ODC-By) — a useful provenance-chain contrast for the same academic content. See notes/stress-test-olmo-dolma.md. peS2o is skewed towards STEM disciplines (per the Dolma datasheet's representativeness discussion).",
+  "custodyChain": [
+    {
+      "agent": "https://www.semanticscholar.org/",
+      "action": "published-s2orc-with-full-text-extracted-from-pdfs-under-odc-by",
+      "startTime": "2020-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/allenai/peS2o",
+      "action": "derived-pes2o-from-s2orc-for-pretraining-efficiently",
+      "startTime": "2023-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/allenai",
+      "action": "cloned-pes2o-v2-into-dolma-academic-component",
+      "startTime": "2023-06-30T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/allenai/dolma",
+      "action": "released-under-ai2-impact-license-medium-risk-then-relicensed-to-odc-by",
+      "startTime": "2023-08-01T00:00:00Z"
+    }
+  ]
+}
