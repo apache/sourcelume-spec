@@ -17,87 +17,92 @@
 
 from __future__ import annotations
 
-import importlib.util
 import json
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 
-
+# Add tools directory to path so we can import validate
 REPO_ROOT = Path(__file__).resolve().parent.parent
-VALIDATE_PATH = REPO_ROOT / "tools" / "validate.py"
+sys.path.insert(0, str(REPO_ROOT / "tools"))
 
-
-def load_validate_module():
-    spec = importlib.util.spec_from_file_location("validate", VALIDATE_PATH)
-    if spec is None or spec.loader is None:
-        raise RuntimeError(f"Could not load {VALIDATE_PATH}")
-
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-validate = load_validate_module()
+import validate  # noqa: E402
 
 
 class ValidateToolTests(unittest.TestCase):
-    def test_find_version_dirs_returns_only_semver_dirs(self) -> None:
+    def test_load_validator_returns_validator(self) -> None:
+        """Test that load_validator successfully creates a validator."""
+        validator = validate.load_validator()
+        self.assertIsNotNone(validator)
+
+    def test_validate_example_with_valid_record(self) -> None:
+        """Test that a valid ProvenanceRecord passes validation."""
         with tempfile.TemporaryDirectory() as tmp:
-            base = Path(tmp)
+            example_path = Path(tmp) / "valid.jsonld"
 
-            (base / "0.0.1").mkdir()
-            (base / "1.2.3").mkdir()
-            (base / "latest").mkdir()
-            (base / "1-draft").mkdir()
-            (base / "2026-old").mkdir()
-            (base / "not-a-version").mkdir()
+            # Load the context from the local file
+            context_path = REPO_ROOT / "context" / "0.0.1" / "sourcelume.jsonld"
+            context = json.loads(context_path.read_text())
 
-            version_dirs = validate.find_version_dirs(base)
+            # Create a minimal valid ProvenanceRecord with inline context
+            valid_record = {
+                "@context": context["@context"],
+                "id": "https://example.org/records/test",
+                "type": "ProvenanceRecord",
+                "identifier": "https://example.org/datasets/test",
+                "name": "Test Dataset",
+                "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "creator": [
+                    {
+                        "type": "schema:Organization",
+                        "name": "Test Org",
+                        "role": "originator"
+                    }
+                ],
+                "created": "2024-01-01T00:00:00Z",
+                "added": "2024-01-01T00:00:00Z",
+                "contentCreated": "2024-01-01T00:00:00Z",
+                "origin": "https://example.org/source",
+                "custodyChain": [
+                    {
+                        "agent": "https://example.org/agents/test-org",
+                        "action": "created",
+                        "startTime": "2024-01-01T00:00:00Z"
+                    }
+                ]
+            }
 
-            self.assertEqual(
-                [path.name for path in version_dirs],
-                ["0.0.1", "1.2.3"],
-            )
+            example_path.write_text(json.dumps(valid_record, indent=2), encoding="utf-8")
 
-    def test_find_version_dirs_returns_empty_for_missing_base(self) -> None:
+            validator = validate.load_validator()
+            shapes_path = validate.SCHEMA_DIR / "sourcelume.shacl.ttl"
+
+            # This should return True for a valid record
+            result = validate.validate_example(example_path, validator, shapes_path)
+            self.assertTrue(result)
+
+    def test_validate_example_with_invalid_json_schema(self) -> None:
+        """Test that an invalid record fails JSON Schema validation."""
         with tempfile.TemporaryDirectory() as tmp:
-            missing = Path(tmp) / "missing"
+            example_path = Path(tmp) / "invalid.jsonld"
 
-            self.assertEqual(validate.find_version_dirs(missing), [])
+            # Missing required fields
+            invalid_record = {
+                "@context": "https://sourcelume.apache.org/context/0.0.1/sourcelume.jsonld",
+                "id": "https://example.org/records/test",
+                "type": "ProvenanceRecord"
+                # Missing: identifier, name, license, creator, dates, origin, custodyChain
+            }
 
-    def test_check_json_file_accepts_valid_json(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "valid.jsonld"
-            path.write_text(json.dumps({"@context": {}, "id": "example"}), encoding="utf-8")
+            example_path.write_text(json.dumps(invalid_record, indent=2), encoding="utf-8")
 
-            self.assertEqual(validate.check_json_file(path), [])
+            validator = validate.load_validator()
+            shapes_path = validate.SCHEMA_DIR / "sourcelume.shacl.ttl"
 
-    def test_check_json_file_reports_invalid_json(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "invalid.jsonld"
-            path.write_text("{ invalid json", encoding="utf-8")
-
-            errors = validate.check_json_file(path)
-
-            self.assertEqual(len(errors), 1)
-            self.assertIn("invalid JSON", errors[0])
-
-    def test_require_file_accepts_existing_file(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "asset.json"
-            path.write_text("{}", encoding="utf-8")
-
-            self.assertEqual(validate.require_file(path), [])
-
-    def test_require_file_reports_missing_file(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "missing.json"
-
-            errors = validate.require_file(path)
-
-            self.assertEqual(len(errors), 1)
-            self.assertIn("missing required file", errors[0])
+            # This should return False for an invalid record
+            result = validate.validate_example(example_path, validator, shapes_path)
+            self.assertFalse(result)
 
 
 if __name__ == "__main__":
