@@ -138,6 +138,18 @@ resources into the Maven artifact. Verification includes code style checks:
 Spotless (palantir-java-format for Java, sortPom for `pom.xml`) and
 Checkstyle (`dev/checkstyle.xml`; minimal rules, e.g. tests must use JUnit 5).
 
+To make the packaged artifact resolvable by local builds of downstream
+projects (e.g. `sourcelume-registry`), install it into the local Maven
+repository:
+
+```bash
+mvn install
+```
+
+`mvn verify` only builds the JAR under `target/`; `mvn install` additionally
+publishes `sourcelume-spec-<version>-SNAPSHOT.jar` to `~/.m2`, where the
+Registry build resolves it.
+
 To fix formatting violations automatically, run:
 ```bash
 mvn spotless:apply
