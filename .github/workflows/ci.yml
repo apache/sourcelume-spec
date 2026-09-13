@@ -39,3 +39,23 @@ jobs:
 
       - name: Build and check
         run: mvn -B verify
+
+  python-validate:
+    name: Python validation (schema/SHACL examples + unit tests)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # pipx is preinstalled on GitHub-hosted runners; installing uv this
+      # way avoids adding a third-party action to the ASF allowlist.
+      - name: Install uv
+        run: pipx install uv
+
+      - name: Install dev dependencies
+        run: uv sync --extra dev
+
+      - name: Validate examples against schema + SHACL
+        run: uv run python tools/validate.py
+
+      - name: Run validator unit tests
+        run: uv run python -m unittest discover -s tests
