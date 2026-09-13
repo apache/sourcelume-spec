@@ -1,0 +1,52 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/pleias-common-corpus/opensemantic-wikidata",
+  "type": "ProvenanceRecord",
+  "identifier": "https://www.wikidata.org/",
+  "name": "OpenSemantic collection (Wikidata, CC0)",
+  "version": "2",
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Wikimedia Foundation contributors (wikidata.org) — structured data in main, Property, Lexeme, and EntitySchema namespaces",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Wikimedia Deutschland e.V. — co-developed the semantic-triplet-to-natural-language transcription with Wikidata",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Pleias — transcribed semantic triplets into natural-language statements in 300+ languages and published in Common Corpus",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-12T00:00:00Z",
+  "added": "2024-11-01T00:00:00Z",
+  "contentCreated": "2012-01-01T00:00:00Z",
+  "origin": "Structured semantic data from Wikidata (the main, Property, Lexeme, and EntitySchema namespaces, released under CC0 by the Wikimedia Foundation). Pleias reprocessed the data with support from Wikidata and Wikimedia Deutschland, transcribing all semantic triplets into natural-language statements in over 300 languages. ~68B tokens. Form: CC0-licensed structured data + machine-transcribed natural-language rendering of triplets. Note: Wikidata's structured data is CC0 (an affirmative public-domain dedication), while text in other Wikidata namespaces is CC-BY-SA 4.0 — this record covers only the CC0 structured-data namespaces. Like the OpenAlex record, this uses the CC0 IRI (global dedication) rather than the CC PD Mark (jurisdiction-dependent status), the cleaner of the two public-domain conventions. The transcription of triplets into natural language is a transformative custody hop performed by a Pleias pipeline. See notes/stress-test-pleias-common-corpus.md (Gaps A and D).",
+  "custodyChain": [
+    {
+      "agent": "https://www.wikidata.org/",
+      "action": "community-contributed-structured-data-under-cc0",
+      "startTime": "2012-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://www.wikimedia.de/",
+      "action": "co-developed-semantic-triplet-transcription",
+      "startTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/PleIAs",
+      "action": "transcribed-triplets-into-natural-language-statements-in-300-plus-languages",
+      "startTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/PleIAs/common_corpus",
+      "action": "aggregated-into-opensemantic-collection",
+      "startTime": "2024-11-01T00:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/pleias-common-corpus/openscience-openalex",
+  "type": "ProvenanceRecord",
+  "identifier": "https://openalex.org/",
+  "name": "OpenScience collection (OpenAlex)",
+  "version": "2",
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "OurResearch (formerly Impactstory) — maintains and publishes OpenAlex",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Pleias — processed academic content with vision-language models to preserve document structure and formatting",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Pleias — published in Common Corpus OpenScience collection",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-12T00:00:00Z",
+  "added": "2024-11-01T00:00:00Z",
+  "contentCreated": "1665-01-01T00:00:00Z",
+  "origin": "Academic content from OpenAlex (a fully-open catalog of scholarly works, maintained by OurResearch and released under CC0). Pleias processed the content using vision-language models to preserve crucial document structure and formatting that plain-text extraction would lose. ~281B tokens. Form: CC0-licensed academic metadata + VLM-processed document structure. Note: OpenAlex data is CC0 (public domain) per the OpenAlex license documentation; this record uses the CC0 IRI rather than the CC Public Domain Mark, since OpenAlex explicitly dedicates the data to the public domain via CC0 (an affirmative dedication) rather than asserting public-domain status by copyright expiration (a passive status) — this distinction is related to Gap A (jurisdiction-scoped public-domain status) but is the cleaner case: CC0 is a globally-applicable dedication, whereas the CC PD Mark used in the Caselaw and Gutenberg records is a jurisdiction-dependent status claim. See notes/stress-test-pleias-common-corpus.md (Gap A discussion).",
+  "custodyChain": [
+    {
+      "agent": "https://openalex.org/",
+      "action": "published-scholarly-works-catalog-under-cc0",
+      "startTime": "2022-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/PleIAs",
+      "action": "processed-with-vision-language-models-to-preserve-structure",
+      "startTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/PleIAs/common_corpus",
+      "action": "aggregated-into-openscience-collection",
+      "startTime": "2024-11-01T00:00:00Z"
+    }
+  ]
+}

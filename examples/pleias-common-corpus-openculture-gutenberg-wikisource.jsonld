@@ -1,0 +1,63 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/pleias-common-corpus/openculture-gutenberg-wikisource",
+  "type": "ProvenanceRecord",
+  "identifier": "https://www.gutenberg.org/ and https://www.wikisource.org/",
+  "name": "OpenCulture — Project Gutenberg and Wikisource public-domain texts",
+  "version": "2",
+  "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+  "licenseScope": "jurisdictions where the work is in the public domain by copyright expiration (typically life+70 term where the author died before 1954); not a worldwide claim",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Project Gutenberg (original human proofreaders and digitizers of public-domain books)",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Wikimedia Foundation contributors (wikisource.org)",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Pleias — OCR correction using Pleias models (OCRonos / Post-OCR-Correction pipeline)",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Pleias — published in Common Corpus OpenCulture collection",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-12T00:00:00Z",
+  "added": "2024-11-01T00:00:00Z",
+  "contentCreated": "1700-01-01T00:00:00Z",
+  "origin": "Public-domain books and cultural-heritage texts aggregated from Project Gutenberg and Wikisource, with spelling and OCR errors corrected by Pleias using its own OCR-correction models (PleIAs/OCRonos and the PleIAs/Post-OCR-Correction dataset pipeline). Harmful/toxic content removed via the Celadon toxicity classifier, and low-educational-value content filtered out. OpenCulture is the largest Common Corpus collection at ~967B tokens. Form: public-domain text + machine OCR-corrected + toxicity-filtered. Note: the license field uses the CC Public Domain Mark IRI per the interim convention; the underlying works are public domain by copyright expiration, a jurisdiction-dependent status (a work PD in one country may still be in copyright in another). The `licenseScope` field (added to 0.0.1 after this stress test surfaced Gap A) carries a copyright-expiration jurisdiction clause to qualify the PD claim — see notes/stress-test-pleias-common-corpus.md (Gap A). The OCR-correction and toxicity-filtering steps are transformative custody hops performed by an LLM-based pipeline.",
+  "custodyChain": [
+    {
+      "agent": "https://www.gutenberg.org/",
+      "action": "proofread-and-digitized-public-domain-books",
+      "startTime": "1971-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://www.wikisource.org/",
+      "action": "community-transcribed-public-domain-texts",
+      "startTime": "2003-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/PleIAs/OCRonos",
+      "action": "machine-ocr-corrected-digitized-texts",
+      "startTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/PleIAs/celadon",
+      "action": "toxicity-filtered-and-low-educational-value-removed",
+      "startTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/PleIAs/common_corpus",
+      "action": "aggregated-into-openculture-collection",
+      "startTime": "2024-11-01T00:00:00Z"
+    }
+  ]
+}

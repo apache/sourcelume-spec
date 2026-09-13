@@ -1,0 +1,42 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/dfm-mimir-v1/dfm8-openhermes-da",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/datasets/schneiderkamplab/dfm8-openhermes-da",
+  "name": "dfm8-openhermes-da",
+  "version": "20260515",
+  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "teknium/OpenHermes — original English instruction dataset",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Person",
+      "name": "Peter Schneider-Kamp (schneiderkamplab)",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "schneiderkamplab",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-08T00:00:00Z",
+  "added": "2026-05-15T00:00:00Z",
+  "contentCreated": "2024-01-01T00:00:00Z",
+  "origin": "DFM8 repaired OpenHermes dataset: a Danish-translated/repaired version of the OpenHermes instruction-tuning corpus (originally GPT-4-generated synthetic data from open sources, assembled by teknium). The dataset was translated to Danish and audited/repaired by schneiderkamplab. 967,334 rows. Form: translated + audited. Contributed 922M sampled tokens per epoch to the DFM Mimir v1 corpus (1.31%). The underlying OpenHermes data carries no single explicit license; the schneiderkamplab derivative is published under Apache 2.0.",
+  "custodyChain": [
+    {
+      "agent": "https://huggingface.co/datasets/teknium/openhermes",
+      "action": "published-original-openhermes-english",
+      "startTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/schneiderkamplab",
+      "action": "translated-to-danish-and-audited-as-dfm8-openhermes-da",
+      "startTime": "2026-05-15T00:00:00Z"
+    }
+  ]
+}

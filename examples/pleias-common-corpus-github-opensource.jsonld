@@ -1,0 +1,47 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/pleias-common-corpus/github-opensource",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/datasets/PleIAs/common_corpus (OpenSource collection)",
+  "name": "OpenSource collection (GitHub, ArmoRM-filtered)",
+  "version": "2",
+  "license": "https://spdx.org/licenses/MIT.html",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Individual GitHub repository authors (multiple, per-document permissive licenses)",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Pleias (with BigCode/GitHub sourcing and ArmoRM quality filtering)",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Pleias — published in Common Corpus OpenSource collection",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-12T00:00:00Z",
+  "added": "2024-11-01T00:00:00Z",
+  "contentCreated": "2008-01-01T00:00:00Z",
+  "origin": "Open-source code sourced from GitHub repositories carrying permissive licenses (MIT, Apache-2.0, BSD, ISC, and others — 635 distinct license values appear across Common Corpus overall, with OpenSource carrying the code subset). Pleias filtered to the top 80% of submissions by quality rating using ArmoRM, a reward-model-based quality filter. ~283B tokens. Form: scraped + quality-filtered + license-tagged per document. Note: the license field here carries a single SPDX IRI (MIT) as a representative value, but the collection is NOT uniformly MIT-licensed — the underlying per-document licenses vary (MIT, Apache-2.0, BSD, ISC, CC0, etc.). This is the central gap this record surfaces: ProvenanceRecord.license is a single IRI but this dataset's license varies per document. See notes/stress-test-pleias-common-corpus.md (Gap B) for why this single-IRI field cannot faithfully represent a multi-license aggregate, and the interim workaround used here (a representative license + a prose note in `origin`).",
+  "custodyChain": [
+    {
+      "agent": "https://github.com/",
+      "action": "authored-and-published-repositories-under-permissive-spdx-licenses",
+      "startTime": "2008-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/ArmoRM",
+      "action": "quality-scored-and-filtered-to-top-80-percent",
+      "startTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/PleIAs/common_corpus",
+      "action": "aggregated-into-opensource-collection-with-per-document-license-tagging",
+      "startTime": "2024-11-01T00:00:00Z"
+    }
+  ]
+}

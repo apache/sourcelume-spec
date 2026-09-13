@@ -1,0 +1,47 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/pleias-common-corpus/youtube-commons",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/datasets/PleIAs/YouTube-Commons",
+  "name": "YouTube-Commons (OpenWeb collection)",
+  "version": "1",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Individual YouTube video creators (721,136 distinct channels) who published under CC-BY",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Pleias — transcription and multilingual translation",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "Pleias — published in Common Corpus OpenWeb collection",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-12T00:00:00Z",
+  "added": "2024-11-01T00:00:00Z",
+  "contentCreated": "2005-01-01T00:00:00Z",
+  "origin": "Audio transcripts of 2,063,066 videos shared on YouTube under the CC-BY license, comprising 22,709,724 original and automatically translated transcripts from 3,156,703 videos across 721,136 individual channels (~45 billion words). Original-language content is majority English (71%); automated translations provided in English, French, Spanish, German, Russian, Italian, and Dutch. Every YouTube channel is credited in accordance with CC-BY attribution requirements. Form: audio transcribed + multilingual translation added. Note: the originator here is a very large set of individual, mostly non-institutional creators (721,136 channels) rather than a single institution — unlike the other Common Corpus records, this tests whether a single creator entry can stand for a large distributed creator population, or whether the schema needs a way to point at a creator manifest/roster. See notes/stress-test-pleias-common-corpus.md (Gap C). Attribution per-channel is provided in the dataset metadata, but a ProvenanceRecord.creator[] entry cannot enumerate 721k individual creators; the single originator entry above is a best-effort summary, not a complete attribution.",
+  "custodyChain": [
+    {
+      "agent": "https://www.youtube.com/",
+      "action": "individual-creators-published-videos-under-cc-by",
+      "startTime": "2005-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/PleIAs",
+      "action": "transcribed-audio-and-added-multilingual-translations",
+      "startTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/datasets/PleIAs/common_corpus",
+      "action": "aggregated-into-openweb-collection-with-per-channel-credit",
+      "startTime": "2024-11-01T00:00:00Z"
+    }
+  ]
+}

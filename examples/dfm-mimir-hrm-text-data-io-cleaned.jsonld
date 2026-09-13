@@ -1,0 +1,42 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/dfm-mimir-v1/hrm-text-data-io-cleaned",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/datasets/sapientinc/HRM-Text-data-io-cleaned-20260515",
+  "name": "HRM-Text-data-io-cleaned-20260515",
+  "version": "20260515",
+  "license": "https://opendatacommons.org/licenses/by/1-0/",
+  "creator": [
+    {
+      "type": "schema:Person",
+      "name": "Guan Wang (sapientinc)",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "sapientinc",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "sapientinc",
+      "role": "distributor"
+    }
+  ],
+  "created": "2026-09-08T00:00:00Z",
+  "added": "2026-05-15T00:00:00Z",
+  "contentCreated": "2024-01-01T00:00:00Z",
+  "origin": "Pre-built HRM-Text pretraining dataset produced from raw data using the data_io cleaning scripts (github.com/sapientinc/data_io). English, size category 100B<n<1T rows. Consists mainly of Flan, Platypus, and tasksource sub-collections (per the Mimir technical report's description of the Sapient mixed collection). The largest single source in the Mimir corpus: 11.92B sampled tokens per epoch (16.91% of the corpus). Form: curated + reformatted. Described in the HRM-Text paper (arXiv 2605.20613, Wang et al. 2026).",
+  "custodyChain": [
+    {
+      "agent": "https://github.com/sapientinc/data_io",
+      "action": "cleaned-raw-data-into-hrm-text-pretraining-set",
+      "startTime": "2026-05-15T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/sapientinc",
+      "action": "published-hrm-text-data-io-cleaned-20260515",
+      "startTime": "2026-05-15T00:00:00Z"
+    }
+  ]
+}

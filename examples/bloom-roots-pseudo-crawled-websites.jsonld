@@ -1,0 +1,57 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/bloom-roots/pseudo-crawled-websites",
+  "type": "ProvenanceRecord",
+  "identifier": "https://huggingface.co/bigscience-data",
+  "name": "Pseudo-crawled websites (614 community-identified domains, Common Crawl archive)",
+  "version": "2021-snapshot",
+  "license": "https://sourcelume.apache.org/ns#agreement-supplied",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Common Crawl Foundation — provided the 18 archived snapshots (2020-2021) the pages were retrieved from",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "BigScience Data Sourcing working group and partner communities (Masakhane, Machine Learning Tokyo, LatinX in AI) — identified 614 unique domain names (192 from catalogue entries, 456 proposed by participants for geographical diversity)",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "BigScience workshop — pseudo-crawled the domains (retrieved pages from Common Crawl archive rather than live-crawling), extracted text from HTML, and filtered",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "BigScience workshop — published ROOTS as a gated release subject to the BigScience ethical charter",
+      "role": "distributor"
+    }
+  ],
+  "created": "2022-11-09T00:00:00Z",
+  "added": "2022-06-01T00:00:00Z",
+  "contentCreated": "2005-01-01T00:00:00Z",
+  "origin": "Websites identified through two streams: (1) the homepage field in the metadata of 252 catalogue entries (192 domains), and (2) 456 websites proposed by participants to improve geographical diversity of language sources, yielding 614 unique domain names after deduplication. Rather than live-crawling, BigScience 'pseudo-crawled': retrieved pages corresponding to the target domains from 18 Common Crawl snapshots archived in 2020-2021 (WARC format). 48 domains had no matches and were dropped; after HTML-page filtering, 539 domain names yielded text datasets. The license field uses the agreement-supplied IRI: the underlying web pages are under heterogeneous licenses (each website's own terms), and BigScience accessed them via the Common Crawl archive under the Common Crawl terms of use rather than under any single public license. This is the distributed-creator / distributed-source problem (related to Gap C) combined with the per-document multi-license aggregate problem (Gap B): 539 domains, each with its own terms, aggregated into one dataset under one representative license IRI. See notes/stress-test-bloom-roots.md. ROOTS was released as a gated subset subject to the BigScience ethical charter.",
+  "custodyChain": [
+    {
+      "agent": "https://commoncrawl.org/",
+      "action": "archived-18-web-snapshots-2020-2021-in-warc-format",
+      "startTime": "2020-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/bigscience-catalogue-data",
+      "action": "community-identified-614-domains-for-geographical-language-diversity",
+      "startTime": "2021-06-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/bigscience-data",
+      "action": "pseudo-crawled-domains-from-common-crawl-archive-and-extracted-html-text",
+      "startTime": "2022-06-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/bigscience-data",
+      "action": "gated-release-subject-to-bigscience-ethical-charter",
+      "startTime": "2022-11-09T00:00:00Z"
+    }
+  ]
+}

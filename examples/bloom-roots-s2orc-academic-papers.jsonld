@@ -1,0 +1,47 @@
+{
+  "@context": "../context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/bloom-roots/s2orc-academic-papers",
+  "type": "ProvenanceRecord",
+  "identifier": "https://github.com/allenai/s2orc",
+  "name": "S2ORC (Semantic Scholar Open Research Corpus), ROOTS subset",
+  "version": "2021-snapshot",
+  "license": "https://sourcelume.apache.org/ns#agreement-supplied",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Allen Institute for AI (AI2) — maintains Semantic Scholar and released S2ORC",
+      "role": "originator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "BigScience workshop Data Sourcing working group — selected S2ORC as a scientific-literature source and processed it into ROOTS",
+      "role": "curator"
+    },
+    {
+      "type": "schema:Organization",
+      "name": "BigScience workshop — published ROOTS as a gated release subject to the BigScience ethical charter",
+      "role": "distributor"
+    }
+  ],
+  "created": "2022-11-09T00:00:00Z",
+  "added": "2022-04-01T00:00:00Z",
+  "contentCreated": "1991-01-01T00:00:00Z",
+  "origin": "S2ORC (Semantic Scholar Open Research Corpus) is a large corpus of academic papers with full text extracted from PDFs, maintained by the Allen Institute for AI. S2ORC aggregates papers from many publishers (arXiv, PubMed Central, publisher portals); the underlying papers carry heterogeneous licenses (arXiv papers are often CC-BY or arXiv non-exclusive license; PubMed Central papers are under various PMC licenses including CC-BY, CC0, and publisher-specific terms; many publisher papers are under subscription-access terms that S2ORC redistributes under its own access agreement). The license field uses the agreement-supplied IRI per the interim convention in spec/0.0.1/index.md: S2ORC is obtained under AI2's terms (the Semantic Scholar data agreement) rather than under a single public license. This is the same pattern as Mímir's dbc dataset (agreement-supplied rather than public-license), but at much larger scale and with a more heterogeneous underlying-license mix — the per-document multi-license aggregate problem (Gap B) applies here too, layered on top of the agreement-supplied access. See notes/stress-test-bloom-roots.md. ROOTS was released as a gated subset subject to the BigScience ethical charter.",
+  "custodyChain": [
+    {
+      "agent": "https://www.semanticscholar.org/",
+      "action": "published-s2orc-with-full-text-extracted-from-pdfs",
+      "startTime": "2020-01-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/bigscience-data",
+      "action": "processed-s2orc-into-roots-scientific-literature-component",
+      "startTime": "2022-04-01T00:00:00Z"
+    },
+    {
+      "agent": "https://huggingface.co/bigscience-data",
+      "action": "gated-release-subject-to-bigscience-ethical-charter",
+      "startTime": "2022-11-09T00:00:00Z"
+    }
+  ]
+}
