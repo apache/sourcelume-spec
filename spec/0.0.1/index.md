@@ -45,7 +45,7 @@ claim's accuracy — it gives the claim a consistent shape so it *can* be verifi
 | `license` | yes | IRI | License under which the dataset is claimed to be distributed (e.g. an SPDX license URL). See [License IRI conventions](#license-iri-conventions) below for public-domain and agreement-supplied cases. |
 | `licenseScope` | no | string | Jurisdiction or scope in which the claimed `license` applies, for cases where a license (especially a public-domain claim) is jurisdiction-scoped rather than global. For example: `US` for US judicial-work-product public domain, or a longer clause for a copyright-expiration public-domain claim whose term depends on jurisdiction. Omit for licenses that apply globally (e.g. CC0, MIT). |
 | `licenseNote` | no | string | Free-text qualifier for the claimed `license` IRI, for cases where the IRI alone is materially misleading. The classic case is a `license` IRI that reflects a processing artifact rather than an intended selection (e.g. a code subset that filters to a copyleft license by a bug, so the license IRI reads copyleft even though the intent was permissively-licensed code). Omit when the IRI faithfully represents the licensing situation. |
-| `licenseCategory` | no | enum | Category of the claimed `license`, so its licensing *model* is checkable at a glance rather than only by reading the IRI. Values: `open-source` (standard permissive OSS, e.g. Apache 2.0, MIT), `open-data` (standard permissive data license, e.g. ODC-By, CC0), `public-domain` (CC Public Domain Mark or equivalent), `agreement-supplied` (data shared under a bilateral agreement whose terms do not permit public sharing), `use-restricted` (open IP grants but with use-based restrictions), `risk-based` (tiered access by risk band), `other`. Omit when the IRI is a well-known standard license whose category is obvious. |
+| `licenseCategory` | no | enum | Category of the claimed `license`, so its licensing *model* is checkable at a glance rather than only by reading the IRI. Values: `open-source` (standard permissive OSS, e.g. Apache 2.0, MIT), `open-data` (standard permissive data license, e.g. ODC-By, CC0), `public-domain` (CC Public Domain Mark or equivalent), `agreement-supplied` (data shared under a bilateral agreement whose terms do not permit public sharing; pair with the SPDX NoAssertionLicense IRI in `license` and a `licenseNote`), `use-restricted` (open IP grants but with use-based restrictions), `risk-based` (tiered access by risk band), `other`. Omit when the IRI is a well-known standard license whose category is obvious. |
 | `licenseHistory` | no | array (min 1) | Prior licenses the dataset was distributed under, earliest first, when the dataset's own dataset-level license changed over time. The current license remains in the `license` field; this array records the superseded ones. Each entry: `iri` (prior license IRI) and `effectiveDate` (xsd:dateTime). Omit for datasets whose license has been stable since release. |
 | `creator` | yes | array (min 1) | One or more parties involved in producing this dataset — each a `schema:Organization` or `schema:Person` with a `name`, and an optional `role` (`originator`, `curator`, or `distributor`) to distinguish who made the underlying data from who aggregated or redistributed it. Omit `role` for a single, undifferentiated creator. |
 | `created` | yes | xsd:dateTime | When this provenance record was authored (record metadata, not content provenance). Distinct from `added` and `contentCreated` below. |
@@ -103,8 +103,12 @@ status is jurisdiction-scoped (e.g. judicial-work-product public domain in a spe
 or works whose copyright-expiration term depends on jurisdiction) rather than a worldwide claim.
 
 (b) **Agreement-supplied data.** For data shared under a bilateral agreement whose terms do
-not permit public sharing (e.g. a data donation gated by a usage agreement), use
-`https://sourcelume.apache.org/ns#agreement-supplied`.
+not permit public sharing (e.g. a data donation gated by a usage agreement), use the SPDX
+`NoAssertionLicense` IRI, `https://spdx.org/rdf/3.0.1/terms/ExpandedLicensing/NoAssertionLicense`,
+with `licenseNote` carrying the private/non-redistributable qualifier and `licenseCategory`
+set to `agreement-supplied`. SPDX defines `NoAssertionLicense` for cases where no public
+license assertion is made; here it signals that the terms are not publishable, while
+`licenseNote` records that the arrangement is agreement-backed.
 
 ## Non-goals for 0.0.1
 

@@ -43,13 +43,14 @@ we had only inspected the 0.0.1 field list; mapping a real datasheet made them i
 1. **"Agreement-supplied" has no clean license IRI.** Two of the 161 Mímir datasets — "DBC
    (agreement-supplied)" and "Lex.dk articles" — are provided to the Danish Foundation Models
    project under agreements whose licensing does not permit public sharing. SPDX has no term
-   for *agreement-bound, non-redistributable data*. Our best-effort records use an interim
-   Sourcelume convention IRI (`https://sourcelume.apache.org/ns#agreement-supplied`) as a
-   placeholder, which is pragmatic but not a precise license term.
-   **Resolved for 0.0.1:** documented this as the interim convention in `spec/0.0.1/index.md`'s
-   `license` field description, pending a more precise term if/when the list takes it up — not a
-   schema change, since inventing a `sourcelume:`-native license term without list consensus would
-   be exactly the kind of thing to raise there first.
+   for *agreement-bound, non-redistributable data*. Our best-effort records use the SPDX
+   `NoAssertionLicense` IRI
+   (`https://spdx.org/rdf/3.0.1/terms/ExpandedLicensing/NoAssertionLicense`) in the `license`
+   field, with `licenseNote` carrying the private/non-redistributable qualifier and
+   `licenseCategory: agreement-supplied` classifying the arrangement. SPDX defines
+   `NoAssertionLicense` for cases where no public license assertion is made; here it signals
+   that the terms are not publishable.
+   **Resolved for 0.0.1:** documented in `spec/0.0.1/index.md`'s License IRI conventions
 
 2. **Single `custodyEvent` collapses a multi-hop chain.** This dataset actually has at least three
    custodians: the original text sources aggregated by dynaword (e.g. ADL, ai-aktindsigt, botxt,
@@ -114,7 +115,7 @@ license list), not just a URI-shape check.
 - **Usage/audit scope decision** — decide whether `ProvenanceRecord` stays dataset-centric or
   grows a `usage` block; if the former (current default in `spec/0.0.1/index.md`'s non-goals),
   schedule a separate model-audit record type for a later version.
-- **License vocabulary beyond the interim convention** — the agreement-supplied and
+- **License vocabulary beyond the current convention** — the agreement-supplied and
   public-domain conventions above are stopgaps; consider a proper enum/pattern against a known
   license list (e.g. SPDX) so `format: uri` isn't the only check, per the deeper JSON-LD coercion
   issue noted below.

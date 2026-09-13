@@ -5,7 +5,9 @@
   "identifier": "https://sourcelume.apache.org/records/dfm-mimir-v1/dbc",
   "name": "DBC (agreement-supplied)",
   "version": "2026",
-  "license": "https://sourcelume.apache.org/ns#agreement-supplied",
+  "license": "https://spdx.org/rdf/3.0.1/terms/ExpandedLicensing/NoAssertionLicense",
+  "licenseNote": "Terms private — Danish text corpus supplied to the Danish Foundation Models project by DBC (Dansk Bibliotekscenter) under a bilateral DFM-DBC agreement whose licensing does not permit public sharing. Not a public license.",
+  "licenseCategory": "agreement-supplied",
   "creator": [
     {
       "type": "schema:Organization",

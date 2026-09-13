@@ -78,4 +78,4 @@ effort, not part of this 0.0.1 teaching artifact.
 | ODC-By 1.0 | https://opendatacommons.org/licenses/by/1-0/ | hrm-text-data-io-cleaned, dfm-dyna-instruct (dominant sub-source) |
 | CC-BY-SA 4.0 (Wikipedia) | https://creativecommons.org/licenses/by-sa/4.0/deed.en | wiki-instruct-da (underlying text) |
 | OPUS aggregated (mixed permissive) | https://opus.nlpl.eu/ | opus-da-en-permissive |
-| Agreement-supplied (interim convention) | https://sourcelume.apache.org/ns#agreement-supplied | DBC, Lex.dk articles |
+| Agreement-supplied (SPDX NoAssertionLicense + licenseNote) | https://spdx.org/rdf/3.0.1/terms/ExpandedLicensing/NoAssertionLicense | DBC, Lex.dk articles |

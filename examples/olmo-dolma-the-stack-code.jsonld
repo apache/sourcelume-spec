@@ -5,9 +5,9 @@
   "identifier": "https://huggingface.co/datasets/bigcode/the-stack",
   "name": "The Stack (code subset of Dolma, permissively-licensed GitHub code)",
   "version": "2023-snapshot",
-  "license": "https://sourcelume.apache.org/ns#agreement-supplied",
+  "license": "https://spdx.org/rdf/3.0.1/terms/ExpandedLicensing/NoAssertionLicense",
   "licenseCategory": "agreement-supplied",
-  "licenseNote": "The agreement-supplied IRI is used because The Stack's per-document licenses are heterogeneous (MIT, Apache-2.0, BSD, ISC, etc.) and are tracked in The Stack's per-document metadata, not at the dataset level. The dataset-level Dolma license is ODC-By (covering the curation, not the underlying code). This is the per-document multi-license aggregate problem (Gap B) in its clearest form; see notes/stress-test-olmo-dolma.md.",
+  "licenseNote": "NoAssertion is used because The Stack's per-document licenses are heterogeneous (MIT, Apache-2.0, BSD, ISC, etc.) and are tracked in The Stack's per-document metadata, not at the dataset level. The dataset-level Dolma license is ODC-By (covering the curation, not the underlying code). This is the per-document multi-license aggregate problem (Gap B) in its clearest form; see notes/stress-test-olmo-dolma.md.",
   "licenseHistory": [
     {
       "iri": "https://allenai.org/impact-license",

@@ -33,7 +33,7 @@ Five records authored, one per distinct ROOTS source category plus the BLOOM mod
   BigScience workshop + Hugging Face + Allen Institute for AI + Google BigQuery + Common Crawl
   Foundation + partner communities (Masakhane, Machine Learning Tokyo, LatinX in AI) all fit
   into originator / curator / distributor roles without strain.
-- The `agreement-supplied` interim license IRI (documented in `spec/0.0.1/index.md`) was
+- The SPDX `NoAssertionLicense` IRI (documented in `spec/0.0.1/index.md`) was
   reused directly for S2ORC and pseudo-crawled websites — the same convention Mímir established
   for `dbc`, now validated at much larger scale (539 domains + a major academic corpus).
 - The `licenseScope` field (added after the Common Corpus stress test) was not needed here

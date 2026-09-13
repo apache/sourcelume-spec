@@ -5,7 +5,9 @@
   "identifier": "https://github.com/allenai/s2orc",
   "name": "S2ORC (Semantic Scholar Open Research Corpus), ROOTS subset",
   "version": "2021-snapshot",
-  "license": "https://sourcelume.apache.org/ns#agreement-supplied",
+  "license": "https://spdx.org/rdf/3.0.1/terms/ExpandedLicensing/NoAssertionLicense",
+  "licenseNote": "Terms private — S2ORC paper texts supplied to BigScience under a data-host-provider agreement; terms not publicly redistributable. Not a public license.",
+  "licenseCategory": "agreement-supplied",
   "creator": [
     {
       "type": "schema:Organization",

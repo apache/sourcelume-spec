@@ -38,7 +38,7 @@ model:
   cleanly to the Gutenberg record — the same copyright-expiration jurisdiction clause pattern
   as the Pleias Gutenberg record, now applied to a second corpus. This confirms the field is
   correctly shaped and not Common-Corpus-specific.
-- The `agreement-supplied` interim license IRI was reused for The Stack (whose per-document
+- The SPDX `NoAssertionLicense` IRI was reused for The Stack (whose per-document
   permissive licenses are tracked in The Stack's metadata but whose dataset-level license is
   ODC-By covering the curation, not the underlying code). The same convention Mímir established
   for `dbc` now covers four distinct cases (Mímir dbc, BLOOM S2ORC, BLOOM pseudo-crawled
@@ -97,7 +97,7 @@ license (the common case) omit the field and keep validating; records with a lic
 (like Dolma) can now make the change checkable rather than burying it in prose. The single
 `license` field remains the *current* license; `licenseHistory` records the prior ones.
 
-Folded into 0.0.1 as the optional `licenseHistory` field: an array of `{ iri, effectiveDate }` entries (earliest first) recording prior licenses the dataset was distributed under, with the current license still in the `license` field. Additive, non-breaking. The four Dolma source records (`olmo-dolma-common-crawl`, `-the-stack-code`, `-pes2o-academic`, `-project-gutenberg-books`) carry `licenseHistory: [{ iri: ImpACT, effectiveDate: 2023-08-01 }]` to record the prior ImpACT license, with their current ODC-By / agreement-supplied / CC-PDM license in the `license` field.
+Folded into 0.0.1 as the optional `licenseHistory` field: an array of `{ iri, effectiveDate }` entries (earliest first) recording prior licenses the dataset was distributed under, with the current license still in the `license` field. Additive, non-breaking. The four Dolma source records (`olmo-dolma-common-crawl`, `-the-stack-code`, `-pes2o-academic`, `-project-gutenberg-books`) carry `licenseHistory: [{ iri: ImpACT, effectiveDate: 2023-08-01 }]` to record the prior ImpACT license, with their current ODC-By / NoAssertionLicense / CC-PDM license in the `license` field.
 
 ### Re-surfaced and strengthened: Gaps A, B, G
 
