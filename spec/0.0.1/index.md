@@ -33,6 +33,14 @@ this identity, was produced/curated/distributed by these parties, is licensed un
 came from this origin, and passed through this chain of custody.* Sourcelume does not verify the
 claim's accuracy — it gives the claim a consistent shape so it *can* be verified by someone else.
 
+## JSON-LD context
+
+Records reference the context with the canonical IRI
+`https://sourcelume.apache.org/context/0.0.1/sourcelume.jsonld` and no other `@context` value.
+The context is published at that address and is not modified after release. Its namespace is the
+stable `https://sourcelume.apache.org/ns#`, so term IRIs stay the same across versions. Inline
+`@context` objects and other context IRIs are rejected.
+
 ## Fields
 
 | Field | Required | Type | Description |
