@@ -37,7 +37,7 @@ claim's accuracy — it gives the claim a consistent shape so it *can* be verifi
 
 Records reference the context with the canonical IRI
 `https://sourcelume.apache.org/context/0.0.1/sourcelume.jsonld` and no other `@context` value.
-The context is published at that address and is not modified after release. Its namespace is the
+The context is published at that address by the release process and is not modified after release. Its namespace is the
 stable `https://sourcelume.apache.org/ns#`, so term IRIs stay the same across versions. Inline
 `@context` objects and other context IRIs are rejected.
 

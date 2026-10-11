@@ -23,6 +23,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from rdflib import RDF, Graph, URIRef
+
 # Add tools directory to path so we can import validate
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "tools"))
@@ -74,9 +76,24 @@ class ValidateToolTests(unittest.TestCase):
             validator = validate.load_validator()
             shapes_path = validate.SCHEMA_DIR / "sourcelume.shacl.ttl"
 
+            # The expanded graph must carry the ProvenanceRecord type, otherwise the
+            # SHACL shapes have no focus node and the run below would pass vacuously.
+            context = json.loads((REPO_ROOT / "context" / "0.0.1" / "sourcelume.jsonld").read_text())["@context"]
+            graph = Graph()
+            graph.parse(data=json.dumps({**valid_record, "@context": context}), format="json-ld")
+            expected = URIRef("https://sourcelume.apache.org/ns#ProvenanceRecord")
+            self.assertIn((URIRef(valid_record["id"]), RDF.type, expected), graph)
+
             # This should return True for a valid record
             result = validate.validate_example(example_path, validator, shapes_path)
             self.assertTrue(result)
+
+    def test_missing_context_is_required(self) -> None:
+        """A record without @context fails: other processors cannot expand it."""
+        record = self._record_with_content_period("2024-01-01T00:00:00Z", None)
+        del record["@context"]
+        errors = list(validate.load_validator().iter_errors(record))
+        self.assertEqual([e.message for e in errors], ["'@context' is a required property"])
 
     def test_schema_pins_the_canonical_context_iri(self) -> None:
         """The schema's @context const and the validator's constant must agree."""
