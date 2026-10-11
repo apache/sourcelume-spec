@@ -19,6 +19,9 @@ described in `VERSIONING.md`.
 
 ### Added
 
+- Optional `contentCreatedEnd`: end of the period in which a dataset's content was created.
+  `contentCreated` stays the start of the period, so existing records remain valid. The SHACL
+  shapes reject an end earlier than the start.
 - Added intended usage for custodyChain in spec.
 - Unit tests for the validation tooling (`tests/test_validate.py`), covering
   successful validation of minimal valid ProvenanceRecords and proper rejection

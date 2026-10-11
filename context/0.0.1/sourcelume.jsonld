@@ -37,6 +37,10 @@
       "@id": "schema:dateCreated",
       "@type": "xsd:dateTime"
     },
+    "contentCreatedEnd": {
+      "@id": "sl:contentCreatedEnd",
+      "@type": "xsd:dateTime"
+    },
     "origin": "sl:origin",
     "custodyChain": "sl:custodyChain",
     "agent": {

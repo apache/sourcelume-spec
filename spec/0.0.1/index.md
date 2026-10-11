@@ -37,7 +37,7 @@ claim's accuracy — it gives the claim a consistent shape so it *can* be verifi
 
 Records reference the context with the canonical IRI
 `https://sourcelume.apache.org/context/0.0.1/sourcelume.jsonld` and no other `@context` value.
-The context is published at that address and is not modified after release. Its namespace is the
+The context is published at that address by the release process and is not modified after release. Its namespace is the
 stable `https://sourcelume.apache.org/ns#`, so term IRIs stay the same across versions. Inline
 `@context` objects and other context IRIs are rejected.
 
@@ -58,7 +58,8 @@ stable `https://sourcelume.apache.org/ns#`, so term IRIs stay the same across ve
 | `creator` | yes | array (min 1) | One or more parties involved in producing this dataset — each a `schema:Organization` or `schema:Person` with a `name`, and an optional `role` (`originator`, `curator`, or `distributor`) to distinguish who made the underlying data from who aggregated or redistributed it. Omit `role` for a single, undifferentiated creator. |
 | `created` | yes | xsd:dateTime | When this provenance record was authored (record metadata, not content provenance). Distinct from `added` and `contentCreated` below. |
 | `added` | yes | xsd:dateTime | When the dataset was added to the collection being described (e.g. when a source was incorporated into an aggregator corpus). Mirrors the `added` field commonly found in dataset datasheets. |
-| `contentCreated` | yes | xsd:dateTime | When the dataset's underlying documents/content were originally created (e.g. the historical date of the texts). Mirrors the `created` field commonly found in dataset datasheets; use the start of the range if a range applies. |
+| `contentCreated` | yes | xsd:dateTime | When the dataset's underlying documents/content were originally created (e.g. the historical date of the texts). Mirrors the `created` field commonly found in dataset datasheets. For content created over a period this is the start of the period; see `contentCreatedEnd`. |
+| `contentCreatedEnd` | no | xsd:dateTime | End of the period in which the underlying content was created. Omit for content created at a single point in time. Must not be earlier than `contentCreated`. |
 | `origin` | yes | string | Free-text description of where the dataset's underlying data came from. |
 | `custodyChain` | yes | array (min 1) | Ordered chain of custody events, earliest first. Each entry: `agent` (IRI), `action` (string, e.g. `"collected"`, `"ingested"`, `"transformed"`), `startTime` (xsd:dateTime). A single-hop dataset has exactly one entry. |
 

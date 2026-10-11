@@ -7,6 +7,7 @@
   "required": [
     "id",
     "type",
+    "@context",
     "identifier",
     "name",
     "license",
@@ -124,7 +125,12 @@
     "contentCreated": {
       "type": "string",
       "format": "date-time",
-      "description": "When the dataset's underlying documents/content were originally created (e.g. the historical date range of the texts). Mirrors the `created` field commonly found in dataset datasheets. Use the start of the range if a range applies."
+      "description": "When the dataset's underlying documents/content were originally created (e.g. the historical date range of the texts). Mirrors the `created` field commonly found in dataset datasheets. If the content was created over a period, this is the start of the period and `contentCreatedEnd` is its end."
+    },
+    "contentCreatedEnd": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Optional. End of the period in which the dataset's underlying content was created, for content created over a period rather than at one point in time. `contentCreated` is the start of that period. Omit for content created at a single point in time. Must not be earlier than `contentCreated` (checked by the SHACL shapes)."
     },
     "origin": {
       "type": "string",
