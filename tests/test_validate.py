@@ -102,6 +102,55 @@ class ValidateToolTests(unittest.TestCase):
         errors = [e for e in validator.iter_errors(record) if list(e.path) == ["@context"]]
         self.assertEqual(len(errors), 1)
 
+    def _record_with_content_period(self, start: str, end: str | None) -> dict:
+        record = {
+            "@context": validate.CANONICAL_CONTEXT_IRI,
+            "id": "https://example.org/records/test",
+            "type": "ProvenanceRecord",
+            "identifier": "https://example.org/datasets/test",
+            "name": "Test Dataset",
+            "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "creator": [{"type": "schema:Organization", "name": "Test Org", "role": "originator"}],
+            "created": "2024-01-01T00:00:00Z",
+            "added": "2024-01-01T00:00:00Z",
+            "contentCreated": start,
+            "origin": "https://example.org/source",
+            "custodyChain": [
+                {
+                    "agent": "https://example.org/agents/test-org",
+                    "action": "created",
+                    "startTime": "2024-01-01T00:00:00Z",
+                }
+            ],
+        }
+        if end is not None:
+            record["contentCreatedEnd"] = end
+        return record
+
+    def _validate_record(self, record: dict) -> bool:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "record.jsonld"
+            path.write_text(json.dumps(record), encoding="utf-8")
+            return validate.validate_example(
+                path, validate.load_validator(), validate.SCHEMA_DIR / "sourcelume.shacl.ttl"
+            )
+
+    def test_content_created_period_is_accepted(self) -> None:
+        record = self._record_with_content_period("1850-01-01T00:00:00Z", "1900-12-31T00:00:00Z")
+        self.assertTrue(self._validate_record(record))
+
+    def test_content_created_end_is_optional(self) -> None:
+        record = self._record_with_content_period("1850-01-01T00:00:00Z", None)
+        self.assertTrue(self._validate_record(record))
+
+    def test_content_created_end_before_start_is_rejected(self) -> None:
+        record = self._record_with_content_period("1900-12-31T00:00:00Z", "1850-01-01T00:00:00Z")
+        self.assertFalse(self._validate_record(record))
+
+    def test_content_created_end_must_be_a_date_time(self) -> None:
+        record = self._record_with_content_period("1850-01-01T00:00:00Z", "not a date")
+        self.assertFalse(self._validate_record(record))
+
     def test_validate_example_with_invalid_json_schema(self) -> None:
         """Test that an invalid record fails JSON Schema validation."""
         with tempfile.TemporaryDirectory() as tmp:

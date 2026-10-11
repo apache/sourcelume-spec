@@ -75,6 +75,12 @@ sl:ProvenanceRecordShape
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:dateTime ;
+        sh:lessThanOrEquals sl:contentCreatedEnd ;
+    ] ;
+    sh:property [
+        sh:path sl:contentCreatedEnd ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
     ] ;
     sh:property [
         sh:path sl:origin ;
