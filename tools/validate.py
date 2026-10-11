@@ -29,6 +29,8 @@ SPEC_VERSION = "0.0.1"
 BASE = Path(__file__).resolve().parent.parent
 SCHEMA_DIR = BASE / "schema" / SPEC_VERSION
 EXAMPLES_DIR = BASE / "examples"
+CANONICAL_CONTEXT_IRI = "https://sourcelume.apache.org/context/0.0.1/sourcelume.jsonld"
+CONTEXT_FILE = BASE / "context" / SPEC_VERSION / "sourcelume.jsonld"
 
 
 def load_validator() -> Draft202012Validator:
@@ -46,8 +48,11 @@ def validate_example(example: Path, validator: Draft202012Validator, shapes_path
             print(f"  - {list(err.path)}: {err.message}")
         return False
 
+    # The canonical context IRI is resolved from the bundled copy, never fetched.
+    # The schema has already guaranteed that @context is exactly that IRI.
+    context = json.loads(CONTEXT_FILE.read_text())["@context"]
     data_graph = Graph()
-    data_graph.parse(str(example), format="json-ld")
+    data_graph.parse(data=json.dumps({**doc, "@context": context}), format="json-ld")
 
     conforms, _, results_text = shacl_validate(
         data_graph,

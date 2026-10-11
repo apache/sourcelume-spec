@@ -9,6 +9,14 @@ described in `VERSIONING.md`.
  
 ## [Unreleased]
  
+### Changed
+
+- Namespace moved to the stable `https://sourcelume.apache.org/ns#`. The context URL stays
+  versioned (`/context/0.0.1/`).
+- The JSON Schema accepts only the canonical context IRI as `@context`. Inline context objects
+  and other IRIs are rejected.
+- `tools/validate.py` resolves the canonical context from the bundled copy instead of fetching it.
+
 ### Added
 
 - Added intended usage for custodyChain in spec.

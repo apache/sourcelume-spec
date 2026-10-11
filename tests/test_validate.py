@@ -41,13 +41,9 @@ class ValidateToolTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             example_path = Path(tmp) / "valid.jsonld"
 
-            # Load the context from the local file
-            context_path = REPO_ROOT / "context" / "0.0.1" / "sourcelume.jsonld"
-            context = json.loads(context_path.read_text())
-
-            # Create a minimal valid ProvenanceRecord with inline context
+            # Create a minimal valid ProvenanceRecord with the canonical context IRI
             valid_record = {
-                "@context": context["@context"],
+                "@context": validate.CANONICAL_CONTEXT_IRI,
                 "id": "https://example.org/records/test",
                 "type": "ProvenanceRecord",
                 "identifier": "https://example.org/datasets/test",
@@ -81,6 +77,30 @@ class ValidateToolTests(unittest.TestCase):
             # This should return True for a valid record
             result = validate.validate_example(example_path, validator, shapes_path)
             self.assertTrue(result)
+
+    def test_schema_pins_the_canonical_context_iri(self) -> None:
+        """The schema's @context const and the validator's constant must agree."""
+        schema = validate.load_validator().schema
+        self.assertEqual(schema["properties"]["@context"]["const"], validate.CANONICAL_CONTEXT_IRI)
+
+    def test_inline_context_is_rejected(self) -> None:
+        """An inline @context object is not accepted, only the canonical IRI."""
+        validator = validate.load_validator()
+        context = json.loads((REPO_ROOT / "context" / "0.0.1" / "sourcelume.jsonld").read_text())
+        record = {"@context": context["@context"], "id": "https://example.org/records/test", "type": "ProvenanceRecord"}
+        errors = [e for e in validator.iter_errors(record) if list(e.path) == ["@context"]]
+        self.assertEqual(len(errors), 1)
+
+    def test_foreign_context_iri_is_rejected(self) -> None:
+        """A context IRI on another host is rejected, even if the path looks the same."""
+        validator = validate.load_validator()
+        record = {
+            "@context": "https://example.org/context/0.0.1/sourcelume.jsonld",
+            "id": "https://example.org/records/test",
+            "type": "ProvenanceRecord",
+        }
+        errors = [e for e in validator.iter_errors(record) if list(e.path) == ["@context"]]
+        self.assertEqual(len(errors), 1)
 
     def test_validate_example_with_invalid_json_schema(self) -> None:
         """Test that an invalid record fails JSON Schema validation."""

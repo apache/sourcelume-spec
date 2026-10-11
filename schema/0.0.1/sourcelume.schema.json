@@ -18,7 +18,10 @@
     "custodyChain"
   ],
   "properties": {
-    "@context": {},
+    "@context": {
+      "const": "https://sourcelume.apache.org/context/0.0.1/sourcelume.jsonld",
+      "description": "Only the canonical context IRI is accepted. Inline @context objects and any other IRI are rejected, so a record's meaning is fixed by the published context."
+    },
     "id": {
       "type": "string",
       "format": "uri"
