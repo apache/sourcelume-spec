@@ -1,0 +1,18 @@
+{
+  "@context": "https://sourcelume.apache.org/context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/examples/acme-undisclosed-model",
+  "type": "TrainingProvenanceRecord",
+  "identifier": "https://example.org/models/acme-llm-1",
+  "name": "Acme LLM 1",
+  "version": "1.0",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Acme AI",
+      "role": "originator"
+    }
+  ],
+  "created": "2026-10-13T00:00:00Z",
+  "disclosure": "undisclosed",
+  "note": "Illustrative example. The producer states that it does not disclose the training data of this model."
+}

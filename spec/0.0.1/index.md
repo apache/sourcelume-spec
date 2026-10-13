@@ -15,16 +15,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Apache Sourcelume Provenance Record — 0.0.1
+# Apache Sourcelume Provenance Records — 0.0.1
 
 ## Status
 
-Draft. Describes the `ProvenanceRecord` type defined by schema/context version `0.0.1`. This is
-the minimal viable shape: enough to publish a checkable claim about one dataset's identity, one
-or more role-tagged creators, its license, its origin, and an ordered custody chain. It
-intentionally leaves out cryptographic attestation and downstream usage/audit metadata — those
-are planned for later, once Sourcelume Attest exists and once the dataset-vs-model-usage scope
-question is settled.
+Draft. Describes the two record types defined by schema/context version `0.0.1`:
+
+- `ProvenanceRecord`: the minimal viable shape for a checkable claim about one dataset's identity,
+  one or more role-tagged creators, its license, its origin, and an ordered custody chain.
+- `TrainingProvenanceRecord`: a model producer's claim of which datasets a model was trained on,
+  referencing dataset records by IRI. See [TrainingProvenanceRecord](#trainingprovenancerecord).
+
+It intentionally leaves out cryptographic attestation, which is planned for later, once Sourcelume
+Attest exists.
 
 ## Purpose
 
@@ -101,6 +104,59 @@ node's full data using standard JSON-LD node inlining, rather than a bare
 `@id` reference. This is a serialization choice available to any JSON-LD
 consumer already, and does not require any change to this schema.
 
+## TrainingProvenanceRecord
+
+A `ProvenanceRecord` says where a dataset came from. It says nothing about which models were
+trained on it, and it should not: that is a claim by the model's producer, not by the dataset's.
+A `TrainingProvenanceRecord` is that second claim: *this model was trained on these datasets*. It
+is the training-data inventory of a model, a bill of materials, and it is asserted by whoever
+produced the model.
+
+The record describes the model, using the same terms `ProvenanceRecord` uses for a dataset
+(`identifier`, `name`, `version`, `creator`). The datasets are not described again. Each entry of
+`trainingData` refers to a dataset by IRI, normally the `id` of a `ProvenanceRecord`, so that the
+dataset's own provenance and license claims are found by following the reference, in the same
+way as an `agent` in a `custodyChain` (see above). A dataset record never points back to the
+models trained on it.
+
+| Field | Required | Type | Description |
+|---|---|---|---|
+| `id` | yes | IRI | Identifier for this record itself. |
+| `type` | yes | `"TrainingProvenanceRecord"` | Fixed type discriminator. |
+| `identifier` | yes | string (IRI or DOI) | Identifier for the model being described. |
+| `name` | yes | string | Human-readable model name. |
+| `version` | no | string | Model version or checkpoint, if versioned. |
+| `creator` | yes | array (min 1) | The party or parties that produced the model and make this claim. Same shape as in `ProvenanceRecord`. |
+| `created` | yes | xsd:dateTime | When this record was authored (record metadata, not a training date). |
+| `disclosure` | yes | enum | How much of the training data the producer discloses: `complete` (every training dataset is listed), `partial` (only some are listed), or `undisclosed` (the producer does not disclose it). This is the producer's own statement. |
+| `trainingData` | yes, unless `disclosure` is `undisclosed` | array (min 1) | The datasets the model was trained on, in no particular order. Entries are described below. |
+| `note` | no | string | Free-text qualifier, e.g. where the full list is published or whether `tokens` are per epoch or in total. |
+
+Each `trainingData` entry:
+
+| Field | Required | Type | Description |
+|---|---|---|---|
+| `dataset` | yes | IRI | The dataset. Normally the `id` of a `ProvenanceRecord`; any other dataset IRI is allowed when no record exists. |
+| `phase` | no | enum | Training phase in which the dataset was used: `pretraining`, `fine-tuning` (instruction, SFT and retrieval-grounding stages), `alignment`, or `evaluation` (held-out sets the model was tested on). Omit when the producer does not distinguish phases. |
+| `tokens` | no | integer ≥ 0 | Number of tokens drawn from the dataset. |
+| `share` | no | number, 0 to 1 | Fraction of the phase's training tokens that came from this dataset. Shares are not required to add up to 1, because a record may list only some of the datasets. |
+
+### Resolving the references
+
+The schema checks that `dataset` is an IRI, not that a record exists behind it. Whether a
+referenced record exists, and what state the registry holds it in, is looked up when the
+`TrainingProvenanceRecord` is read; it is not stored in the record or on the dataset record. A
+model record therefore never carries an "approved" or "verified" flag, in line with the
+non-goals below.
+
+### Example
+
+[`examples/dfm-mimir-v1-training.jsonld`](../../examples/dfm-mimir-v1-training.jsonld) describes
+DFM Mímir v1 from Table 10 of its technical report. It references the 12 dataset records
+among the `dfm-mimir-*.jsonld` examples and is marked `partial`, because the report lists 161 datasets and
+only these 12 have a record. [`examples/acme-undisclosed-model.jsonld`](../../examples/acme-undisclosed-model.jsonld)
+shows the `undisclosed` case, which needs no `trainingData`.
+
 ## License IRI conventions
 
 Two interim conventions for cases SPDX has no direct term. Both are best-effort placeholders
@@ -121,14 +177,17 @@ not permit public sharing (e.g. a data donation gated by a usage agreement), use
   version defines the record's shape, not how it gets signed.
 - **No adjudication fields.** There is no field for "verified: true/false" — Sourcelume publishes
   claims, and verification is a downstream concern for registries/auditors, not the record itself.
-- **No usage/audit metadata.** `ProvenanceRecord` is deliberately dataset-centric. A model
-  producer's downstream usage claims about a dataset (e.g. a memorisation audit) belong to a
-  separate, later record type, not to this one — this is a scope decision worth raising on the
-  dev list rather than a settled fact.
+- **No audit metadata.** `ProvenanceRecord` stays dataset-centric, and `TrainingProvenanceRecord`
+  only says which datasets a model was trained on. Results of auditing a model against its data
+  (e.g. a memorisation audit) are a further, later record type.
+- **No weight-level lineage.** `TrainingProvenanceRecord` does not describe what happened to a
+  model's weights after training (merging, quantisation, editing). It names the training data,
+  not the history of the artifact.
 
 ## See also
 
 - [`context/0.0.1/sourcelume.jsonld`](../../context/0.0.1/sourcelume.jsonld) — the JSON-LD context.
-- [`schema/0.0.1/sourcelume.schema.json`](../../schema/0.0.1/sourcelume.schema.json) — structural validation.
-- [`schema/0.0.1/sourcelume.shacl.ttl`](../../schema/0.0.1/sourcelume.shacl.ttl) — RDF-level validation.
+- [`schema/0.0.1/sourcelume.schema.json`](../../schema/0.0.1/sourcelume.schema.json) — structural validation of a `ProvenanceRecord`.
+- [`schema/0.0.1/sourcelume-training.schema.json`](../../schema/0.0.1/sourcelume-training.schema.json) — structural validation of a `TrainingProvenanceRecord`.
+- [`schema/0.0.1/sourcelume.shacl.ttl`](../../schema/0.0.1/sourcelume.shacl.ttl) — RDF-level validation of both record types.
 - `mappings/` — crosswalks to Croissant, the SPDX AI Profile, and OTDI (draft).
