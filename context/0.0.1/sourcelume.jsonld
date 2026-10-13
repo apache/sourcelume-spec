@@ -11,6 +11,7 @@
     "type": "@type",
 
     "ProvenanceRecord": "sl:ProvenanceRecord",
+    "TrainingProvenanceRecord": "sl:TrainingProvenanceRecord",
 
     "identifier": "dct:identifier",
     "name": "schema:name",
@@ -51,6 +52,23 @@
     "startTime": {
       "@id": "schema:startTime",
       "@type": "xsd:dateTime"
-    }
+    },
+
+    "trainingData": "sl:trainingData",
+    "dataset": {
+      "@id": "sl:dataset",
+      "@type": "@id"
+    },
+    "phase": "sl:phase",
+    "tokens": {
+      "@id": "sl:tokens",
+      "@type": "xsd:integer"
+    },
+    "share": {
+      "@id": "sl:share",
+      "@type": "xsd:double"
+    },
+    "disclosure": "sl:disclosure",
+    "note": "sl:note"
   }
 }

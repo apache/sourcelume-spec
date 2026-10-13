@@ -14,6 +14,19 @@ should reuse rather than duplicate.
 | `creator` | `spdx:suppliedBy` / `spdx:originatedBy` | SPDX splits "who supplied this copy" from "who originated the data" as distinct relationships; Sourcelume's `creator` is an array of role-tagged parties (`originator`/`curator`/`distributor`) as of 0.0.1, which maps more directly now but still isn't a 1:1 term match. |
 | `custodyChain` | *(no direct equivalent)* | Closest SPDX concept is a `Relationship` between elements, but there's no first-class chain-of-custody event type. |
 
+## TrainingProvenanceRecord
+
+A `TrainingProvenanceRecord` corresponds to SPDX relationships from an `ai:AIPackage` to the
+datasets it was trained on.
+
+| Sourcelume field | SPDX AI Profile term | Notes |
+|---|---|---|
+| `identifier`, `name`, `version`, `creator` | the `ai:AIPackage` and its `suppliedBy` / `originatedBy` | Same mapping as for datasets, applied to the model. |
+| `trainingData[].dataset` | `Relationship` of type `trainedOn` (`from` = the model, `to` = the dataset) | SPDX 3.0.1 `RelationshipType`. |
+| `trainingData[].phase` = `evaluation` | `Relationship` of type `testedOn` | The other phases all map to `trainedOn`; SPDX does not distinguish pretraining from fine-tuning. |
+| `trainingData[].tokens`, `share` | *(no direct equivalent)* | SPDX relationships carry no quantity. |
+| `disclosure` | *(no direct equivalent)* | SPDX can omit a relationship but cannot state that the omission is deliberate. |
+
 ## Open questions
 
 - Should `license` split into `licenseDeclared`/`licenseConcluded` in 0.0.2 to match SPDX more
