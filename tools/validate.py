@@ -31,10 +31,15 @@ SCHEMA_DIR = BASE / "schema" / SPEC_VERSION
 EXAMPLES_DIR = BASE / "examples"
 CANONICAL_CONTEXT_IRI = "https://sourcelume.apache.org/context/0.0.1/sourcelume.jsonld"
 CONTEXT_FILE = BASE / "context" / SPEC_VERSION / "sourcelume.jsonld"
+# One JSON Schema per record type; the SHACL shapes for all types share one file.
+SCHEMA_FILES = {
+    "ProvenanceRecord": "sourcelume.schema.json",
+    "TrainingProvenanceRecord": "sourcelume-training.schema.json",
+}
 
 
-def load_validator() -> Draft202012Validator:
-    schema = json.loads((SCHEMA_DIR / "sourcelume.schema.json").read_text())
+def load_validator(record_type: str = "ProvenanceRecord") -> Draft202012Validator:
+    schema = json.loads((SCHEMA_DIR / SCHEMA_FILES[record_type]).read_text())
     return Draft202012Validator(schema, format_checker=Draft202012Validator.FORMAT_CHECKER)
 
 
@@ -74,13 +79,18 @@ def main() -> int:
         print(f"No *.jsonld files found under {EXAMPLES_DIR} — nothing to validate.", file=sys.stderr)
         return 0
 
-    validator = load_validator()
+    validators = {record_type: load_validator(record_type) for record_type in SCHEMA_FILES}
     shapes_path = SCHEMA_DIR / "sourcelume.shacl.ttl"
 
-    ok = all(
-        [validate_example(example, validator, shapes_path) for example in examples]
-    )
-    return 0 if ok else 1
+    results = []
+    for example in examples:
+        record_type = json.loads(example.read_text()).get("type")
+        if record_type not in validators:
+            print(f"FAIL {example.name}: unknown record type {record_type!r}")
+            results.append(False)
+            continue
+        results.append(validate_example(example, validators[record_type], shapes_path))
+    return 0 if all(results) else 1
 
 
 if __name__ == "__main__":

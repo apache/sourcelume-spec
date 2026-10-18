@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sourcelume.apache.org/schema/0.0.1/sourcelume-training.schema.json",
+  "title": "Apache Sourcelume Training Provenance Record (0.0.1)",
+  "description": "Structural schema for a Sourcelume TrainingProvenanceRecord: a model producer's claim of which datasets a model was trained on. Datasets are referenced by IRI (typically the `id` of a ProvenanceRecord); their provenance is not repeated here. No signature block yet.",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "@context",
+    "identifier",
+    "name",
+    "creator",
+    "created",
+    "disclosure"
+  ],
+  "properties": {
+    "@context": {
+      "const": "https://sourcelume.apache.org/context/0.0.1/sourcelume.jsonld",
+      "description": "Only the canonical context IRI is accepted. Inline @context objects and any other IRI are rejected, so a record's meaning is fixed by the published context."
+    },
+    "id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "type": {
+      "const": "TrainingProvenanceRecord"
+    },
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identifier for the model being described (e.g. a DOI or persistent URL), not for this record."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable model name."
+    },
+    "version": {
+      "type": "string",
+      "description": "Model version or checkpoint, if versioned."
+    },
+    "creator": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The party or parties that produced the model and make this claim.",
+      "items": {
+        "type": "object",
+        "required": ["type", "name"],
+        "properties": {
+          "type": {
+            "enum": ["schema:Organization", "schema:Person"]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "type": "string",
+            "enum": ["originator", "curator", "distributor"],
+            "description": "Optional. Same meaning as in ProvenanceRecord, applied to the model."
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this training provenance record was authored (record metadata, not a training date)."
+    },
+    "disclosure": {
+      "type": "string",
+      "enum": ["complete", "partial", "undisclosed"],
+      "description": "How much of the training data the producer discloses in `trainingData`. 'complete': every training dataset is listed. 'partial': only some are listed. 'undisclosed': the producer does not disclose its training data; `trainingData` may then be omitted. This is the producer's own statement about its disclosure, not a judgement by Sourcelume."
+    },
+    "trainingData": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The datasets the model was trained on, in no particular order. Required unless `disclosure` is 'undisclosed'.",
+      "items": {
+        "type": "object",
+        "required": ["dataset"],
+        "properties": {
+          "dataset": {
+            "type": "string",
+            "format": "uri",
+            "description": "IRI of the dataset. Normally the `id` of a Sourcelume ProvenanceRecord, so its provenance can be resolved. May also be any other dataset IRI (for example a repository page) when no record exists."
+          },
+          "phase": {
+            "type": "string",
+            "enum": ["pretraining", "fine-tuning", "alignment", "evaluation"],
+            "description": "Optional. Training phase in which the dataset was used. Omit when the producer does not distinguish phases. 'fine-tuning' covers instruction, SFT and retrieval-grounding stages; 'evaluation' is for held-out sets the model was tested on, not trained on."
+          },
+          "tokens": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Optional. Number of tokens drawn from the dataset (per epoch, or in total; say which in `note`)."
+          },
+          "share": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Optional. Fraction of the phase's training tokens that came from this dataset, between 0 and 1."
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "note": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional. Free-text qualifier for the claim, e.g. where the full list is published, or whether `tokens` are per epoch or in total."
+    }
+  },
+  "if": {
+    "properties": {
+      "disclosure": {
+        "enum": ["complete", "partial"]
+      }
+    }
+  },
+  "then": {
+    "required": ["trainingData"]
+  },
+  "additionalProperties": true
+}

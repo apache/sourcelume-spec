@@ -19,6 +19,14 @@ described in `VERSIONING.md`.
 
 ### Added
 
+- `TrainingProvenanceRecord`: a model producer's claim of which datasets a model was trained
+  on, referencing dataset records by IRI (`trainingData[].dataset`), with optional `phase`,
+  `tokens` and `share` per entry and a `disclosure` statement (`complete`, `partial`,
+  `undisclosed`). It has its own JSON Schema (`sourcelume-training.schema.json`); the SHACL
+  shapes and the context cover both record types. `ProvenanceRecord` is unchanged.
+- Example records: the 12 DFM Mímir v1 dataset records, a `TrainingProvenanceRecord` for
+  DFM Mímir v1 referencing them, and an `undisclosed` example.
+- `tools/validate.py` picks the schema by the record's `type`.
 - Optional `contentCreatedEnd`: end of the period in which a dataset's content was created.
   `contentCreated` stays the start of the period, so existing records remain valid. The SHACL
   shapes reject an end earlier than the start.

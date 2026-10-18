@@ -93,3 +93,105 @@ sl:ProvenanceRecordShape
         sh:minCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
     ] .
+
+sl:TrainingProvenanceRecordShape
+    a sh:NodeShape ;
+    sh:targetClass sl:TrainingProvenanceRecord ;
+    sh:property [
+        sh:path dct:identifier ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path schema:name ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path schema:version ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path schema:creator ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+    ] ;
+    sh:property [
+        sh:path dct:created ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    sh:property [
+        sh:path sl:disclosure ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:in (
+            "complete"
+            "partial"
+            "undisclosed"
+        ) ;
+    ] ;
+    sh:property [
+        sh:path sl:trainingData ;
+        sh:node sl:TrainingDataEntryShape ;
+    ] ;
+    sh:property [
+        sh:path sl:note ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    # trainingData is required unless the producer declares the data undisclosed.
+    # An empty trainingData array passes these shapes vacuously; the JSON Schema's
+    # minItems 1 rejects that case, so the schema is authoritative for it.
+    sh:or (
+        [
+            sh:property [
+                sh:path sl:disclosure ;
+                sh:hasValue "undisclosed" ;
+            ] ;
+        ]
+        [
+            sh:property [
+                sh:path sl:trainingData ;
+                sh:minCount 1 ;
+            ] ;
+        ]
+    ) .
+
+sl:TrainingDataEntryShape
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sl:dataset ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:property [
+        sh:path sl:phase ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:in (
+            "pretraining"
+            "fine-tuning"
+            "alignment"
+            "evaluation"
+        ) ;
+    ] ;
+    sh:property [
+        sh:path sl:tokens ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+    ] ;
+    sh:property [
+        sh:path sl:share ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+    ] .

@@ -17,7 +17,8 @@ ssourcelume-spec/
 │   └── latest -> 0.0.1/        # symlink or redirect, NOT a moving target for actual releases
 ├── schema/
 │   ├── 0.0.1/
-│   │   ├── sourcelume.schema.json   # JSON Schema for structural validation
+│   │   ├── sourcelume.schema.json   # JSON Schema for structural validation (ProvenanceRecord)
+│   │   ├── sourcelume-training.schema.json   # JSON Schema for TrainingProvenanceRecord
 │   │   └── sourcelume.shacl.ttl     # SHACL shapes for RDF-level validation (optional but common for JSON-LD vocabs)
 │   └── ...
 ├── spec/                         # the prose specification

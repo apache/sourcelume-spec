@@ -79,11 +79,12 @@ def render_field_table(schema: dict) -> str:
 
 # Render generated documentation for one schema version and return the output path.
 def render_version(version_dir: Path) -> Path | None:
-    schema_files = list(version_dir.glob("*.schema.json"))
-    if not schema_files:
+    # Only the ProvenanceRecord schema is rendered so far, not sourcelume-training.schema.json.
+    schema_file = version_dir / "sourcelume.schema.json"
+    if not schema_file.exists():
         return None
 
-    schema = json.loads(schema_files[0].read_text())
+    schema = json.loads(schema_file.read_text())
     doc = render_field_table(schema)
 
     output_dir = SPEC_DIR / version_dir.name
@@ -106,7 +107,7 @@ def main() -> int:
         if output_path:
             print(f"Wrote {output_path}")
         else:
-            print(f"Skipped {version_dir}: no *.schema.json file found.")
+            print(f"Skipped {version_dir}: no sourcelume.schema.json file found.")
 
     return 0
 

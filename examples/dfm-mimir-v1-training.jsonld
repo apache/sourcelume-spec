@@ -1,0 +1,92 @@
+{
+  "@context": "https://sourcelume.apache.org/context/0.0.1/sourcelume.jsonld",
+  "id": "https://sourcelume.apache.org/records/dfm-mimir-v1/training",
+  "type": "TrainingProvenanceRecord",
+  "identifier": "https://huggingface.co/danish-foundation-models/DFM-Mimir",
+  "name": "DFM Mímir v1",
+  "version": "v1",
+  "creator": [
+    {
+      "type": "schema:Organization",
+      "name": "Danish Foundation Models",
+      "role": "originator"
+    }
+  ],
+  "created": "2026-10-13T00:00:00Z",
+  "disclosure": "partial",
+  "trainingData": [
+    {
+      "dataset": "https://sourcelume.apache.org/records/dfm-mimir-v1/hrm-text-data-io-cleaned",
+      "phase": "pretraining",
+      "tokens": 11920000000,
+      "share": 0.1691
+    },
+    {
+      "dataset": "https://sourcelume.apache.org/records/dfm-mimir-v1/laerebogen",
+      "phase": "pretraining",
+      "tokens": 8320000000,
+      "share": 0.1181
+    },
+    {
+      "dataset": "https://sourcelume.apache.org/records/dfm-mimir-v1/dfm-dyna-instruct",
+      "phase": "pretraining",
+      "tokens": 3540000000,
+      "share": 0.0503
+    },
+    {
+      "dataset": "https://sourcelume.apache.org/records/dfm-mimir-v1/opus-da-en-permissive",
+      "phase": "pretraining",
+      "tokens": 2900000000,
+      "share": 0.0412
+    },
+    {
+      "dataset": "https://sourcelume.apache.org/records/dfm-mimir-v1/wiki-instruct-da",
+      "phase": "pretraining",
+      "tokens": 988000000,
+      "share": 0.0140
+    },
+    {
+      "dataset": "https://sourcelume.apache.org/records/dfm-mimir-v1/dfm8-openhermes-da",
+      "phase": "pretraining",
+      "tokens": 922000000,
+      "share": 0.0131
+    },
+    {
+      "dataset": "https://sourcelume.apache.org/records/dfm-mimir-v1/dbc",
+      "phase": "pretraining",
+      "tokens": 356000000,
+      "share": 0.00505
+    },
+    {
+      "dataset": "https://sourcelume.apache.org/records/dfm-mimir-v1/danish-dynaword-denoising",
+      "phase": "pretraining",
+      "tokens": 323000000,
+      "share": 0.00459
+    },
+    {
+      "dataset": "https://sourcelume.apache.org/records/dfm-mimir-v1/lexdk-articles",
+      "phase": "pretraining",
+      "tokens": 313000000,
+      "share": 0.00445
+    },
+    {
+      "dataset": "https://sourcelume.apache.org/records/dfm-mimir-v1/danish-dynaword-prefix-continuation",
+      "phase": "pretraining",
+      "tokens": 252000000,
+      "share": 0.00357
+    },
+    {
+      "dataset": "https://sourcelume.apache.org/records/dfm-mimir-v1/danish-dynaword-span-filling",
+      "phase": "pretraining",
+      "tokens": 251000000,
+      "share": 0.00356
+    },
+    {
+      "dataset": "https://sourcelume.apache.org/records/dfm-mimir-v1/danish-dynaword-paragraph-reordering",
+      "phase": "pretraining",
+      "tokens": 160000000,
+      "share": 0.00228
+    }
+  ],
+  "note": "Illustrative example authored from Table 10 (Appendix A) of the Mímir v1 technical report, arXiv 2608.13517, which lists all 161 training datasets. Only the 12 datasets that have a Sourcelume record are listed here, together about 43 percent of the sampled tokens. Token counts are per epoch and rounded as in the report; shares are fractions of the sampled tokens."
+}
