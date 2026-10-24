@@ -33,9 +33,20 @@ github:
     - transparency
     - specification
     - apache
+
+  features:
+    issues: true
+
   enabled_merge_buttons:
     squash: true
     merge: false
     rebase: false
+
   protected_branches:
     main: {}
+
+notifications:
+  commits: commits@sourcelume.apache.org
+  issues: issues@sourcelume.apache.org
+  pullrequests: dev@sourcelume.apache.org
+  jobs: commits@sourcelume.apache.org
