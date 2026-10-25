@@ -11,6 +11,12 @@ described in `VERSIONING.md`.
  
 ### Changed
 
+- A `custodyChain` agent may be the `id` of any Sourcelume record, including a
+  `TrainingProvenanceRecord`, no longer only of a `ProvenanceRecord`. Data that validated before
+  still does; the schemas are unchanged.
+- New section "One IRI, one record": an IRI denotes exactly one record, of one type, for its whole
+  life; references resolve across record types, and a Registry reports the referenced record's
+  current state when the referencing record is read (one hop, status only).
 - Namespace moved to the stable `https://sourcelume.apache.org/ns#`. The context URL stays
   versioned (`/context/0.0.1/`).
 - The JSON Schema accepts only the canonical context IRI as `@context`. Inline context objects

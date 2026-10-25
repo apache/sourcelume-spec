@@ -72,9 +72,11 @@ Each `custodyChain` entry's `agent` is an IRI. That IRI may point to either:
 
 - an opaque external identifier with no corresponding Sourcelume record (e.g. a
   organization's homepage, a DOI, a repository URL), or
-- the `id` of another Sourcelume `ProvenanceRecord`.
+- the `id` of another Sourcelume record: a `ProvenanceRecord`, or a
+  `TrainingProvenanceRecord` when the agent is a model that processed the data
+  (for example, one that rewrote it).
 
-When `agent` refers to another `ProvenanceRecord`, that upstream record's own
+When `agent` refers to another Sourcelume record, that upstream record's own
 provenance is **not** nested or embedded inside the current record. A consumer
 who wants to trace further back resolves `agent` as a reference — for example,
 via the Registry's query API — to a separately-signed record of its own.
@@ -103,6 +105,16 @@ example, an offline audit bundle) may still choose to inline the referenced
 node's full data using standard JSON-LD node inlining, rather than a bare
 `@id` reference. This is a serialization choice available to any JSON-LD
 consumer already, and does not require any change to this schema.
+
+### One IRI, one record
+
+An IRI denotes exactly one record, of one type, for the whole life of that record. The `id` names
+the record, not the thing the record describes: an `agent` that is the `id` of a
+`TrainingProvenanceRecord` refers to that record, not to the model itself.
+
+References between records (`custodyChain[].agent`, `trainingData[].dataset`) are by IRI alone
+and resolve across record types. A Registry reports the current state of the record a reference
+names when the referencing record is read: one hop, status only, nothing stored in either record.
 
 ## TrainingProvenanceRecord
 
