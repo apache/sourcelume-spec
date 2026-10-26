@@ -124,6 +124,17 @@ The validation tooling is expected to check things such as:
 - SHACL validation, where applicable
 - Cross-version consistency for published contexts and schemas
 
+To generate a field reference for each schema version:
+```bash
+uv run python tools/render-docs.py
+```
+
+The generated `spec/<version>/generated-field-reference.md` contains a separate
+table for each `*.schema.json` file, including `ProvenanceRecord` and
+`TrainingProvenanceRecord`. Fields required by a schema's `then` or `else`
+branch are marked conditional; see their descriptions for the condition.
+These generated files are ignored by Git and should not be committed.
+
 ## Run Maven checks
 
 The Maven build packages the specification resources for downstream use.
