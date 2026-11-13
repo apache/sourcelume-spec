@@ -17,6 +17,7 @@
     {
       "type": "schema:Organization",
       "name": "Danish Foundation Models",
+      "id": "https://www.foundationmodels.dk",
       "role": "curator"
     }
   ],
