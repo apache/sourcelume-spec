@@ -25,6 +25,9 @@ described in `VERSIONING.md`.
 
 ### Added
 
+- Optional `id` on `creator` entries (both record types): an IRI or DID identifying the
+  party itself, so an attestation can match a signer to the party asserting the record. Maps to
+  `@id` in the existing context — no new terms.
 - `TrainingProvenanceRecord`: a model producer's claim of which datasets a model was trained
   on, referencing dataset records by IRI (`trainingData[].dataset`), with optional `phase`,
   `tokens` and `share` per entry and a `disclosure` statement (`complete`, `partial`,
