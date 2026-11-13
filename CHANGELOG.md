@@ -25,6 +25,9 @@ described in `VERSIONING.md`.
 
 ### Added
 
+- Optional `id` on `creator` entries (both record types): an IRI or DID identifying the
+  party itself, so an attestation can match a signer to the party asserting the record. Maps to
+  `@id` in the existing context — no new terms.
 - Optional `distribution` on both record types: the files a record's claim covers, each entry
   naming one file by `contentUrl` and carrying its SHA-256 checksum in `sha256` — so a signature
   can be bound to exact artifacts. Mirrors the per-`FileObject` `sha256` of Croissant's

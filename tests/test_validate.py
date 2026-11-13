@@ -154,6 +154,19 @@ class ValidateToolTests(unittest.TestCase):
                 path, validate.load_validator(), validate.SCHEMA_DIR / "sourcelume.shacl.ttl"
             )
 
+    def test_creator_may_carry_an_identifier(self) -> None:
+        """A creator entry may name the party by an `id` IRI (or DID) for signer matching."""
+        record = self._record_with_content_period("1850-01-01T00:00:00Z", None)
+        record["creator"] = [
+            {
+                "type": "schema:Organization",
+                "name": "Test Org",
+                "id": "did:web:example.org",
+                "role": "originator",
+            }
+        ]
+        self.assertTrue(self._validate_record(record))
+
     def test_distribution_names_files_the_claim_covers(self) -> None:
         """A record may list the files its claim covers, each with a sha256."""
         record = self._record_with_content_period("1850-01-01T00:00:00Z", None)
@@ -318,6 +331,13 @@ class TrainingProvenanceRecordTests(unittest.TestCase):
         record = self._record()
         del record["creator"]
         self.assertRejectedByBoth(record)
+
+    def test_creator_may_carry_an_identifier(self) -> None:
+        self.assertAccepted(
+            self._record(
+                creator=[{"type": "schema:Organization", "name": "Test Org", "id": "did:web:example.org"}]
+            )
+        )
 
     def test_distribution_names_the_models_artifacts(self) -> None:
         self.assertAccepted(

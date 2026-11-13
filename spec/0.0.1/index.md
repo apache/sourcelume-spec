@@ -58,7 +58,7 @@ stable `https://sourcelume.apache.org/ns#`, so term IRIs stay the same across ve
 | `licenseNote` | no | string | Free-text qualifier for the claimed `license` IRI, for cases where the IRI alone is materially misleading. The classic case is a `license` IRI that reflects a processing artifact rather than an intended selection (e.g. a code subset that filters to a copyleft license by a bug, so the license IRI reads copyleft even though the intent was permissively-licensed code). Omit when the IRI faithfully represents the licensing situation. |
 | `licenseCategory` | no | enum | Category of the claimed `license`, so its licensing *model* is checkable at a glance rather than only by reading the IRI. Values: `open-source` (standard permissive OSS, e.g. Apache 2.0, MIT), `open-data` (standard permissive data license, e.g. ODC-By, CC0), `public-domain` (CC Public Domain Mark or equivalent), `agreement-supplied` (data shared under a bilateral agreement whose terms do not permit public sharing), `use-restricted` (open IP grants but with use-based restrictions), `risk-based` (tiered access by risk band), `other`. Omit when the IRI is a well-known standard license whose category is obvious. |
 | `licenseHistory` | no | array (min 1) | Prior licenses the dataset was distributed under, earliest first, when the dataset's own dataset-level license changed over time. The current license remains in the `license` field; this array records the superseded ones. Each entry: `iri` (prior license IRI) and `effectiveDate` (xsd:dateTime). Omit for datasets whose license has been stable since release. |
-| `creator` | yes | array (min 1) | One or more parties involved in producing this dataset — each a `schema:Organization` or `schema:Person` with a `name`, and an optional `role` (`originator`, `curator`, or `distributor`) to distinguish who made the underlying data from who aggregated or redistributed it. Omit `role` for a single, undifferentiated creator. |
+| `creator` | yes | array (min 1) | One or more parties involved in producing this dataset — each a `schema:Organization` or `schema:Person` with a `name`, an optional `role` (`originator`, `curator`, or `distributor`) to distinguish who made the underlying data from who aggregated or redistributed it, and an optional `id` identifying the party itself (see [Identifying a creator](#identifying-a-creator) below). Omit `role` for a single, undifferentiated creator. |
 | `created` | yes | xsd:dateTime | When this provenance record was authored (record metadata, not content provenance). Distinct from `added` and `contentCreated` below. |
 | `added` | yes | xsd:dateTime | When the dataset was added to the collection being described (e.g. when a source was incorporated into an aggregator corpus). Mirrors the `added` field commonly found in dataset datasheets. |
 | `contentCreated` | yes | xsd:dateTime | When the dataset's underlying documents/content were originally created (e.g. the historical date of the texts). Mirrors the `created` field commonly found in dataset datasheets. For content created over a period this is the start of the period; see `contentCreatedEnd`. |
@@ -106,6 +106,18 @@ example, an offline audit bundle) may still choose to inline the referenced
 node's full data using standard JSON-LD node inlining, rather than a bare
 `@id` reference. This is a serialization choice available to any JSON-LD
 consumer already, and does not require any change to this schema.
+
+### Identifying a creator
+
+A `creator` entry may carry an optional `id`: an IRI that names the party itself — for example the
+party's homepage, an organizational identifier, or a DID such as `did:web:example.com`. Because the
+context maps `id` to `@id`, a creator entry with `id` becomes an identified node in JSON-LD terms.
+
+The `id` identifies *who* the creator is — not a Sourcelume record — and does not imply a record
+exists for that party. Its purpose is attestation: a signature can then be matched to the party
+asserting the record, rather than to a display `name`. Omit `id` when the party has no usable
+identifier; a record may also be signed by a party not listed as a creator, in which case the
+signature carries the signer's identity instead.
 
 ### One IRI, one record
 

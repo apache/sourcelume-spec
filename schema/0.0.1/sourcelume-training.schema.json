@@ -55,6 +55,11 @@
             "type": "string",
             "minLength": 1
           },
+          "id": {
+            "type": "string",
+            "format": "uri",
+            "description": "Optional. IRI identifying the party itself — e.g. the party's homepage, or a DID such as did:web:example.com. Maps to @id, so the creator becomes an identified node. Same meaning as in ProvenanceRecord."
+          },
           "role": {
             "type": "string",
             "enum": ["originator", "curator", "distributor"],

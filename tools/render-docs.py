@@ -14,13 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-"""Render human-readable docs from the JSON Schema.
+"""Render human-readable docs from the JSON Schemas.
 
-This is a starting skeleton. It currently generates a single Markdown
-field-reference table per published schema version, from
-`schema/<version>/sourcelume.schema.json`. It does not yet render SHACL
-shapes, cross-link to the prose spec, or produce HTML output — see
-SETUP.md for the intended scope.
+Generates a Markdown field reference per schema version, with a table
+for each `schema/<version>/*.schema.json` record schema. This includes
+both ProvenanceRecord and TrainingProvenanceRecord. It does not render
+SHACL shapes, cross-link to the prose spec, or produce HTML output.
 
 Usage:
     uv run python tools/render-docs.py
@@ -29,7 +28,6 @@ Output is written to `spec/<version>/generated-field-reference.md` for
 each published schema version. Generated files are not intended to be
 committed until the project decides how generated output should be
 handled (see the "Notes for contributors" section of SETUP.md).
-Note: gitIgnores spec/*/generated-field-reference.md entry exists.
 """
 
 from __future__ import annotations
@@ -57,12 +55,14 @@ def find_version_dirs(base: Path) -> list[Path]:
 def render_field_table(schema: dict) -> str:
     properties = schema.get("properties", {})
     required = set(schema.get("required", []))
+    conditional_required = set()
+    for keyword in ("then", "else"):
+        branch = schema.get(keyword)
+        if isinstance(branch, dict):
+            conditional_required.update(branch.get("required", []))
 
     lines = [
-        f"# {schema.get('title', 'Schema Reference')}",
-        "",
-        "> Generated from the JSON Schema. Do not edit by hand — edit the",
-        "> schema and re-run `tools/render-docs.py` instead.",
+        f"## {schema.get('title', 'Schema Reference')}",
         "",
         "| Field | Type | Required | Description |",
         "|-------|------|----------|-------------|",
@@ -70,7 +70,12 @@ def render_field_table(schema: dict) -> str:
 
     for field_name, field_def in properties.items():
         field_type = field_def.get("type", field_def.get("format", "—"))
-        is_required = "Yes" if field_name in required else "No"
+        if field_name in required:
+            is_required = "Yes"
+        elif field_name in conditional_required:
+            is_required = "Conditional (see description)"
+        else:
+            is_required = "No"
         description = field_def.get("description", "").replace("\n", " ")
         lines.append(f"| `{field_name}` | {field_type} | {is_required} | {description} |")
 
@@ -79,18 +84,29 @@ def render_field_table(schema: dict) -> str:
 
 # Render generated documentation for one schema version and return the output path.
 def render_version(version_dir: Path) -> Path | None:
-    # Only the ProvenanceRecord schema is rendered so far, not sourcelume-training.schema.json.
-    schema_file = version_dir / "sourcelume.schema.json"
-    if not schema_file.exists():
+    schema_files = sorted(
+        version_dir.glob("*.schema.json"),
+        key=lambda path: (path.name != "sourcelume.schema.json", path.name),
+    )
+    if not schema_files:
         return None
 
-    schema = json.loads(schema_file.read_text())
-    doc = render_field_table(schema)
+    sections = [
+        f"# Apache Sourcelume Field Reference ({version_dir.name})",
+        "",
+        "> Generated from the JSON Schemas. Do not edit by hand — edit the",
+        "> schemas and re-run `tools/render-docs.py` instead.",
+        "",
+    ]
+    for schema_file in schema_files:
+        schema = json.loads(schema_file.read_text(encoding="utf-8"))
+        sections.append(render_field_table(schema))
+    doc = "\n".join(sections)
 
     output_dir = SPEC_DIR / version_dir.name
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / "generated-field-reference.md"
-    output_path.write_text(doc)
+    output_path.write_text(doc, encoding="utf-8")
     return output_path
 
 
@@ -107,7 +123,7 @@ def main() -> int:
         if output_path:
             print(f"Wrote {output_path}")
         else:
-            print(f"Skipped {version_dir}: no sourcelume.schema.json file found.")
+            print(f"Skipped {version_dir}: no *.schema.json files found.")
 
     return 0
 

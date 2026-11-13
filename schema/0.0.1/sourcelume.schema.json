@@ -104,6 +104,11 @@
             "type": "string",
             "minLength": 1
           },
+          "id": {
+            "type": "string",
+            "format": "uri",
+            "description": "Optional. IRI identifying the party itself — e.g. the party's homepage, or a DID such as did:web:example.com. Maps to @id, so the creator becomes an identified node. It names who the creator is, not a Sourcelume record, so a signer can be matched to the party asserting this record. Omit when the party has no stable identifier."
+          },
           "role": {
             "type": "string",
             "enum": ["originator", "curator", "distributor"],
