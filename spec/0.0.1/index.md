@@ -65,6 +65,7 @@ stable `https://sourcelume.apache.org/ns#`, so term IRIs stay the same across ve
 | `contentCreatedEnd` | no | xsd:dateTime | End of the period in which the underlying content was created. Omit for content created at a single point in time. Must not be earlier than `contentCreated`. |
 | `origin` | yes | string | Free-text description of where the dataset's underlying data came from. |
 | `custodyChain` | yes | array (min 1) | Ordered chain of custody events, earliest first. Each entry: `agent` (IRI), `action` (string, e.g. `"collected"`, `"ingested"`, `"transformed"`), `startTime` (xsd:dateTime). A single-hop dataset has exactly one entry. |
+| `distribution` | no | array (min 1) | The files this record's claim covers — each entry names one file by `contentUrl` (IRI) and carries its SHA-256 checksum as `sha256` (64 hex characters). See [Naming the files a claim covers](#naming-the-files-a-claim-covers) below. |
 
 ### `custodyChain` entries as a graph, not a nested tree
 
@@ -116,6 +117,21 @@ References between records (`custodyChain[].agent`, `trainingData[].dataset`) ar
 and resolve across record types. A Registry reports the current state of the record a reference
 names when the referencing record is read: one hop, status only, nothing stored in either record.
 
+### Naming the files a claim covers
+
+Both record types may carry an optional `distribution` list: the files the record's claim describes.
+Each entry names one file by `contentUrl` and carries its SHA-256 checksum in `sha256`. This exists
+for attestation: a signature over a record shows *who* made the claim, and `distribution` fixes
+*which files* the claim is about — a signature that covers only a name and version binds nothing
+concrete.
+
+The field mirrors the per-`FileObject` `sha256` of Croissant's `distribution` (see
+[`mappings/croissant-crosswalk.md`](../../mappings/croissant-crosswalk.md)), so records stay aligned
+with the existing crosswalk. Only `sha256` is defined; weaker algorithms such as `md5` are
+deliberately not offered. For a `ProvenanceRecord` the entries describe dataset files; for a
+`TrainingProvenanceRecord`, the model's artifacts (weights, checkpoints). Omit `distribution` when
+the record's subject has no downloadable files, or when listing them is not useful.
+
 ## TrainingProvenanceRecord
 
 A `ProvenanceRecord` says where a dataset came from. It says nothing about which models were
@@ -143,6 +159,7 @@ models trained on it.
 | `disclosure` | yes | enum | How much of the training data the producer discloses: `complete` (every training dataset is listed), `partial` (only some are listed), or `undisclosed` (the producer does not disclose it). This is the producer's own statement. |
 | `trainingData` | yes, unless `disclosure` is `undisclosed` | array (min 1) | The datasets the model was trained on, in no particular order. Entries are described below. |
 | `note` | no | string | Free-text qualifier, e.g. where the full list is published or whether `tokens` are per epoch or in total. |
+| `distribution` | no | array (min 1) | The files this record's claim covers — for a model, its artifacts such as weights or checkpoints. Same shape as in `ProvenanceRecord`; see [Naming the files a claim covers](#naming-the-files-a-claim-covers). |
 
 Each `trainingData` entry:
 

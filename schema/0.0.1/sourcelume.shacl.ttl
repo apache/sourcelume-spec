@@ -92,6 +92,10 @@ sl:ProvenanceRecordShape
         sh:path sl:custodyChain ;
         sh:minCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
+    ] ;
+    sh:property [
+        sh:path schema:distribution ;
+        sh:node sl:DistributionEntryShape ;
     ] .
 
 sl:TrainingProvenanceRecordShape
@@ -145,6 +149,10 @@ sl:TrainingProvenanceRecordShape
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
     ] ;
+    sh:property [
+        sh:path schema:distribution ;
+        sh:node sl:DistributionEntryShape ;
+    ] ;
     # trainingData is required unless the producer declares the data undisclosed.
     # An empty trainingData array passes these shapes vacuously; the JSON Schema's
     # minItems 1 rejects that case, so the schema is authoritative for it.
@@ -194,4 +202,20 @@ sl:TrainingDataEntryShape
         sh:datatype xsd:double ;
         sh:minInclusive 0 ;
         sh:maxInclusive 1 ;
+    ] .
+
+sl:DistributionEntryShape
+    a sh:NodeShape ;
+    sh:property [
+        sh:path schema:contentUrl ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:property [
+        sh:path schema:sha256 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[0-9a-fA-F]{64}$" ;
     ] .

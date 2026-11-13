@@ -25,6 +25,11 @@ described in `VERSIONING.md`.
 
 ### Added
 
+- Optional `distribution` on both record types: the files a record's claim covers, each entry
+  naming one file by `contentUrl` and carrying its SHA-256 checksum in `sha256` — so a signature
+  can be bound to exact artifacts. Mirrors the per-`FileObject` `sha256` of Croissant's
+  `distribution`; `md5` is deliberately not offered. Mapped to `schema:distribution`,
+  `schema:contentUrl` and `schema:sha256` — no new Sourcelume terms.
 - `TrainingProvenanceRecord`: a model producer's claim of which datasets a model was trained
   on, referencing dataset records by IRI (`trainingData[].dataset`), with optional `phase`,
   `tokens` and `share` per entry and a `disclosure` statement (`complete`, `partial`,

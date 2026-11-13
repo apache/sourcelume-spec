@@ -154,6 +154,27 @@ class ValidateToolTests(unittest.TestCase):
                 path, validate.load_validator(), validate.SCHEMA_DIR / "sourcelume.shacl.ttl"
             )
 
+    def test_distribution_names_files_the_claim_covers(self) -> None:
+        """A record may list the files its claim covers, each with a sha256."""
+        record = self._record_with_content_period("1850-01-01T00:00:00Z", None)
+        record["distribution"] = [
+            {
+                "contentUrl": "https://example.org/files/data.jsonl.gz",
+                "sha256": "dc73d45f540167e50b0fd352772cc00e50a03fe214c41cabf66e48b8ab4eab11",
+            }
+        ]
+        self.assertTrue(self._validate_record(record))
+
+    def test_distribution_entry_needs_url_and_digest(self) -> None:
+        record = self._record_with_content_period("1850-01-01T00:00:00Z", None)
+        record["distribution"] = [{"contentUrl": "https://example.org/files/data.jsonl.gz"}]
+        self.assertFalse(self._validate_record(record))
+
+        record["distribution"] = [
+            {"contentUrl": "https://example.org/files/data.jsonl.gz", "sha256": "not-hex"}
+        ]
+        self.assertFalse(self._validate_record(record))
+
     def test_content_created_period_is_accepted(self) -> None:
         record = self._record_with_content_period("1850-01-01T00:00:00Z", "1900-12-31T00:00:00Z")
         self.assertTrue(self._validate_record(record))
@@ -297,6 +318,23 @@ class TrainingProvenanceRecordTests(unittest.TestCase):
         record = self._record()
         del record["creator"]
         self.assertRejectedByBoth(record)
+
+    def test_distribution_names_the_models_artifacts(self) -> None:
+        self.assertAccepted(
+            self._record(
+                distribution=[
+                    {
+                        "contentUrl": "https://example.org/models/test/model.safetensors",
+                        "sha256": "dc73d45f540167e50b0fd352772cc00e50a03fe214c41cabf66e48b8ab4eab11",
+                    }
+                ]
+            )
+        )
+
+    def test_distribution_entry_without_sha256_is_rejected(self) -> None:
+        self.assertRejectedByBoth(
+            self._record(distribution=[{"contentUrl": "https://example.org/models/test/m.safetensors"}])
+        )
 
     def test_dataset_record_is_not_accepted_as_training_record(self) -> None:
         """The two record types have separate schemas; neither accepts the other's type."""

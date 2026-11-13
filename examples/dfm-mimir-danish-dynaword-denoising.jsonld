@@ -43,5 +43,11 @@
       "action": "published-accepted-rows-as-danish-dynaword-denoising",
       "startTime": "2026-05-15T00:00:00Z"
     }
+  ],
+  "distribution": [
+    {
+      "contentUrl": "https://huggingface.co/datasets/schneiderkamplab/danish-dynaword-denoising/resolve/main/data/dfm8-extra-train-00004.jsonl.gz",
+      "sha256": "dc73d45f540167e50b0fd352772cc00e50a03fe214c41cabf66e48b8ab4eab11"
+    }
   ]
 }

@@ -160,6 +160,28 @@
         },
         "additionalProperties": true
       }
+    },
+    "distribution": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Optional. The files this record's claim covers, so a signature over the record names the exact artifacts it describes rather than just a dataset name. Each entry names one file by `contentUrl` and carries its SHA-256 checksum in `sha256` (lowercase or uppercase hex). Mirrors the per-FileObject `sha256` of Croissant's `distribution`; weaker algorithms such as md5 are deliberately not offered.",
+      "items": {
+        "type": "object",
+        "required": ["contentUrl", "sha256"],
+        "properties": {
+          "contentUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Where the file can be fetched."
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{64}$",
+            "description": "SHA-256 checksum of the file's content, as 64 hexadecimal characters."
+          }
+        },
+        "additionalProperties": true
+      }
     }
   },
   "additionalProperties": true
