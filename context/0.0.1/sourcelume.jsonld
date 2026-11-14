@@ -54,6 +54,13 @@
       "@type": "xsd:dateTime"
     },
 
+    "distribution": "schema:distribution",
+    "contentUrl": {
+      "@id": "schema:contentUrl",
+      "@type": "@id"
+    },
+    "sha256": "schema:sha256",
+
     "trainingData": "sl:trainingData",
     "dataset": {
       "@id": "sl:dataset",
